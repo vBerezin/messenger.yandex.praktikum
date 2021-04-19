@@ -1,8 +1,31 @@
 {
+  "author": "V.Berezin",
   "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
-  "dependencies": {},
+  "scripts": {
+    "server": "node ./server/app.js",
+    "dev": "parcel serve ./app/index.html --open --port 3000 --out-dir dist",
+    "watch": "parcel watch ./app/index.html --out-dir dist",
+    "build": "parcel build ./app/index.html --out-dir dist",
+    "start": "npm run watch && npm run server"
+  },
+  "dependencies": {
+    "events": "^3.3.0",
+    "pug": "^3.0.2"
+  },
   "devDependencies": {
-    "express": "^4.17.1"
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-import-resolver-webpack": "^0.12.1",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-no-use-extend-native": "^0.4.0",
+    "eslint-plugin-optimize-regex": "^1.1.7",
+    "eslint-plugin-promise": "^4.0.1",
+    "express": "^4.17.1",
+    "parcel-bundler": "^1.8.1",
+    "parcel-plugin-pug-client": "^1.0.1",
+    "sass": "^1.32.8"
   }
 }

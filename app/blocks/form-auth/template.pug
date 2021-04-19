@@ -1,0 +1,19 @@
+include ../button/mixin
+
+form.form-auth(method="POST" action="?")
+	.form-auth__head
+		.form-auth__title #{data.title}
+	.form-auth__body
+		fieldset
+	.form-auth__footer
+		+button({
+			mods: 'block',
+			attributes: {
+				type: 'submit',
+			},
+			...data.submit,
+		})
+		+button({
+			mods: ['block', 'white'],
+			...data.button,
+		})

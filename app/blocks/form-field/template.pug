@@ -1,0 +1,7 @@
+.form-field(class=data.class)
+	.form-field__body
+		label.form-field__label(for=data.input.attributes.id) #{data.label}
+		input.form-field__input(value=data.value)&attributes(data.input.attributes)
+	if (data.error)
+		.form-field__errors
+			.form-field__error #{data.error}
