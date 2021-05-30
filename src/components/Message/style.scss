@@ -1,7 +1,9 @@
 @import "./src/common/styles/variables/fonts";
 
 .message {
+  display: block;
   font-size: 12px;
+  line-height: 15px;
   font-weight: $font-weight-medium;
   padding: 10px;
   border-radius: 0 8px 8px 8px;
@@ -9,7 +11,6 @@
 
   &__date {
     font-size: 0.8em;
-    line-height: 1;
     color: #999;
   }
   &__text {
@@ -17,9 +18,11 @@
   }
   &__info {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-end;
     float: right;
+    margin-left: 10px;
+    min-height: 15px;
   }
   &.message--text {
     max-width: 600px;
@@ -27,6 +30,10 @@
   &.message--reply {
     border-radius: 8px 8px 0 8px;
     background: #E4EDFD;
+
+    .message__date {
+      color: #3369F3;
+    }
   }
   &.message--image {
     background: none;

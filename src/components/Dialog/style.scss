@@ -1,4 +1,5 @@
 @import "./src/common/styles/variables/fonts";
+@import "./src/common/styles/mixins/placeholder";
 
 .dialog {
   display: flex;
@@ -13,6 +14,13 @@
     justify-content: flex-start;
     border-bottom: 1px solid #EAEAEA;
     padding: 10px 0;
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0;
+    border-top: 1px solid #EAEAEA;
   }
   &__body {
     display: flex;
@@ -29,11 +37,12 @@
     align-self: center;
     margin: auto;
   }
-  &__chat {
+  &__user {
     display: flex;
     align-items: center;
+    flex: 1 0 auto;
   }
-  &__chat-image {
+  &__user-image {
     display: block;
     font-size: 0;
     line-height: 0;
@@ -56,11 +65,28 @@
       object-fit: cover;
     }
   }
-  &__chat-title {
+  &__user-title {
     font-size: 13px;
     line-height: 15px;
     font-weight: $font-weight-medium;
     color: #1E1E1E;
+  }
+  &__user-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 25px;
+    height: 25px;
+    background: #F5F5F5;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    font-size: 0;
+    img {
+      max-height: 15px;
+    }
   }
   &__message,
   &__reply {
@@ -69,5 +95,75 @@
   }
   &__reply {
     justify-content: flex-end;
+  }
+  &__messages {
+    padding: 30px 0;
+  }
+  &__messages-date {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    font-weight: $font-weight-medium;
+    margin-bottom: 30px;
+  }
+  &__attach {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    font-size: 0;
+    margin-right: 10px;
+    img {
+      max-height: 25px;
+    }
+  }
+  &__form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1 1 auto;
+  }
+  &__form-input {
+    flex: 0 1 100%;
+    width: 100%;
+    background: #EFEFEF;
+    height: 30px;
+    padding: 5px 20px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #1e1e1e;
+    font-weight: $font-weight-medium;
+
+    @include placeholder() {
+      color: #999;
+    }
+  }
+  &__form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin-left: 10px;
+    background: #3369F3;
+    color: #fff;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    img {
+      max-height: 10px;
+    }
   }
 }

@@ -21,10 +21,34 @@
   },
   {
     "id": "1",
-    "user": "1"
+    "user": "1",
+    "messages": [
+      {
+        "text": "Привет!",
+        "date": "11:56"
+      },
+      {
+        "text": "Привет!",
+        "date": "12:00",
+        "reply": true,
+        "status": true
+      }
+    ]
   },
   {
     "id": "2",
-    "user": "2"
+    "user": "2",
+    "messages": [
+      {
+        "text": "Друзья, у меня для вас особенный выпуск новостей!",
+        "date": "11:56"
+      },
+      {
+        "text": "\uD83D\uDC4B",
+        "date": "12:00",
+        "reply": true,
+        "status": true
+      }
+    ]
   }
 ]
