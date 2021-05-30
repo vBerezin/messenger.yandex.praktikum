@@ -1,0 +1,17 @@
+[
+  {
+    "id": "0",
+    "title": "Андрей",
+    "image": "/images/avatars/1.png"
+  },
+  {
+    "id": "1",
+    "title": "Киноклуб",
+    "image": "/images/avatars/2.png"
+  },
+  {
+    "id": "2",
+    "title": "Илья",
+    "image": "/images/avatars/3.png"
+  }
+]

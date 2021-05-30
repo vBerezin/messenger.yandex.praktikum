@@ -1,0 +1,41 @@
+@import "./src/common/styles/variables/fonts";
+
+.message {
+  font-size: 12px;
+  font-weight: $font-weight-medium;
+  padding: 10px;
+  border-radius: 0 8px 8px 8px;
+  background: #F8F8F8;
+
+  &__date {
+    font-size: 0.8em;
+    line-height: 1;
+    color: #999;
+  }
+  &__text {
+    display: inline;
+  }
+  &__info {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    float: right;
+  }
+  &.message--text {
+    max-width: 600px;
+  }
+  &.message--reply {
+    border-radius: 8px 8px 0 8px;
+    background: #E4EDFD;
+  }
+  &.message--image {
+    background: none;
+
+    .message__date {
+      color: #fff;
+      padding: 0.2em 0.5em;
+      border-radius: 1em;
+      background: rgba(#525252, 0.5);
+    }
+  }
+}

@@ -8,7 +8,8 @@ export const ROUTES = {
     500: '/500',
     404: '/404',
   },
-  chats: {
-    list: '/chats/list',
+  messenger: '/messenger',
+  user: {
+    profile: '/user/profile',
   },
 };

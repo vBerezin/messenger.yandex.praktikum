@@ -1,0 +1,27 @@
+include ../Message/mixin
+
+.dialog
+	if (data.chat)
+		.dialog__head
+			.dialog__chat
+				.dialog__chat-image
+					img(src=data.chat.image alt=data.chat.title)
+				.dialog__chat-title #{data.chat.title}
+			.dialog__chat-actions
+		.dialog__body
+			.dialog__messages
+				each message in data.messages
+					-
+						message.mods = []
+						if (message.reply) message.mods.push('reply')
+						if (message.image) message.mods.push('image')
+						if (message.text) message.mods.push('text')
+					if (message.reply)
+						.dialog__reply
+							+Message(message)
+					else
+						.dialog__message
+							+Message(message)
+		.dialog__footer
+	else
+		h3.dialog__title-empty Выберите чат чтобы отправить сообщение
