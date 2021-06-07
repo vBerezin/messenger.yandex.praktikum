@@ -1,6 +1,6 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '~common/scripts/utils/component';
+import { Component } from '~common/scripts/modules/Component';
 import { ChatList } from '~components/ChatList';
 import { FormSearch } from '~components/FormSearch';
 import { Dialog } from '~components/Dialog';

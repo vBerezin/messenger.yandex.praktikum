@@ -1,15 +1,12 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '~common/scripts/utils/component';
+import { Component } from '~common/scripts/modules/Component';
 
 export class FormField extends Component {
   constructor(props) {
     super({ template, props });
     this.validate = props.validate;
-  }
-
-  filter(value) {
-    return value.toString().replace(/^\s/gm, '');
+    this.filter = value => value.toString().replace(/^\s/gm, '');
   }
 
   onChange() {

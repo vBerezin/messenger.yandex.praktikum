@@ -1,6 +1,6 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '~common/scripts/utils/component';
+import { Component } from '~common/scripts/modules/Component';
 import { FormField } from '~components/FormField';
 import { formSubmitHandler } from '~common/scripts/utils/form-submit-handler';
 import '~components/Button';

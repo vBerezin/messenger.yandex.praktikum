@@ -25,7 +25,7 @@ include ../Message/mixin
 		.dialog__footer
 			button.dialog__attach
 				img(src="/images/icons/attach.svg")
-			form(method="POST" action="?send").dialog__form
+			form(method="POST" action="?send" autocomplete="off").dialog__form
 				input(type="text" name="message" placeholder="Сообщение").dialog__form-input
 				button(type="submit" title="Отправить").dialog__form-submit
 					img(src="/images/icons/message-send.svg")

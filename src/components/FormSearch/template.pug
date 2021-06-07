@@ -1,6 +1,6 @@
 include ../button/mixin
 
-form.form-search&attributes(data.attributes)
+form.form-search(autocomplete="off")&attributes(data.attributes)
 	input.form-search__input(type="text" name="search")
 	label.form-search__label
 		img.form-search__label-icon(src="/images/icons/search.svg")

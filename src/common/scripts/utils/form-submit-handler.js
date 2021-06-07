@@ -1,4 +1,4 @@
-import { App } from '~common/scripts/app';
+import { App } from '~common/scripts/App';
 
 export function formSubmitHandler(event) {
   const form = event.target;

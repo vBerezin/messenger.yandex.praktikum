@@ -1,17 +1,26 @@
 [
   {
     "id": "0",
-    "title": "Андрей",
+    "display_name": "Андрей",
     "image": "/images/avatars/1.png"
   },
   {
     "id": "1",
-    "title": "Киноклуб",
+    "display_name": "Киноклуб",
     "image": "/images/avatars/2.png"
   },
   {
     "id": "2",
-    "title": "Илья",
+    "display_name": "Илья",
     "image": "/images/avatars/3.png"
+  },
+  {
+    "id": "3",
+    "display_name": "Иван",
+    "first_name": "Иван",
+    "second_name": "Иванов",
+    "login": "ivanivanov",
+    "email": "pochta@yandex.ru",
+    "phone": "+7 (909) 967 30 30"
   }
 ]

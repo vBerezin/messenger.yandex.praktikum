@@ -5,6 +5,7 @@
 .form-search {
   position: relative;
 
+  &.is-active,
   &.is-focus {
     .form-search__label {
       left: 0;
