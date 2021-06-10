@@ -1,9 +1,9 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '~common/scripts/modules/Component';
-import { FormField } from '~components/FormField';
-import { formSubmitHandler } from '~common/scripts/utils/form-submit-handler';
-import '~components/Button';
+import { Component } from '../../common/scripts/modules/Component';
+import { FormField } from '../FormField';
+import { formSubmitHandler } from '../../common/scripts/utils/form-submit-handler';
+import '../Button';
 
 export class FormAuth extends Component {
   constructor(props) {

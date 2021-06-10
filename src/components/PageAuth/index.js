@@ -1,6 +1,6 @@
 import './style.scss';
 import template from './template.pug';
-import { Component} from '~common/scripts/modules/Component';
+import { Component} from '../../common/scripts/modules/Component';
 
 export class PageAuth extends Component {
   #formContainer;
