@@ -1,10 +1,10 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '~common/scripts/modules/Component';
-import { formSubmitHandler } from '~common/scripts/utils/form-submit-handler';
-import { Store } from '~common/scripts/Store';
-import { PopupFile } from '~components/PopupFile';
-import '~components/Button';
+import { Component } from '../../common/scripts/modules/Component';
+import { formSubmitHandler } from '../../common/scripts/utils/form-submit-handler';
+import { Store } from '../../common/scripts/Store';
+import { PopupFile } from '../PopupFile';
+import '../Button';
 
 export class FormUser extends Component {
   #handlers;

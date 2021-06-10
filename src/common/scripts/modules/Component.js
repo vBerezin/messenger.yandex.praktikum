@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Templator } from '~common/scripts/modules/Templator';
+import { Templator } from './Templator';
 
 export class Component {
   #state;
