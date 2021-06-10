@@ -2,8 +2,7 @@
 
 - `npm start` — запуск проекта на express,
 - `npm run dev` — запуск версии для разработчика,
-- `npm run build` — сборка,
-- `npm run build` — сборка,
+- `npm run build` — сборка
 
 ### UI
 ```
