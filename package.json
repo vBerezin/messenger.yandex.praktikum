@@ -28,6 +28,7 @@
     "parcel-bundler": "^1.8.1",
     "parcel-plugin-pug-client": "^1.0.1",
     "parcel-plugin-static-files-copy": "^2.6.0",
+    "path": "^0.12.7",
     "sass": "^1.32.8"
   }
 }
