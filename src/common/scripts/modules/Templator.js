@@ -1,4 +1,4 @@
-import { ROUTES } from '~common/scripts/routes';
+import { ROUTES } from '../routes';
 
 export class Templator {
   constructor({ compiler, data = {} }) {
