@@ -7,7 +7,7 @@
     "dev": "parcel serve ./src/index.html --open --port 3000 --out-dir dist",
     "watch": "parcel watch ./src/index.html --out-dir dist",
     "build": "parcel build ./src/index.html --out-dir dist",
-    "start": "npm run watch && npm run server"
+    "start": "npm run build && npm run server"
   },
   "dependencies": {
     "events": "^3.3.0",
