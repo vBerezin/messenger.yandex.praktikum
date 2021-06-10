@@ -45,10 +45,10 @@ export class Component {
 
   render(container) {
     const el = this.#compile();
-    if (this.el) {
-      this.el.parentNode.replaceChild(el, this.el);
-    } else {
+    if (container) {
       container.append(el);
+    } else if (this.el){
+      this.el.parentNode.replaceChild(el, this.el);
     }
     this.el = el;
     return this;

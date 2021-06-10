@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "events": "^3.3.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "eslint": "^7.24.0",

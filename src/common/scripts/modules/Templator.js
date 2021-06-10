@@ -1,3 +1,5 @@
+import { ROUTES } from '~common/scripts/routes';
+
 export class Templator {
   constructor({ compiler, data = {} }) {
     this.data = data;
@@ -7,6 +9,7 @@ export class Templator {
   compile() {
     const template = document.createElement('template');
     template.innerHTML = this.compiler({
+      ROUTES,
       data: this.data,
     });
     const { children } = template.content;

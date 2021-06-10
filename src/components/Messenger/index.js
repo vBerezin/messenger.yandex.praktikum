@@ -18,8 +18,14 @@ export class Messenger extends Component {
     });
   }
 
+  setChats(chats) {
+    this.chatList.setState({ chats }).render();
+    return this;
+  }
+
   openChat(data) {
     this.dialog.setState(data).render();
+    return this;
   }
 
   render(container) {

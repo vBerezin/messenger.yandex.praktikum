@@ -1,18 +1,7 @@
-form.form-user(autocomplete="off")&attributes(data.attributes)
-	.form-user__head
-		.form-user__image
-			img(src="/images/icons/image.svg")
-		.form-user__title #{data['display_name']}
-	.form-user__body
-		.form-user__field #{data['email']}
-		.form-user__field #{data['login']}
-		.form-user__field #{data['first_name']}
-		.form-user__field #{data['second_name']}
-		.form-user__field #{data['display_name']}
-		.form-user__field #{data['phone']}
+include ./mixins/index
+include ./mixins/form
 
-	.form-user__footer
-		button Изменить данные
-		button Изменить пароль
-		button Выйти
-
+if (data.edit || data.password)
+	+form-user(data)
+else
+	+form-user__index(data)

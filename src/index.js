@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import './index.scss';
 import { App } from '~common/scripts/App';
 import { Router } from '~common/scripts/modules/Router';
@@ -20,9 +21,18 @@ router.add(ROUTES.root, () => {
     router.redirect(ROUTES.auth.signin);
   }
 });
+router.add(ROUTES.auth.signout, () => router.redirect(ROUTES.auth.signin));
 router.add(ROUTES.auth.signin, () => App.render(pageSignIn));
 router.add(ROUTES.auth.signup, () => App.render(pageSignUp));
 router.add(ROUTES.error['500'], () => App.render(page500));
 router.add(ROUTES.error['404'], () => App.render(page404));
 router.add(ROUTES.messenger, () => App.render(pageMessenger));
 router.add(ROUTES.user.profile, () => App.render(pageProfile));
+router.add(ROUTES.user.edit, () => {
+  pageProfile.edit();
+  App.render(pageProfile);
+});
+router.add(ROUTES.user.password, () => {
+  pageProfile.password();
+  App.render(pageProfile);
+});
