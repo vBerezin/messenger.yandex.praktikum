@@ -1,8 +1,8 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '../../common/scripts/modules/Component';
-import { EVENTS } from '../../common/scripts/events';
-import { App } from '../../common/scripts/App';
+import { Component } from '~common/scripts/modules/Component';
+import { EVENTS } from '~common/scripts/events';
+import { App } from '~common/scripts/App';
 
 export class ChatList extends Component {
   #chats;

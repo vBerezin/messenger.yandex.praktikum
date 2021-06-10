@@ -1,8 +1,8 @@
-import { Messenger } from '../../components/Messenger';
-import { App } from '../../common/scripts/App';
-import { EVENTS } from '../../common/scripts/events';
+import { Messenger } from '~components/Messenger';
+import { App } from '~common/scripts/App';
+import { EVENTS } from '~common/scripts/events';
 import { ROUTES } from '../../common/scripts/routes';
-import { Store } from '../../common/scripts/Store';
+import { Store } from '~common/scripts/Store';
 
 const pageMessenger = new Messenger({
   profile: ROUTES.user.profile.index,

@@ -1,6 +1,6 @@
-import { PageAuth } from '../../components/PageAuth';
-import { FormAuth } from '../../components/FormAuth';
-import { ROUTES } from '../../common/scripts/routes';
+import { PageAuth } from '~components/PageAuth';
+import { FormAuth } from '~components/FormAuth';
+import { ROUTES } from '~common/scripts/routes';
 
 const formSignUp = new FormAuth({
   title: 'Регистрация',

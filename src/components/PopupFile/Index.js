@@ -1,5 +1,5 @@
-import { Popup } from '../Popup';
-import { FormFile } from '../FormFile';
+import { Popup } from '~components/Popup';
+import { FormFile } from '~components/FormFile';
 
 export class PopupFile extends Popup {
   constructor(props) {

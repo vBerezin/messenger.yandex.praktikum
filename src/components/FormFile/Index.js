@@ -1,7 +1,7 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '../../common/scripts/modules/Component';
-import { formSubmitHandler } from '../../common/scripts/utils/form-submit-handler';
+import { Component } from '~common/scripts/modules/Component';
+import { formSubmitHandler } from '~common/scripts/utils/form-submit-handler';
 
 export class FormFile extends Component {
   #input;
