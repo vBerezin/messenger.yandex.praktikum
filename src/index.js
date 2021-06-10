@@ -1,15 +1,15 @@
 import 'babel-polyfill';
 import './index.scss';
-import { App } from './common/scripts/App';
-import { Router } from './common/scripts/modules/Router';
-import { ROUTES } from './common/scripts/routes';
-import { page500 } from './pages/page500';
-import { page404 } from './pages/page404';
-import { pageSignIn } from './pages/pageSignIn';
-import { pageSignUp } from './pages/pageSignUp';
-import { pageProfile } from './pages/pageProfile';
-import { pageMessenger } from './pages/pageMessenger';
-import { EVENTS } from './common/scripts/events';
+import { App } from '~common/scripts/App';
+import { Router } from '~common/scripts/modules/Router';
+import { ROUTES } from '~common/scripts/routes';
+import { page500 } from '~pages/page500';
+import { page404 } from '~pages/page404';
+import { pageSignIn } from '~pages/pageSignin';
+import { pageSignUp } from '~pages/pageSignUp';
+import { pageProfile } from '~pages/pageProfile';
+import { pageMessenger } from '~pages/pageMessenger';
+import { EVENTS } from '~common/scripts/events';
 
 const router = new Router();
 
