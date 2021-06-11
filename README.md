@@ -5,7 +5,7 @@
 - `npm run build` — сборка
 
 ### Netlify Link
-```https://gifted-hermann-3c3968.netlify.app/#signin```
+https://gifted-hermann-3c3968.netlify.app
 
 ### UI
 ```
