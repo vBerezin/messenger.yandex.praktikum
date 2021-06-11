@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
-import { EVENTS } from '~common/scripts/events';
-// import * as points from '~common/styles/breakpoints.scss';
-import { Breakpoints } from '~components/Breakpoints';
+import { EVENTS } from 'common/scripts/events';
+// import * as points from 'common/styles/breakpoints.scss';
+import { Breakpoints } from 'components/Breakpoints';
 
 export const App = (() => {
   const emitter = new EventEmitter();

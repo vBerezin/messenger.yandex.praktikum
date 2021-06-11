@@ -1,6 +1,6 @@
-import { documentReady } from '~common/scripts/utils/document-ready';
+import { documentReady } from 'common/scripts/utils/document-ready';
 import { EventEmitter } from 'events';
-import { EVENTS } from '~common/scripts/events';
+import { EVENTS } from 'common/scripts/events';
 
 const emitter = new EventEmitter();
 

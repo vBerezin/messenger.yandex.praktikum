@@ -1,7 +1,7 @@
 import './style.scss';
 import template from './template.pug';
-import { Component } from '~common/scripts/modules/Component';
-import { FormUser } from '~components/FormUser';
+import { Component } from 'common/scripts/modules/Component';
+import { FormUser } from 'components/FormUser';
 
 export class Profile extends Component {
   constructor(props = {}) {
