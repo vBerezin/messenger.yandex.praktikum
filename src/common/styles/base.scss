@@ -1,0 +1,54 @@
+@import "variables/fonts";
+
+body,
+html {
+  font-family: $font-family;
+  font-weight: $font-weight-regular;
+  line-height: 1.4;
+  background: #fff;
+  font-size: 15px;
+  color: #1E1E1E;
+}
+
+@for $i from 1 through 6 {
+  h#{$i},
+  .h#{$i} {
+    color: #000;
+    font-weight: $font-weight-medium;
+    margin: 0.5em 0;
+  }
+}
+
+small,
+.small {
+  color: inherit;
+  font-size: 75%;
+}
+
+b,
+strong {
+  font-weight: $font-weight-medium;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #3369F3;
+  text-decoration: none;
+}
+
+p {
+  margin: 0 0 .5em 0;
+}
+
+ul,
+ol {
+  margin: 1em 0;
+  padding-left: 1em;
+
+  li {
+    margin: 0 0 0.5em 0;
+  }
+}

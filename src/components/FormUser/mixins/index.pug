@@ -1,0 +1,24 @@
+mixin form-user__index(data)
+	.form-user
+		.form-user__head
+			.form-user__image
+				if (data.image)
+					img(src=data.image)
+				button.form-user__image-button(type="button" data-action="avatar") Поменять аватар
+			if (data.fields)
+				.form-user__title #{data.fields['display_name'].value}
+		if (data.fields)
+			.form-user__body
+				each field, key in data.fields
+					.form-user__field
+						label.form-user__label(for=key) #{field.label}
+						input.form-user__input(
+							readonly
+							type="text"
+							value=field.value
+							name=key
+							id=key)
+		.form-user__footer
+			a.form-user__button(href=ROUTES.user.edit) Изменить данные
+			a.form-user__button(href=ROUTES.user.password) Изменить пароль
+			a.form-user__signout(href=ROUTES.auth.signout) Выйти

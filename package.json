@@ -1,0 +1,40 @@
+{
+  "author": "V.Berezin",
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "scripts": {
+    "server": "node ./server/app.js",
+    "dev": "parcel serve ./src/index.html --open --port 3000 --out-dir dist",
+    "watch": "parcel watch ./src/index.html --out-dir dist",
+    "build": "parcel build ./src/index.html --out-dir dist",
+    "start": "npm run build && npm run server"
+  },
+  "dependencies": {
+    "events": "^3.3.0",
+    "pug": "^3.0.2",
+    "babel-polyfill": "^6.26.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-import-resolver-webpack": "^0.12.1",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-no-use-extend-native": "^0.4.0",
+    "eslint-plugin-optimize-regex": "^1.1.7",
+    "eslint-plugin-promise": "^4.0.1",
+    "express": "^4.17.1",
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-pug-client": "^1.0.1",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "path": "^0.12.7",
+    "sass": "^1.32.8"
+  },
+  "alias": {
+    "common": "./src/common",
+    "components": "./src/components",
+    "pages": "./src/pages",
+    "static": "./static"
+  }
+}

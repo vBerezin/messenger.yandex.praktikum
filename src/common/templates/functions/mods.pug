@@ -1,0 +1,6 @@
+-
+  function mods(base, mods) {
+    return [].concat(mods).map((mod) => {
+      return mod && `${base}--${mod}`;
+    });
+  };

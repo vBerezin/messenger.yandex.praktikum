@@ -1,0 +1,18 @@
+if (data.chats)
+	ul.chat-list(data-active=data.active)
+		each item, index in data.chats
+			li.chat-list__item(data-chat-id=item.id)
+				.chat-list__item-inner
+					.chat-list__item-image
+						if (item.image)
+							img(src=item.image alt=item.title)
+					.chat-list__item-body
+						.chat-list__item-title #{item.title}
+						.chat-list__item-message !{item.message}
+					.chat-list__item-footer
+						.chat-list__item-date #{item.date}
+						if (item.count)
+							.chat-list__item-count #{item.count}
+else
+	.chat-list
+		.chat-list__loader Список чатов пуст
