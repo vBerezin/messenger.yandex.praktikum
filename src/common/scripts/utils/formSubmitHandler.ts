@@ -7,11 +7,8 @@ type Fields = {
 export function formSubmitHandler(event: Event) {
   const { target } = event;
   const form = target instanceof HTMLFormElement ? target : undefined;
-  const fields: Fields = {};
   const data = new FormData(form);
-  data.forEach((value, key) => {
-    fields[key] = value;
-  });
+  const fields: Fields = Object.fromEntries(data);
   if (event) {
     event.preventDefault();
   }

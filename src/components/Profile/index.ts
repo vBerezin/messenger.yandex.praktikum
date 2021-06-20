@@ -7,7 +7,6 @@ import { FormUserFields } from '~components/FormUser/types';
 import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { Store } from '~common/scripts/modules/Store';
 import { StoreUser } from '~common/scripts/modules/Store/types';
-import { EVENTS } from '~common/scripts/vars/events';
 import { ROUTES } from '~common/scripts/vars/routes';
 import { App } from '~common/scripts/App';
 
