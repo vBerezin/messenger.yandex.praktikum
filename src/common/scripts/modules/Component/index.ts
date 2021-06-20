@@ -40,6 +40,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
 
   #render() {
     this.render();
+    this.emit(EVENTS.component.render);
   }
 
   mount(container: Element) {

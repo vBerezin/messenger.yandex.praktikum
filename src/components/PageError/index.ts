@@ -24,4 +24,8 @@ export class PageError extends Component<PageErrorProps> {
       });
     }
   }
+
+  protected render() {
+
+  }
 }
