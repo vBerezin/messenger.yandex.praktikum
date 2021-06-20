@@ -1,18 +1,12 @@
-export type FormUserField = {
-  label: string,
-  name: string,
-  type: string,
-  value: string | number,
-}
+import { FormFieldProps } from '~components/FormField/types';
 
-export type FormUserFields = {
-  [key: string]: FormUserField
-}
+export type FormUserFields = FormFieldProps[];
 
 export type FormUserProps = {
   image?: string,
   edit?: boolean,
   fields: FormUserFields,
+  action?: string,
 }
 
 export type FormUserState = {} | {

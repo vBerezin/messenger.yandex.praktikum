@@ -1,21 +1,7 @@
-form.form-user(action='?edit' autocomplete='off')
+form.form-user(action=data.action autocomplete='off')
 	.form-user__head
 		.form-user__image
 			if (data.image)
 				img(src=data.image)
-	if (data.fields)
-		.form-user__body
-			each field, key in data.fields
-				.form-user__field(class=(field.valid === false ? 'is-error' : ''))
-					label.form-user__label(for=key) #{field.label}
-					input.form-user__input(
-						type=field.type || 'text'
-						placeholder=field.value
-						value=field.value
-						name=key
-						id=key)
-				if (field.errors)
-					ul.form-user__error
-						each error in field.errors
-							li.form-user__erro #{error}
+	fieldset.form-user__body
 	.form-user__footer

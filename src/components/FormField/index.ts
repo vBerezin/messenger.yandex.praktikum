@@ -41,7 +41,7 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
 
   render() {
     const input = this.el.querySelector('input');
-    if (!input) {
+    if (!input || this.state.readonly || this.state.disabled) {
       return false;
     }
     input.addEventListener('focus', () => {
