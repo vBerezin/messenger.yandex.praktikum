@@ -1,0 +1,38 @@
+@import "./src/common/styles/variables/fonts";
+
+.form-file {
+  &__head {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  &__footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  &__title {
+    font-size: 15px;
+    color: #1e1e1e;
+    font-weight: $font-weight-medium;
+  }
+  &__input {
+    display: none;
+  }
+  &__label {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    padding: 20px;
+    font-weight: $font-weight-medium;
+  }
+  &__placeholder {
+    font-size: 12px;
+    line-height: 15px;
+    color: #3369F3;
+    text-decoration: underline;
+  }
+  &__value {
+    color: #8D8D8D;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

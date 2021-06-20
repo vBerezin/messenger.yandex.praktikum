@@ -1,0 +1,39 @@
+@import "./src/common/styles/variables/fonts";
+
+.button {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 15px 20px;
+  background: #3369F3;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: $font-weight-medium;
+  border: 1px solid #3369F3;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+  &:active {
+    opacity: 1;
+  }
+
+  &.button--white {
+    background: #fff;
+    border-color: #fff;
+    color: #3369F3;
+  }
+
+  &.button--block {
+    display: block;
+    width: 100%;
+  }
+}

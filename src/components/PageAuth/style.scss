@@ -1,0 +1,11 @@
+.page-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  &__form {
+    flex: 0 0 350px;
+    max-width: 350px;
+  }
+}

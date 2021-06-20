@@ -1,0 +1,33 @@
+@import "./styles/animations";
+@import "./src/common/styles/variables/animations";
+
+.popup {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(#000, 0.4);
+  overflow: auto;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  animation: Popup-show $animation-time ease-out;
+
+  &__body {
+    background: #FFFFFF;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    padding: 40px 30px;
+    flex: 0 0 auto;
+    width: 340px;
+    max-width: 100%;
+    position: relative;
+  }
+
+  &.is-active {
+    display: flex;
+  }
+}
