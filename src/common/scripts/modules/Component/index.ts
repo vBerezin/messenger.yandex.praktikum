@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 import { Templator } from '~common/scripts/modules/Templator';
-import { EVENTS } from '~common/scripts/vars/events';
-import { ComponentProps, ComponentState, ComponentInterface } from './types';
+import { EVENTS } from '~common/scripts/events';
 import { isEqual } from '~common/scripts/utils/isEqual';
+import { ComponentProps, ComponentState, ComponentInterface } from './types';
 
 export abstract class Component<TProps = ComponentProps, TState = ComponentState> implements ComponentInterface {
   readonly on;

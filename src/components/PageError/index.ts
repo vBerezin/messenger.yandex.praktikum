@@ -3,7 +3,7 @@ import template from './template';
 import { Component } from '~common/scripts/modules/Component';
 import { Button } from '~components/Button';
 import { ButtonProps } from '~components/Button/types';
-import { EVENTS } from '~common/scripts/vars/events';
+import { EVENTS } from '~common/scripts/events';
 
 type PageErrorProps = {
   title?: string,

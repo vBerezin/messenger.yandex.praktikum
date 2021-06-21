@@ -1,9 +1,9 @@
-import { Request, Options, Methods } from '~common/scripts/modules/Request';
-
-type MethodOptions = Omit<Options, 'method' | 'url'>;
+import { Request} from '~common/scripts/modules/Request';
+import { RequestMethods } from '~common/scripts/modules/Request/types';
+import { HTTPRequestProps } from './types';
 
 export const HTTPRequest = {
-  async get(url: string, options?: MethodOptions): Promise<XMLHttpRequest> {
+  async get(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
     let params = null;
     if (options && options.data) {
       const { data } = options;
@@ -12,31 +12,31 @@ export const HTTPRequest = {
     const request = new Request({
       ...options,
       url: params ? `${url}?${params}` : url,
-      method: Methods.GET,
+      method: RequestMethods.GET,
     });
     return request.send();
   },
-  put(url: string, options?: MethodOptions): Promise<XMLHttpRequest> {
+  put(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
     const request = new Request({
       ...options,
       url,
-      method: Methods.PUT,
+      method: RequestMethods.PUT,
     });
     return request.send();
   },
-  delete(url: string, options?: MethodOptions): Promise<XMLHttpRequest> {
+  delete(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
     const request = new Request({
       ...options,
       url,
-      method: Methods.DELETE,
+      method: RequestMethods.DELETE,
     });
     return request.send();
   },
-  post(url: string, options?: MethodOptions): Promise<XMLHttpRequest> {
+  post(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
     const request = new Request({
       ...options,
       url,
-      method: Methods.POST,
+      method: RequestMethods.POST,
     });
     return request.send();
   },

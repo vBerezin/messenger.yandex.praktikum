@@ -1,10 +1,9 @@
 import 'babel-polyfill';
 import './index.scss';
-import { App } from '~common/scripts/App';
+import { App } from '~common/scripts/modules/App';
 import { Router } from '~common/scripts/modules/Router';
-import { ROUTES } from '~common/scripts/vars/routes';
-import { EVENTS } from '~common/scripts/vars/events';
-
+import { ROUTES } from '~common/scripts/routes';
+import { EVENTS } from '~common/scripts/events';
 import { pageSignIn } from '~pages/pageSignIn';
 import { pageSignUp } from '~pages/pageSignUp';
 import { page500 } from '~pages/page500';

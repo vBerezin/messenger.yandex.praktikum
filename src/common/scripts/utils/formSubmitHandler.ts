@@ -1,4 +1,4 @@
-import { App } from '~common/scripts/App';
+import { App } from '~common/scripts/modules/App';
 
 type Fields = {
   [key: string]: FormDataEntryValue,

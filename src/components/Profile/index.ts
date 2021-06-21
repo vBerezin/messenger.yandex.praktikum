@@ -7,8 +7,8 @@ import { FormUserFields } from '~components/FormUser/types';
 import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { Store } from '~common/scripts/modules/Store';
 import { StoreUser } from '~common/scripts/modules/Store/types';
-import { ROUTES } from '~common/scripts/vars/routes';
-import { App } from '~common/scripts/App';
+import { ROUTES } from '~common/scripts/routes';
+import { App } from '~common/scripts/modules/App';
 import { Validate } from '~common/scripts/modules/Validate';
 
 const KEYS = [

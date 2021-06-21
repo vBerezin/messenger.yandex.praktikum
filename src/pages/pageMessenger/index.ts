@@ -1,6 +1,6 @@
 import { Messenger } from '~components/Messenger';
-import { App } from '~common/scripts/App';
-import { EVENTS } from '~common/scripts/vars/events';
+import { App } from '~common/scripts/modules/App';
+import { EVENTS } from '~common/scripts/events';
 import { Store } from '~common/scripts/modules/Store';
 
 const pageMessenger = new Messenger();

@@ -1,6 +1,6 @@
-import { documentReady } from '~common/scripts/utils/documentReady';
 import { EventEmitter } from 'events';
-import { EVENTS } from '~common/scripts/vars/events';
+import { documentReady } from '~common/scripts/utils/documentReady';
+import { EVENTS } from '~common/scripts/events';
 
 export class Router {
   on;

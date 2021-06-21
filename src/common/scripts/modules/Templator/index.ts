@@ -1,4 +1,4 @@
-import { ROUTES } from '~common/scripts/vars/routes';
+import { ROUTES } from '~common/scripts/routes';
 
 /**
  * @param { Function } compiler - parcel при импорте .pug файла возвращает функцию pug.compile

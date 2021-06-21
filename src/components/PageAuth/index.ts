@@ -1,7 +1,7 @@
 import './styles';
 import template from './template';
 import { Component } from '~common/scripts/modules/Component';
-import { EVENTS } from '~common/scripts/vars/events';
+import { EVENTS } from '~common/scripts/events';
 import { FormAuth } from '~components/FormAuth';
 import { FormAuthProps } from '~components/FormAuth/types';
 

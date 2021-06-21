@@ -1,6 +1,6 @@
-import { HTTPRequest } from '~common/scripts/HTTPRequest';
+import { App } from '~common/scripts/modules/App';
+import { HTTPRequest } from '~common/scripts/modules/HTTPRequest';
 import { StoreChat, StoreHistory, StoreUser } from './types';
-import { App } from '~common/scripts/App';
 
 export const Store = {
   async getData<TResponse>(path: string): Promise<TResponse> {

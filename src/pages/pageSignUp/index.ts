@@ -1,5 +1,5 @@
 import { PageAuth } from '~components/PageAuth';
-import { ROUTES } from '~common/scripts/vars/routes';
+import { ROUTES } from '~common/scripts/routes';
 import { Validate } from '~common/scripts/modules/Validate';
 
 export const pageSignUp = new PageAuth({
