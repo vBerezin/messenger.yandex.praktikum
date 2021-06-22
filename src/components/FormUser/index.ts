@@ -57,6 +57,9 @@ export class FormUser extends Component<FormUserProps, FormUserState> {
   }
 
   setFields(fields: FormFieldProps[]) {
+    if (this.fields) {
+      this.fields.forEach(field => field.unmount());
+    }
     this.fields = fields.map((field) => {
       return new FormField({
         ...field,

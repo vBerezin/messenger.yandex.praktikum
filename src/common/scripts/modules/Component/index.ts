@@ -51,8 +51,8 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
 
   protected render() {}
 
-  set state(state) {
-    this.setState(state);
+  protected proxyState(state: TState): TState {
+    return state;
   }
 
   get state() {
@@ -67,9 +67,9 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
     const newState = {...this.state, ...state};
     const equal = isEqual(this.state, newState);
     if (equal) {
-      return false;
+      return this;
     }
-    this.#state = newState;
+    this.#state = this.proxyState(newState);
     const newEl = this.#compile();
     const parent = this.el.parentNode || this.container;
     parent.replaceChild(newEl, this.#el);
