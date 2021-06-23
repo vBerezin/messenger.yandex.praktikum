@@ -1,7 +1,7 @@
 type Value = string | number;
 
 const validateValue: {
-  [key: string]: (value: Value, options?) => boolean
+  [ key: string ]: (value: Value, options?) => boolean
 } = {
   isEmpty: (value) => {
     return String(value).trim().length === 0;
@@ -19,7 +19,7 @@ const validateValue: {
   hasNumbers: (value) => {
     return /[0-9]/g.test(String(value));
   },
-  isCyrilic: (value) =>{
+  isCyrilic: (value) => {
     return /[a-zA-Z]/g.test(String(value));
   },
   phone: (value) => {
@@ -34,7 +34,7 @@ const validateValue: {
 };
 
 const validateField: {
-  [key: string]: (value: Value) => string | string[] | null
+  [ key: string ]: (value: Value) => string | string[] | null
 } = {
   required: (value) => {
     return validateValue.isEmpty(value) ? 'Обязательное поле' : null;

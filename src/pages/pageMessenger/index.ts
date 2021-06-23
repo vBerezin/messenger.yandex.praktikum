@@ -1,15 +1,17 @@
-import { App } from '~common/scripts/modules/App';
+import { App } from '~modules/App';
 import { EVENTS } from '~common/scripts/events';
-import { Store } from '~common/scripts/modules/Store';
 
 import { Messenger } from '~components/Messenger';
+import { Chats } from '~entities/Chats';
+import { Users } from '~entities/Users';
+import { Messages } from '~entities/Messages';
 
 const pageMessenger = new Messenger();
 
 (async () => {
-  const DATA_CHATS = await Store.getChats();
-  const DATA_USERS = await Store.getUsers();
-  const DATA_HISTORY = await Store.getHistory();
+  const DATA_CHATS = await Chats.getChats();
+  const DATA_USERS = await Users.getUsers();
+  const DATA_MESSAGES = await Messages.getMessages();
   const chats = DATA_CHATS.map((chat) => {
     const userData = DATA_USERS.find(user => user.id === chat.user);
     return {
@@ -19,7 +21,7 @@ const pageMessenger = new Messenger();
     };
   });
   const makeDialogData = (chatId) => {
-    const history = DATA_HISTORY.find(chat => chat.id === chatId);
+    const history = DATA_MESSAGES.find(chat => chat.id === chatId);
     const userData = DATA_USERS.find(user => user.id === history.user);
     return {
       messages: history.messages,

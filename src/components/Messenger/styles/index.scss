@@ -10,29 +10,34 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    background: #FBFBFB;
+    background: #fbfbfb;
     flex: 0 0 310px;
     max-width: 310px;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid #eaeaea;
   }
+
   &__aside-head {
     padding: 15px 10px;
     flex: 0 0 auto;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
   }
+
   &__aside-body {
     flex: 0 1 auto;
     overflow: auto;
     overflow-scrolling: touch;
     -webkit-overflow-scrolling: touch;
   }
+
   &__main {
     flex: 1 1 auto;
   }
+
   &__user {
     text-align: right;
     margin-bottom: 15px;
   }
+
   &__user-link {
     display: inline-block;
     padding-right: 15px;
@@ -43,7 +48,7 @@
     background-size: auto 8px;
 
     &:hover {
-      color: #3369F3;
+      color: #3369f3;
     }
   }
 }

@@ -7,12 +7,14 @@
     position: relative;
     padding-top: 10px;
   }
+
   &__label,
   &__input {
     font-size: 13px;
     line-height: 20px;
     padding: 5px 0 4px 0;
   }
+
   &__label {
     display: block;
     font-size: 13px;
@@ -23,27 +25,30 @@
     bottom: 0;
     pointer-events: none;
   }
+
   &__input {
     display: block;
-    color: #1E1E1E;
+    color: #1e1e1e;
     font-weight: $font-weight-medium;
     width: 100%;
     height: 30px;
     background: #fff;
     border: none;
-    border-bottom: 1px solid #3369F3;
+    border-bottom: 1px solid #3369f3;
     outline: none;
   }
+
   &__errors {
     display: block;
     padding: 0;
     margin: 0;
   }
+
   &__error {
     display: block;
     padding: 0;
     margin: 5px 0;
-    color: #FF2F2F;
+    color: #ff2f2f;
     font-size: 0.7em;
     font-weight: $font-weight-medium;
   }
@@ -58,11 +63,12 @@
       padding: 0;
     }
   }
+
   &.is-required {
     .form-field__label {
       &::after {
         content: ' *';
-        color: #FF2F2F;
+        color: #ff2f2f;
         vertical-align: top;
         font-size: 0.7em;
       }

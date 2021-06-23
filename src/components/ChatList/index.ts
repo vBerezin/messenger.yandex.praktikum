@@ -2,10 +2,12 @@ import './styles';
 import template from './template';
 import { ChatListProps, ChatListState } from './types';
 
-import { Component } from '~common/scripts/modules/Component';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { EVENTS } from '~common/scripts/events';
-import { App } from '~common/scripts/modules/App';
+
+import { Component } from '~modules/Component';
+import { ComponentProps } from '~modules/Component/types';
+import { App } from '~modules/App';
+
 
 export class ChatList extends Component<ChatListProps, ChatListState> {
   constructor(props?: ChatListProps & ComponentProps) {

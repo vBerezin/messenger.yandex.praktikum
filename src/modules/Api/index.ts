@@ -1,9 +1,8 @@
-import { App } from '~common/scripts/modules/App';
-import { HTTPRequest } from '~common/scripts/modules/HTTPRequest';
+import { App } from '~modules/App';
+import { HTTPRequest } from '~modules/HTTPRequest';
 
 /**
- * Api - Обертка для будущей ручки или если она изменится
- * с кешем запросов?
+ * Api - Обертка для работы с ручками
  * */
 
 export const Api = {

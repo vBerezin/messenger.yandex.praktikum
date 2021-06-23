@@ -2,12 +2,13 @@ import './styles';
 import template from './template';
 import { DialogProps, DialogState } from './types';
 
-import { Component } from '~common/scripts/modules/Component';
-import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { EVENTS } from '~common/scripts/events';
-import { App } from '~common/scripts/modules/App';
-import { Validate } from '~common/scripts/modules/Validate';
+import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
+
+import { Component } from '~modules/Component';
+import { ComponentProps } from '~modules/Component/types';
+import { App } from '~modules/App';
+import { Validate } from '~modules/Validate';
 
 import { Message } from '~components/Message';
 

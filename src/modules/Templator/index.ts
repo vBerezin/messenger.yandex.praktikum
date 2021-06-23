@@ -10,7 +10,7 @@ export class Templator {
   data;
   compiler;
 
-  constructor({ compiler, data = {} }: { compiler: Function, data?: {}}) {
+  constructor({ compiler, data = {} }: { compiler: Function, data?: {} }) {
     this.data = data;
     this.compiler = compiler;
   }
@@ -25,6 +25,6 @@ export class Templator {
     if (children.length > 1) {
       throw new Error('Шаблон должен иметь 1 родительский элемент');
     }
-    return template.content.children[0];
+    return template.content.children[ 0 ];
   }
 }

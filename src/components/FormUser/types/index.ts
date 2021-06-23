@@ -1,4 +1,5 @@
-import { StoreUser } from '~common/scripts/modules/Store/types';
+import { UsersUser } from '~entities/Users/types';
+
 import { FormField } from '~components/FormField';
 
 export type FormUserKey = {
@@ -10,7 +11,7 @@ export type FormUserKey = {
 };
 
 export type FormUserProps = {
-  data: StoreUser,
+  data: UsersUser,
 }
 
 export type FormUserState = {

@@ -2,18 +2,20 @@ import './styles';
 import template from './template';
 import { ProfileProps, ProfileState } from './types';
 
-import { Component } from '~common/scripts/modules/Component';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
-import { Store } from '~common/scripts/modules/Store';
-import { StoreUser } from '~common/scripts/modules/Store/types';
 import { ROUTES } from '~common/scripts/routes';
-import { App } from '~common/scripts/modules/App';
+
+import { Component } from '~modules/Component';
+import { ComponentProps } from '~modules/Component/types';
+import { App } from '~modules/App';
+
+import { Users } from '~entities/Users';
+import { UsersUser } from '~entities/Users/types';
 
 import { FormUser } from '~components/FormUser';
 
 export class Profile extends Component<ProfileProps, ProfileState> {
   private form: FormUser;
-  private getData: Promise<StoreUser | void>;
+  private getData: Promise<UsersUser | void>;
 
   constructor(props: ProfileProps & ComponentProps) {
     super({
@@ -23,8 +25,8 @@ export class Profile extends Component<ProfileProps, ProfileState> {
         user: props.user,
       },
     });
-    this.getData = Store
-      .getUserData(this.props.user.id)
+    this.getData = Users
+      .getUser(this.props.user.id)
       .then((data) => {
         this.form = new FormUser({ data });
       })
@@ -60,7 +62,7 @@ export class Profile extends Component<ProfileProps, ProfileState> {
           back: ROUTES.user.profile,
         });
         return this.form.password();
-    });
+      });
     return this;
   }
 

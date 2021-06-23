@@ -1,10 +1,11 @@
 import './styles';
 import template from './template';
 
-import { Component } from '~common/scripts/modules/Component';
 import { EVENTS } from '~common/scripts/events';
-import { FormAuthProps } from '~components/FormAuth/types';
 
+import { Component } from '~modules/Component';
+
+import { FormAuthProps } from '~components/FormAuth/types';
 import { FormAuth } from '~components/FormAuth';
 
 export class PageAuth extends Component<FormAuthProps> {

@@ -1,13 +1,14 @@
 import './styles';
 import template from './template';
 
-import { Component } from '~common/scripts/modules/Component';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
-import { Validate } from '~common/scripts/modules/Validate';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
+
+import { Component } from '~modules/Component';
+import { Validate } from '~modules/Validate';
+import { ComponentProps } from '~modules/Component/types';
 
 export class FormSearch extends Component {
-  constructor(props: ComponentProps ) {
+  constructor(props: ComponentProps) {
     super({ template, props });
   }
 

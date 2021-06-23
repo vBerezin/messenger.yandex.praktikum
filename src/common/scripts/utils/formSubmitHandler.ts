@@ -1,7 +1,7 @@
-import { App } from '~common/scripts/modules/App';
+import { App } from '~modules/App';
 
 type Fields = {
-  [key: string]: FormDataEntryValue,
+  [ key: string ]: FormDataEntryValue,
 }
 
 export function formSubmitHandler(event: Event) {

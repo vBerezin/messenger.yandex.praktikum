@@ -1,5 +1,5 @@
 import { ROUTES } from '~common/scripts/routes';
-import { Validate } from '~common/scripts/modules/Validate';
+import { Validate } from '~modules/Validate';
 
 import { PageAuth } from '~components/PageAuth';
 

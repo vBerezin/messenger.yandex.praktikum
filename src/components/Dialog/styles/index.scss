@@ -12,16 +12,18 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
     padding: 10px 0;
   }
+
   &__footer {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 10px 0;
-    border-top: 1px solid #EAEAEA;
+    border-top: 1px solid #eaeaea;
   }
+
   &__body {
     display: flex;
     align-items: stretch;
@@ -31,17 +33,20 @@
     overflow-scrolling: touch;
     -webkit-overflow-scrolling: touch;
   }
+
   &__title-empty {
     color: #999;
     text-align: center;
     align-self: center;
     margin: auto;
   }
+
   &__user {
     display: flex;
     align-items: center;
     flex: 1 0 auto;
   }
+
   &__user-image {
     display: block;
     font-size: 0;
@@ -50,7 +55,7 @@
     width: 35px;
     height: 35px;
     position: relative;
-    background: #EFEFEF;
+    background: #efefef;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 10px;
@@ -65,12 +70,14 @@
       object-fit: cover;
     }
   }
+
   &__user-title {
     font-size: 13px;
     line-height: 15px;
     font-weight: $font-weight-medium;
-    color: #1E1E1E;
+    color: #1e1e1e;
   }
+
   &__user-actions {
     display: flex;
     align-items: center;
@@ -78,30 +85,36 @@
     flex: 0 0 auto;
     width: 25px;
     height: 25px;
-    background: #F5F5F5;
+    background: #f5f5f5;
     border-radius: 50%;
     cursor: pointer;
     border: none;
     padding: 0;
     font-size: 0;
+
     img {
       max-height: 15px;
     }
   }
+
   &__message,
   &__reply {
     margin-top: 10px;
     clear: both;
   }
+
   &__message {
     float: left;
   }
+
   &__reply {
     float: right;
   }
+
   &__messages {
     padding: 30px 0;
   }
+
   &__messages-date {
     text-align: center;
     color: #999;
@@ -109,6 +122,7 @@
     font-weight: $font-weight-medium;
     margin-bottom: 30px;
   }
+
   &__attach {
     display: flex;
     align-items: center;
@@ -122,20 +136,23 @@
     padding: 0;
     font-size: 0;
     margin-right: 10px;
+
     img {
       max-height: 25px;
     }
   }
+
   &__form {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex: 1 1 auto;
   }
+
   &__form-input {
     flex: 0 1 100%;
     width: 100%;
-    background: #EFEFEF;
+    background: #efefef;
     height: 30px;
     padding: 5px 20px;
     border-radius: 15px;
@@ -150,13 +167,14 @@
       color: #999;
     }
   }
+
   &__form-submit {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
     margin-left: 10px;
-    background: #3369F3;
+    background: #3369f3;
     color: #fff;
     font-size: 0;
     width: 30px;

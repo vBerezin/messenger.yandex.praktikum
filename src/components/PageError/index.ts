@@ -1,10 +1,11 @@
 import './styles';
 import template from './template';
 
-import { Component } from '~common/scripts/modules/Component';
-import { Button } from '~components/Button';
 import { EVENTS } from '~common/scripts/events';
 
+import { Component } from '~modules/Component';
+
+import { Button } from '~components/Button';
 import { ButtonProps } from '~components/Button/types';
 
 

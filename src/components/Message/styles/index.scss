@@ -7,15 +7,17 @@
   font-weight: $font-weight-medium;
   padding: 10px;
   border-radius: 0 8px 8px 8px;
-  background: #F8F8F8;
+  background: #f8f8f8;
 
   &__date {
     font-size: 0.8em;
     color: #999;
   }
+
   &__text {
     display: inline;
   }
+
   &__info {
     display: inline-flex;
     align-items: flex-end;
@@ -24,14 +26,16 @@
     margin-left: 10px;
     min-height: 15px;
   }
+
   &.message--reply {
     border-radius: 8px 8px 0 8px;
-    background: #E4EDFD;
+    background: #e4edfd;
 
     .message__date {
-      color: #3369F3;
+      color: #3369f3;
     }
   }
+
   &.message--image {
     background: none;
 
