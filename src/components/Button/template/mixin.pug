@@ -1,0 +1,11 @@
+include ../../../common/templates/functions/mods
+
+mixin Button(data)
+	-
+		data = data || {}
+		tagName = data.attributes && data.attributes.href ? 'a' : 'button'
+	#{tagName}.button(
+		class=data.class
+		class=mods('button', data.mods)
+	)&attributes(data.attributes) #{data.text}
+		block

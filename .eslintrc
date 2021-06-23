@@ -9,14 +9,17 @@
     "optimize-regex",
     "no-use-extend-native",
     "promise",
-    "babel"
+    "babel",
+    "@typescript-eslint"
   ],
   "rules": {
     "no-underscore-dangle": ["error", {
       "allowAfterThis": true
     }],
+    "object-curly-spacing": ["error", "always"],
     "import/extensions": 0,
     "curly": ["error", "all"],
+    "max-params": 2,
     "func-names": ["error", "never"],
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
     "import/prefer-default-export": 0,
@@ -36,11 +39,7 @@
     "browser": true,
     "node": true
   },
-  "globals": {
-    "$": true,
-    "jQuery": true
-  },
   "settings": {
-    "import/resolver": "webpack"
+    "import/resolver": "parcel"
   }
 }
