@@ -15,12 +15,9 @@ export function isEqual(object1: Object, object2: Object) {
       if (!isEqual(val1, val2)) {
         return false;
       }
-    } else {
-      if (!Object.is(object1[key], object2[key])) {
-        return false;
-      }
+    } else if (!Object.is(object1[key], object2[key])) {
+      return false;
     }
   }
-
   return true;
 }

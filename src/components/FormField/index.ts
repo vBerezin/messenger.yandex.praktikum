@@ -28,7 +28,7 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
 
   get valid() {
     const { errors } = this.state;
-    return !(errors && errors.length);
+    return errors?.length === 0;
   }
 
   set value(value: string) {

@@ -25,8 +25,12 @@ export class Request {
           xhr.setRequestHeader(name, headers[name]);
         }
       }
-      xhr.onload = function() {
-        resolve(xhr);
+      xhr.onload = () => {
+        const { status } = xhr;
+        if (status >= 200 && status < 300) {
+          resolve(xhr);
+        }
+        reject(xhr);
       };
       xhr.onabort = reject;
       xhr.onerror = reject;

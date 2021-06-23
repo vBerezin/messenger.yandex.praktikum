@@ -34,11 +34,15 @@ export class Dialog extends Component<DialogProps, DialogState> {
   }
 
   render() {
+    const input = this.el.querySelector('.dialog__form-input');
+    if (input) {
+      input.focus();
+    }
     this.el.addEventListener('submit', (event) => {
       const { message } = event.target;
       const date = new Date();
-      const valid = Validate.value.isEmpty(message.value);
-      if (!valid) {
+      const empty = Validate.value.isEmpty(message.value);
+      if (empty) {
         event.preventDefault();
         return false;
       }

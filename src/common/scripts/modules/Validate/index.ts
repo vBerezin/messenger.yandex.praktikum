@@ -4,7 +4,7 @@ const validateValue: {
   [key: string]: (value: Value, options?) => boolean
 } = {
   isEmpty: (value) => {
-    return !!String(value).trim().length;
+    return String(value).trim().length === 0;
   },
   lengthMinMax(value, { min = 0, max = Infinity }) {
     const length = String(value).trim().length;
@@ -37,7 +37,7 @@ const validateField: {
   [key: string]: (value: Value) => string | string[] | null
 } = {
   required: (value) => {
-    return validateValue.isEmpty(value) ? null : 'Обязательное поле';
+    return validateValue.isEmpty(value) ? 'Обязательное поле' : null;
   },
   login: (value) => {
     return validateValue.isCyrilic(value) ? null : 'Логин должен содержать только латинские буквы';
@@ -49,7 +49,7 @@ const validateField: {
     const lowerCases = validateValue.hasLowerCase(value);
     const numbers = validateValue.hasNumbers(value);
     const length = validateValue.lengthMinMax(value, { min: 5 });
-    if (!empty) {
+    if (empty) {
       errors.push('Введите пароль');
     }
     if (!length) {
@@ -73,7 +73,7 @@ const validateField: {
     return validateValue.phone(value) ? null : 'Введите телефон';
   },
   email: (value) => {
-    return validateValue.email(value) && value ? null : 'Введите e-mail';
+    return validateValue.email(value) ? null : 'Введите e-mail';
   }
 };
 

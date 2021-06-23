@@ -14,7 +14,7 @@ const pageMessenger = new Messenger();
     const userData = DATA_USERS.find(user => user.id === chat.user);
     return {
       ...chat,
-      title: userData['display_name'],
+      title: userData.display_name,
       image: userData.image,
     };
   });
@@ -24,7 +24,7 @@ const pageMessenger = new Messenger();
     return {
       messages: history.messages,
       chat: {
-        title: userData['display_name'],
+        title: userData.display_name,
         image: userData.image,
       },
     };

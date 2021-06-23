@@ -19,10 +19,10 @@ export class FormSearch extends Component {
     });
     input.addEventListener('blur', () => {
       this.el.classList.remove('is-focus');
-      this.el.classList.toggle('is-active', Validate.value.isEmpty(input.value));
+      this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
     });
     input.addEventListener('input', () => {
-      this.el.classList.toggle('is-active', Validate.value.isEmpty(input.value));
+      this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
     });
   }
 }

@@ -5,7 +5,7 @@ import { HTTPRequestProps } from './types';
 export const HTTPRequest = {
   async get(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
     let params = null;
-    if (options && options.data) {
+    if (options?.data) {
       const { data } = options;
       params = Object.entries(data).map(([key, val]) => `${key}=${val}`).join('&');
     }

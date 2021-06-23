@@ -1,24 +1,18 @@
-import { App } from '~common/scripts/modules/App';
-import { HTTPRequest } from '~common/scripts/modules/HTTPRequest';
 import { StoreChat, StoreHistory, StoreUser } from './types';
 
+import { Api } from '~common/scripts/modules/Api';
+
+// TODO: вынести в сущности, тут только set/get
+
 export const Store = {
-  async getData<TResponse>(path: string): Promise<TResponse> {
-    try {
-      const request = await HTTPRequest.get(`/data/${path}`);
-      return JSON.parse(request.response);
-    } catch (error) {
-      App.debug(error);
-    }
-  },
   getChats() {
-    return this.getData<StoreChat[]>('chats.json')
+    return Api.getData<StoreChat[]>('/chats')
   },
   getHistory() {
-    return this.getData<StoreHistory[]>('history.json')
+    return Api.getData<StoreHistory[]>('/messages')
   },
   getUsers() {
-    return this.getData<StoreUser[]>('users.json')
+    return Api.getData<StoreUser[]>('/users')
   },
   async getUserData(id: number): Promise<StoreUser> {
     const users = await this.getUsers();
