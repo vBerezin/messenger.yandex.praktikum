@@ -4,17 +4,21 @@
   "version": "1.0.0",
   "scripts": {
     "server": "node ./server/app.js",
-    "dev": "parcel serve ./src/index.html --open --port 3000 --out-dir dist",
+    "dev": "parcel serve ./src/index.html --open --no-cache --port 3000 --out-dir dist",
     "watch": "parcel watch ./src/index.html --out-dir dist",
     "build": "parcel build ./src/index.html --out-dir dist",
     "start": "npm run build && npm run server"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "common": "^0.2.5",
     "events": "^3.3.0",
-    "pug": "^3.0.2",
-    "babel-polyfill": "^6.26.0"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
+    "@types/events": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-import-resolver-webpack": "^0.12.1",
@@ -29,12 +33,14 @@
     "parcel-plugin-pug-client": "^1.0.1",
     "parcel-plugin-static-files-copy": "^2.6.0",
     "path": "^0.12.7",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "stylelint": "^13.13.1",
+    "typescript": "^4.3.3"
   },
   "alias": {
-    "common": "./src/common",
-    "components": "./src/components",
-    "pages": "./src/pages",
-    "static": "./static"
+    "~common": "./src/common",
+    "~components": "./src/components",
+    "~pages": "./src/pages",
+    "~static": "./static"
   }
 }
