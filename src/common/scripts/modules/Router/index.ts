@@ -35,8 +35,8 @@ export class Router {
     this.emit(EVENTS.router.error, path);
   }
 
-  add(route: string, onRoute: Function): void {
-    this.routes.set(route, onRoute);
+  add(routes: string | string[], onRoute: Function): void {
+    [].concat(routes).forEach((route) => this.routes.set(route, onRoute));
   }
 
   remove(route: string): void {

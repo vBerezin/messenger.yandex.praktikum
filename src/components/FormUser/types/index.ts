@@ -1,14 +1,22 @@
-import { FormFieldProps } from '~components/FormField/types';
+import { StoreUser } from '~common/scripts/modules/Store/types';
+import { FormField } from '~components/FormField';
 
-export type FormUserFields = FormFieldProps[];
+export type FormUserKey = {
+  readonly?: boolean;
+  label: string,
+  name: string,
+  id: string,
+  type: string,
+};
 
 export type FormUserProps = {
-  image?: string,
-  edit?: boolean,
-  fields: FormUserFields,
-  action?: string,
+  data: StoreUser,
 }
 
-export type FormUserState = {} | {
-  edit: boolean,
+export type FormUserState = {
+  edit?: boolean,
+  password?: boolean,
+  action?: string,
+  image?: string,
+  fields?: FormField[]
 }

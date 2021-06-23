@@ -40,6 +40,6 @@
     "node": true
   },
   "settings": {
-    "import/resolver": "webpack"
+    "import/resolver": "parcel"
   }
 }

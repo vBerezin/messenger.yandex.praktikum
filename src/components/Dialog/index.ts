@@ -1,13 +1,15 @@
 import './styles';
 import template from './template';
-import { Component } from '~common/scripts/modules/Component';
-import { Message } from '~components/Message';
-import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
 import { DialogProps, DialogState } from './types';
+
+import { Component } from '~common/scripts/modules/Component';
+import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
 import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { EVENTS } from '~common/scripts/events';
 import { App } from '~common/scripts/modules/App';
 import { Validate } from '~common/scripts/modules/Validate';
+
+import { Message } from '~components/Message';
 
 export class Dialog extends Component<DialogProps, DialogState> {
   constructor(props?: DialogProps & ComponentProps) {

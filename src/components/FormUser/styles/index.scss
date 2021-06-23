@@ -63,17 +63,7 @@
     color: #1E1E1E;
   }
   &__field {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    border-bottom: 1px solid #EAEAEA;
-
-    &:last-child {
-      border-bottom: 1px solid transparent;
-    }
-    &.is-error {
-      border-color: red;
-    }
+    margin-bottom: 20px;
   }
   &__label,
   &__input {

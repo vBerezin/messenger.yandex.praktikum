@@ -1,5 +1,6 @@
 import './styles';
 import template from './template';
+
 import { Component } from '~common/scripts/modules/Component';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
 import { Validate } from '~common/scripts/modules/Validate';

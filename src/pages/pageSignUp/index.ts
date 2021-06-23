@@ -1,6 +1,7 @@
-import { PageAuth } from '~components/PageAuth';
 import { ROUTES } from '~common/scripts/routes';
 import { Validate } from '~common/scripts/modules/Validate';
+
+import { PageAuth } from '~components/PageAuth';
 
 export const pageSignUp = new PageAuth({
   title: 'Регистрация',

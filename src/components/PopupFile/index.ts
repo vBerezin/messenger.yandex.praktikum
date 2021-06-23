@@ -1,6 +1,7 @@
+import { PopupFileProps } from './types';
+
 import { Popup } from '~components/Popup';
 import { FormFile } from '~components/FormFile';
-import { PopupFileProps } from './types';
 
 export class PopupFile extends Popup<PopupFileProps> {
   form: FormFile;

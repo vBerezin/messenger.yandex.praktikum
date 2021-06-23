@@ -1,11 +1,13 @@
 import './styles';
 import template from './template';
+import { FormAuthProps } from './types';
+
 import { Component } from '~common/scripts/modules/Component';
 import { ComponentProps } from '~common/scripts/modules/Component/types';
-import { FormField } from '~components/FormField';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
+
 import { Button } from '~components/Button';
-import { FormAuthProps } from './types';
+import { FormField } from '~components/FormField';
 
 export class FormAuth extends Component<FormAuthProps> {
   private fields: FormField[];

@@ -16,11 +16,11 @@
   },
   {
     "id": "3",
-    "display_name": "Иван",
+    "display_name": "Иван Черных",
     "first_name": "Иван",
-    "second_name": "Иванов",
+    "second_name": "Черных",
     "login": "ivanivanov",
-    "email": "pochta@yandex.ru",
+    "email": "ivan@darknet.ru",
     "phone": "+7 (909) 967 30 30",
     "image": "/images/avatars/4.png",
     "oldPassword": "asF^j=L*5HkpT8?#"

@@ -1,9 +1,10 @@
 import './styles';
 import template from './template';
 import { FormFileState, FormFileProps } from './types';
+
 import { Component } from '~common/scripts/modules/Component';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
+
 import { Button } from '~components/Button';
 
 export class FormFile extends Component<FormFileProps, FormFileState> {

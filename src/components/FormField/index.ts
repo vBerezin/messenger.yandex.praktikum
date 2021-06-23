@@ -1,8 +1,9 @@
 import './styles';
 import template from './template';
+import { FormFieldProps, FormFieldState } from './types';
+
 import { Component } from '~common/scripts/modules/Component';
 import { ComponentProps } from '~common/scripts/modules/Component/types';
-import { FormFieldProps, FormFieldState } from './types';
 
 export class FormField extends Component<FormFieldProps, FormFieldState> {
   #value;

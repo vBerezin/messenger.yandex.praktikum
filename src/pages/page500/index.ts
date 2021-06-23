@@ -1,5 +1,6 @@
-import { PageError } from '~components/PageError';
 import { ROUTES } from '~common/scripts/routes';
+
+import { PageError } from '~components/PageError';
 
 export const page500 = new PageError({
   title: '500',
