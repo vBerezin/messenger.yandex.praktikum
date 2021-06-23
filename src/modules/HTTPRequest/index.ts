@@ -1,5 +1,5 @@
-import { Request} from '~common/scripts/modules/Request';
-import { RequestMethods } from '~common/scripts/modules/Request/types';
+import { Request } from '~modules/Request';
+import { RequestMethods } from '~modules/Request/types';
 import { HTTPRequestProps } from './types';
 
 export const HTTPRequest = {

@@ -1,4 +1,4 @@
-import { ComponentProps } from '~common/scripts/modules/Component/types';
+import { ComponentProps } from '~modules/Component/types';
 
 export type FormFieldProps = ComponentProps & {
   id: string

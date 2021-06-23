@@ -5,9 +5,11 @@
   &__head {
     margin-bottom: 40px;
   }
+
   &__footer {
     margin-top: 60px;
   }
+
   &__image {
     display: block;
     font-size: 0;
@@ -17,7 +19,7 @@
     margin: 0 auto 20px auto;
     position: relative;
     overflow: hidden;
-    background-color: #EFEFEF;
+    background-color: #efefef;
     background-image: url("../../../../static/images/icons/image.svg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -32,6 +34,7 @@
       object-fit: cover;
     }
   }
+
   &__image-button {
     display: flex;
     align-items: center;
@@ -56,15 +59,18 @@
       opacity: 1;
     }
   }
+
   &__title {
     text-align: center;
     font-weight: $font-weight-medium;
     font-size: 16px;
-    color: #1E1E1E;
+    color: #1e1e1e;
   }
+
   &__field {
     margin-bottom: 20px;
   }
+
   &__label,
   &__input {
     font-size: 13px;
@@ -72,10 +78,12 @@
     padding: 10px 0;
     color: #1e1e1e;
   }
+
   &__label {
     flex: 0 0 auto;
     font-weight: $font-weight-medium;
   }
+
   &__input {
     flex: 0 1 100%;
     text-align: right;
@@ -86,10 +94,12 @@
     &[readonly] {
       color: #999;
     }
+
     @include placeholder {
       color: #999;
     }
   }
+
   &__button,
   &__signout {
     display: block;
@@ -99,18 +109,22 @@
     line-height: 15px;
     font-weight: $font-weight-medium;
   }
+
   &__button {
-    color: #3369F3;
-    border-bottom: 1px solid #EAEAEA;
+    color: #3369f3;
+    border-bottom: 1px solid #eaeaea;
   }
+
   &__signout {
-    color: #FF0000;
+    color: #f00;
   }
+
   &__errors {
     display: block;
     padding: 0;
     margin: 10px 0;
   }
+
   &__error {
     display: block;
     font-size: 11px;

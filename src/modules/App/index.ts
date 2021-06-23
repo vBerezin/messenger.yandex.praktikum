@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { Breakpoints } from '~components/Breakpoints';
-import { ComponentInterface } from '~common/scripts/modules/Component/types';
+import { ComponentInterface } from '~modules/Component/types';
 
 const el = document.querySelector('#app');
 const emitter = new EventEmitter();

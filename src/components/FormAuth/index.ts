@@ -2,9 +2,10 @@ import './styles';
 import template from './template';
 import { FormAuthProps } from './types';
 
-import { Component } from '~common/scripts/modules/Component';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
+
+import { Component } from '~modules/Component';
+import { ComponentProps } from '~modules/Component/types';
 
 import { Button } from '~components/Button';
 import { FormField } from '~components/FormField';

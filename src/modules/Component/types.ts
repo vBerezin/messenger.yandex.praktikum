@@ -1,5 +1,5 @@
-import { EventEmitter } from "events";
-import { Templator } from "~common/scripts/modules/Templator";
+import { EventEmitter } from 'events';
+import { Templator } from '~modules/Templator';
 
 export type ComponentProps = {
   class?: string,

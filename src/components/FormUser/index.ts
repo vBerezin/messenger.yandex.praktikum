@@ -2,10 +2,11 @@ import './styles';
 import template from './template';
 import { FormUserProps, FormUserState, FormUserKey } from './types';
 
-import { Component } from '~common/scripts/modules/Component';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
-import { Validate } from '~common/scripts/modules/Validate';
+
+import { Component } from '~modules/Component';
+import { ComponentProps } from '~modules/Component/types';
+import { Validate } from '~modules/Validate';
 
 import { FormField } from '~components/FormField';
 import { Button } from '~components/Button';
@@ -81,7 +82,7 @@ const KEYS_PASSWORD = [
     id: 'formUser[newPasswordConfirm]',
     type: 'password',
     required: true,
-    validate: function(value) {
+    validate: function (value) {
       const form = this.el.closest('form');
       const password = form.newPassword.value;
       return value === password ? null : 'Пароли не совпадают';
@@ -132,13 +133,13 @@ export class FormUser extends Component<FormUserProps, FormUserState> {
         ...key,
         mods: 'row',
         class: 'form-user__field',
-        value: this.props.data[key.name],
+        value: this.props.data[ key.name ],
         ...props,
       });
     });
   }
 
-  info () {
+  info() {
     this.setState({
       edit: false,
       password: false,
@@ -147,7 +148,7 @@ export class FormUser extends Component<FormUserProps, FormUserState> {
     return this;
   }
 
-  edit () {
+  edit() {
     this.setState({
       edit: true,
       password: false,
@@ -155,7 +156,7 @@ export class FormUser extends Component<FormUserProps, FormUserState> {
     });
   }
 
-  password () {
+  password() {
     this.setState({
       password: true,
       fields: this.makeFields(KEYS_PASSWORD, { readonly: false }),

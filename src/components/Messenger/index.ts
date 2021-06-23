@@ -2,8 +2,8 @@ import './styles';
 import template from './template';
 import { MessengerProps } from './types';
 
-import { Component } from '~common/scripts/modules/Component';
-import { ComponentProps } from '~common/scripts/modules/Component/types';
+import { Component } from '~modules/Component';
+import { ComponentProps } from '~modules/Component/types';
 
 import { ChatList } from '~components/ChatList';
 import { FormSearch } from '~components/FormSearch';

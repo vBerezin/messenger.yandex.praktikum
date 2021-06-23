@@ -1,10 +1,9 @@
 import './styles';
 import template from './template';
 
-import { Component } from '~common/scripts/modules/Component';
+import { Component } from '~modules/Component';
 
 import { PopupState } from '~components/Popup/types';
-import {EVENTS} from "~common/scripts/events";
 
 export class Popup<TProps, TState = PopupState> extends Component<TProps, TState> {
   constructor(props: TProps) {

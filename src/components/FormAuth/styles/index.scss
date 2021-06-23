@@ -15,18 +15,22 @@
     text-align: center;
     margin-bottom: 40px;
   }
+
   &__body {
     flex: 1 0 auto;
   }
+
   &__footer {
     text-align: center;
     margin-top: 40px;
   }
+
   &__title {
     font-size: 20px;
     font-weight: $font-weight-medium;
-    color: #1E1E1E;
+    color: #1e1e1e;
   }
+
   &__field {
     margin-bottom: 20px;
   }

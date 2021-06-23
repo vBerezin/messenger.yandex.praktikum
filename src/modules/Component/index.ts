@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Templator } from '~common/scripts/modules/Templator';
+import { Templator } from '~modules/Templator';
 import { EVENTS } from '~common/scripts/events';
 import { isEqual } from '~common/scripts/utils/isEqual';
 import { ComponentProps, ComponentState, ComponentInterface } from './types';
@@ -16,7 +16,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
   #el;
   #state;
 
-  protected constructor({ template, props = {}, state = {} }:{
+  protected constructor({ template, props = {}, state = {} }: {
     template: Function,
     props?: TProps & ComponentProps,
     state?: TState & ComponentState,
@@ -49,7 +49,8 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
     this.emit(EVENTS.component.mount, { container });
   }
 
-  protected render() {}
+  protected render() {
+  }
 
   protected proxyState(state: TState): TState {
     return state;
@@ -64,7 +65,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
   }
 
   setState(state: TState) {
-    const newState = {...this.state, ...state};
+    const newState = { ...this.state, ...state };
     const equal = isEqual(this.state, newState);
     if (equal) {
       return this;
@@ -75,7 +76,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
     parent.replaceChild(newEl, this.#el);
     this.container = parent;
     this.#el = newEl;
-    this.emit(EVENTS.component.update, { state: newState});
+    this.emit(EVENTS.component.update, { state: newState });
     return this;
   }
 

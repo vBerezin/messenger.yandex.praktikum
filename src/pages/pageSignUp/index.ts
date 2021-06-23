@@ -1,5 +1,5 @@
 import { ROUTES } from '~common/scripts/routes';
-import { Validate } from '~common/scripts/modules/Validate';
+import { Validate } from '~modules/Validate';
 
 import { PageAuth } from '~components/PageAuth';
 
@@ -58,7 +58,7 @@ export const pageSignUp = new PageAuth({
       name: 'password_confirm',
       type: 'password',
       required: true,
-      validate: function(value) {
+      validate: function (value) {
         const { form } = this;
         const password = form.password.value;
         return value === password ? null : 'Пароли не совпадают';

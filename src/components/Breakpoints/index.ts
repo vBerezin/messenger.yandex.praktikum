@@ -1,5 +1,5 @@
 type Points = {
-  [key: string]: number,
+  [ key: string ]: number,
 };
 
 type Names = string | string[];
@@ -20,7 +20,7 @@ export class Breakpoints {
 
     Object.entries(points).forEach(([name, screen]) => {
       const media = window.matchMedia(`(min-width: ${screen}px)`);
-      media.addEventListener('change',() => this.refresh());
+      media.addEventListener('change', () => this.refresh());
       this.queries.push({ name, screen, media });
     });
     this.queries.sort((a, b) => a.screen - b.screen);
@@ -30,7 +30,7 @@ export class Breakpoints {
   private refresh(): void {
     const active = this.queries.filter(({ media }) => media.matches);
     if (active.length) {
-      const { name } = active[active.length - 1];
+      const { name } = active[ active.length - 1 ];
       this.current = name;
       this.callbacks.forEach(callback => callback());
     } else {
@@ -43,7 +43,7 @@ export class Breakpoints {
     return matches.length ? matches : false;
   }
 
-  once(names: Names, fn?:Function, cb?: Function) {
+  once(names: Names, fn?: Function, cb?: Function) {
     let allowFn = true;
     let allowCb = true;
     const handler = () => {
@@ -63,7 +63,7 @@ export class Breakpoints {
     handler();
   }
 
-  on(names: Names, fn?:Function, cb?: Function) {
+  on(names: Names, fn?: Function, cb?: Function) {
     const handler = () => {
       if (this.matches(names)) {
         if (fn) {
