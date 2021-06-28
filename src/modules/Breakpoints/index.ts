@@ -1,18 +1,12 @@
-type Points = {
-  [ key: string ]: number,
-};
+import { BreakpointsPoints, BreakpointsNames, BreakpointsQueries  } from './types';
 
-type Names = string | string[];
-
-type Queries = Array<{ name: string, screen: number, media: MediaQueryList }>;
-
-export class Breakpoints {
-  readonly points: Points;
+class Instance {
+  readonly points: BreakpointsPoints;
   protected current: string | null;
   private readonly callbacks: Set<Function>;
-  private readonly queries: Queries;
+  private readonly queries: BreakpointsQueries;
 
-  constructor(points: Points) {
+  constructor(points: BreakpointsPoints) {
     this.current = '';
     this.queries = [];
     this.points = points;
@@ -38,12 +32,12 @@ export class Breakpoints {
     }
   }
 
-  private matches(names: Names) {
+  private matches(names: BreakpointsNames) {
     const matches = ([] as string[]).concat(names).filter(name => name === this.current);
     return matches.length ? matches : false;
   }
 
-  once(names: Names, fn?: Function, cb?: Function) {
+  once(names: BreakpointsNames, fn?: Function, cb?: Function) {
     let allowFn = true;
     let allowCb = true;
     const handler = () => {
@@ -63,7 +57,7 @@ export class Breakpoints {
     handler();
   }
 
-  on(names: Names, fn?: Function, cb?: Function) {
+  on(names: BreakpointsNames, fn?: Function, cb?: Function) {
     const handler = () => {
       if (this.matches(names)) {
         if (fn) {
@@ -77,7 +71,7 @@ export class Breakpoints {
     handler();
   }
 
-  change(callback: Function): void {
+  onchange(callback: Function): void {
     let last = this.current;
     if (this.current) {
       callback(this.current);
@@ -90,3 +84,15 @@ export class Breakpoints {
     });
   }
 }
+
+const Breakpoints = new Instance({
+  xxs: 0,
+  xs: 475,
+  sm: 768,
+  md: 1024,
+  lg: 1200,
+  xl: 1366,
+  xxl: 1440,
+});
+
+export { Breakpoints };

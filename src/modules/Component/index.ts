@@ -49,8 +49,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
     this.emit(EVENTS.component.mount, { container });
   }
 
-  protected render() {
-  }
+  protected render() {}
 
   protected proxyState(state: TState): TState {
     return state;

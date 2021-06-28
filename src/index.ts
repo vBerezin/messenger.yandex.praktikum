@@ -3,49 +3,52 @@ import './index.scss';
 import { App } from '~modules/App';
 import { Router } from '~modules/Router';
 import { ROUTES } from '~common/scripts/routes';
-import { EVENTS } from '~common/scripts/events';
+import { Breakpoints } from '~modules/Breakpoints';
 
-const router = new Router();
+Breakpoints.onchange((point) => App.debug(`breakpoint: ${point}`));
 
-router.on(EVENTS.router.error, () => router.redirect(ROUTES.error[ '404' ]));
-
-router.add(ROUTES.root, () => {
-  if (App.user) {
-    router.redirect(ROUTES.messenger);
-  } else {
-    router.redirect(ROUTES.auth.signin);
-  }
-});
-router.add(ROUTES.auth.signout, () => router.redirect(ROUTES.auth.signin));
-router.add(ROUTES.auth.signin, () => {
-  import('~pages/pageSignIn')
-    .then(({ pageSignIn }) => App.init(pageSignIn));
-});
-router.add(ROUTES.auth.signup, () => {
-  import('~pages/pageSignUp')
-    .then(({ pageSignUp }) => App.init(pageSignUp));
-});
-router.add(ROUTES.error[ '500' ], () => {
-  import('~pages/page500')
-    .then(({ page500 }) => App.init(page500));
-});
-router.add(ROUTES.error[ '404' ], () => {
-  import('~pages/page404')
-    .then(({ page404 }) => App.init(page404));
-});
-router.add(ROUTES.messenger, () => {
-  import('~pages/pageMessenger')
-    .then(({ pageMessenger }) => App.init(pageMessenger));
-});
-router.add(ROUTES.user.profile, () => {
-  import('~pages/pageProfile')
-    .then(({ pageProfile }) => App.init(pageProfile.info()));
-});
-router.add(ROUTES.user.edit, () => {
-  import('~pages/pageProfile')
-    .then(({ pageProfile }) => App.init(pageProfile.edit()));
-});
-router.add(ROUTES.user.password, () => {
-  import('~pages/pageProfile')
-    .then(({ pageProfile }) => App.init(pageProfile.password()));
-});
+Router
+  .add(ROUTES.root, () => {
+    if (App.user) {
+      Router.go(ROUTES.messenger);
+    } else {
+      Router.go(ROUTES.auth.signin);
+    }
+  })
+  .add(ROUTES.auth.signout, () => Router.go(ROUTES.auth.signin))
+  .add(ROUTES.auth.signin, () => {
+    import('~pages/pageSignIn')
+      .then(({ pageSignIn }) => App.init(pageSignIn));
+  })
+  .add(ROUTES.auth.signup, () => {
+    import('~pages/pageSignUp')
+      .then(({ pageSignUp }) => App.init(pageSignUp));
+  })
+  .add(ROUTES.error[ '500' ], () => {
+    import('~pages/page500')
+      .then(({ page500 }) => App.init(page500));
+  })
+  .add(ROUTES.error[ '404' ], () => {
+    import('~pages/page404')
+      .then(({ page404 }) => App.init(page404));
+  })
+  .add(ROUTES.messenger, () => {
+    import('~pages/pageMessenger')
+      .then(({ pageMessenger }) => App.init(pageMessenger));
+  })
+  .add(ROUTES.user.profile, () => {
+    import('~pages/pageProfile')
+      .then(({ pageProfile }) => App.init(pageProfile.info()));
+  })
+  .add(ROUTES.user.edit, () => {
+    import('~pages/pageProfile')
+      .then(({ pageProfile }) => App.init(pageProfile.edit()));
+  })
+  .add(ROUTES.user.password, () => {
+    import('~pages/pageProfile')
+      .then(({ pageProfile }) => App.init(pageProfile.password()));
+  })
+  .catch((error) => {
+    App.debug(error);
+    Router.go(ROUTES.error['404']);
+  });
