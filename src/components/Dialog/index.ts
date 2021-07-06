@@ -14,7 +14,7 @@ import { Message } from '~components/Message';
 
 export class Dialog extends Component<DialogProps, DialogState> {
   constructor(props?: DialogProps & ComponentProps) {
-    super({ template, props });
+    super({template, props});
     this.on(EVENTS.component.update, () => this.mountMessages());
     this.mountMessages();
   }
@@ -40,7 +40,7 @@ export class Dialog extends Component<DialogProps, DialogState> {
       input.focus();
     }
     this.el.addEventListener('submit', (event) => {
-      const { message } = event.target;
+      const {message} = event.target;
       const date = new Date();
       const empty = Validate.value.isEmpty(message.value);
       if (empty) {

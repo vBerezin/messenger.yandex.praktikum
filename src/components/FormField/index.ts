@@ -14,26 +14,23 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
     super({
       template,
       props,
-      state: {
-        value: props.value || '',
-      },
     });
     this.form = props.form;
     this.validate = function () {
       const errors = this.props.validate ? this.props.validate.call(this, this.value) : null;
-      this.setState({ errors });
+      this.setState({errors});
       return errors;
     }
   }
 
   get valid() {
     const { errors } = this.state;
-    return errors?.length === 0;
+    return !errors;
   }
 
   set value(value: string) {
     this.#value = value;
-    this.setState({ value });
+    this.setState({value});
   }
 
   get value() {
@@ -42,7 +39,7 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
 
   render() {
     const input = this.el.querySelector('input');
-    if (!input || this.state.readonly || this.state.disabled) {
+    if (this.state.readonly || this.state.disabled) {
       return false;
     }
     input.addEventListener('focus', () => {
@@ -53,7 +50,7 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
       this.el.classList.remove('is-focus');
     });
     input.addEventListener('change', () => {
-      const { value } = input;
+      const {value} = input;
       this.value = value;
     });
   }

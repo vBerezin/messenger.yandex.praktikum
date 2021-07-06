@@ -10,7 +10,7 @@ export class PopupFile extends Popup<PopupFileProps> {
     super(props);
     this.form = new FormFile(props.form);
     this.form.on('submit', () => {
-      this.emit('submit', { state: this.form.getState() });
+      this.emit('submit', {state: this.form.getState()});
       this.hide();
     });
   }

@@ -1,4 +1,22 @@
-if (data.edit || data.password)
-	include ./edit
+if (data.edit)
+	form.form-user&attributes(data.attributes)
+		.form-user__head
+			.form-user__image
+				if (data.image)
+					img(src=data.image)
+				button.form-user__image-button(type="button" data-action="avatar") Поменять аватар
+		fieldset.form-user__body
+		.form-user__footer
 else
-	include ./info
+	.form-user
+		.form-user__head
+			.form-user__image
+				if (data.image)
+					img(src=data.image)
+				button.form-user__image-button(type="button" data-action="avatar") Поменять аватар
+			.form-user__title #{data.title}
+		fieldset.form-user__body
+		.form-user__footer
+			a.form-user__button(href=ROUTES.user.edit) Изменить данные
+			a.form-user__button(href=ROUTES.user.password) Изменить пароль
+			a.form-user__signout(href=ROUTES.auth.signout) Выйти

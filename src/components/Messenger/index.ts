@@ -15,14 +15,14 @@ export class Messenger extends Component<MessengerProps> {
   private chats: ChatList;
 
   constructor(props?: MessengerProps & ComponentProps) {
-    super({ template, props });
+    super({template, props});
     this.search = new FormSearch();
     this.dialog = new Dialog();
     this.chats = new ChatList();
   }
 
   setChats(chats) {
-    this.chats.setState({ chats });
+    this.chats.setState({chats});
     return this;
   }
 

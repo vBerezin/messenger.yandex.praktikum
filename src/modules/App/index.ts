@@ -1,18 +1,20 @@
 import { EventEmitter } from 'events';
 import { ComponentInterface } from '~modules/Component/types';
+import { EVENTS } from '~common/scripts/events';
+import { Store } from '~modules/Store';
 
 const el = document.querySelector('#app');
 const emitter = new EventEmitter();
-const debug = console.log;
 let current = null;
 
-export const App = {
-  debug,
-  user: undefined,
+const App = {
   on: emitter.on,
   off: emitter.off,
   emit: emitter.emit,
-  init(component: ComponentInterface): void {
+  error(message) {
+    App.emit(EVENTS.app.error, message);
+  },
+  init(component: ComponentInterface, title: string = ''): void {
     if (current) {
       current.unmount();
     }
@@ -21,5 +23,9 @@ export const App = {
       component.mount(el);
       current = component;
     }
-  },
+    document.title = title;
+    App.emit(EVENTS.app.init, component);
+  }
 };
+
+export { App };

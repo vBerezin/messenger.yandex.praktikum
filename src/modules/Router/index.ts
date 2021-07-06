@@ -2,7 +2,7 @@ import { documentReady } from '~common/scripts/utils/documentReady';
 import { EventEmitter } from 'events';
 import { EVENTS } from '~common/scripts/events';
 
-class Instance {
+class AppRouter {
   on;
   off;
   emit;
@@ -25,7 +25,7 @@ class Instance {
   }
 
   private start(): this {
-    const { pathname, hash, search } = window.location;
+    const {pathname, hash, search} = window.location;
     const path = `${pathname}${hash}`;
     const params = new URLSearchParams(search.slice(1));
     const data = {};
@@ -46,7 +46,7 @@ class Instance {
         this.history.pushState(data, '', route);
         return onRoute();
       } catch (error) {
-        this.emit(EVENTS.router.error, { error });
+        this.emit(EVENTS.router.error, {error});
       }
     }
     this.emit(EVENTS.router.error, {
@@ -55,8 +55,13 @@ class Instance {
     return this;
   }
 
-  add(routes: string | string[], onRoute: Function): this {
-    [].concat(routes).forEach((route) => this.routes.set(route, onRoute));
+  use(routes: string | string[], onRoute: Function): this {
+    [].concat(routes).forEach((route) => {
+      if (this.routes.has(route)) {
+        throw new Error(`Route ${route} already use`);
+      }
+      this.routes.set(route, onRoute);
+    });
     return this;
   }
 
@@ -78,6 +83,6 @@ class Instance {
   }
 }
 
-const Router = new Instance();
+const Router = new AppRouter();
 
 export { Router };

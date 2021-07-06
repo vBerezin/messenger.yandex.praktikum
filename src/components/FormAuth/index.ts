@@ -1,8 +1,6 @@
 import './styles';
 import template from './template';
-import { FormAuthProps } from './types';
-
-import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
+import { FormAuthProps, FormAuthState } from './types';
 
 import { Component } from '~modules/Component';
 import { ComponentProps } from '~modules/Component/types';
@@ -10,12 +8,12 @@ import { ComponentProps } from '~modules/Component/types';
 import { Button } from '~components/Button';
 import { FormField } from '~components/FormField';
 
-export class FormAuth extends Component<FormAuthProps> {
+export class FormAuth extends Component<FormAuthProps, FormAuthState> {
   private fields: FormField[];
   private buttons: Button[];
 
   constructor(props: FormAuthProps & ComponentProps) {
-    super({ template, props });
+    super({template, props});
     this.buttons = props.buttons.map(button => new Button(button));
     this.fields = props.fields.map((field) => {
       return new FormField({
@@ -24,10 +22,9 @@ export class FormAuth extends Component<FormAuthProps> {
         class: 'form-auth__field',
       });
     });
-    this.el.addEventListener('submit', this.onSubmit.bind(this));
   }
 
-  onSubmit(event) {
+  private validateFields() {
     const errors = [];
     this.fields.forEach((field) => {
       field.validate();
@@ -35,11 +32,16 @@ export class FormAuth extends Component<FormAuthProps> {
         errors.push(field);
       }
     });
-    if (errors.length) {
+    return errors;
+  }
+
+  onSubmit(event) {
+    const fields = this.validateFields();
+    if (fields.length) {
       event.preventDefault();
       return false;
     }
-    return formSubmitHandler(event);
+    return this.props.submit.call(this, event);
   }
 
   render() {
@@ -47,5 +49,6 @@ export class FormAuth extends Component<FormAuthProps> {
     const footer = this.el.querySelector('.form-auth__footer');
     this.fields.forEach(field => field.mount(fieldSet));
     this.buttons.forEach(button => button.mount(footer));
+    this.el.addEventListener('submit', this.onSubmit.bind(this));
   }
 }

@@ -12,6 +12,6 @@ export type RequestOptions = {
   timeout?: number,
   withCredentials?: boolean,
   headers?: {
-    [ key: string ]: string,
+    [key: string]: string,
   },
 }

@@ -32,7 +32,7 @@ const pageMessenger = new Messenger();
     };
   };
   pageMessenger.setChats(chats);
-  App.on(EVENTS.app.messenger.chat.selected, ({ id }) => {
+  App.on(EVENTS.app.messenger.chat.selected, ({id}) => {
     pageMessenger.openChat(makeDialogData(id));
   });
 })();

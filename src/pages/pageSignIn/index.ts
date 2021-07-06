@@ -2,13 +2,12 @@ import { ROUTES } from '~common/scripts/routes';
 import { Validate } from '~modules/Validate';
 
 import { PageAuth } from '~components/PageAuth';
+import { AuthController } from '~controllers/AuthController';
+import { Router } from '~modules/Router';
+import { App } from '~modules/App';
 
 export const pageSignIn = new PageAuth({
   title: 'Вход',
-  attributes: {
-    method: 'POST',
-    action: '?signin',
-  },
   fields: [
     {
       label: 'Логин',
@@ -43,4 +42,22 @@ export const pageSignIn = new PageAuth({
       },
     },
   ],
+  submit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    AuthController
+      .signIn(data)
+      .then(() => {
+        Router.go(ROUTES.messenger);
+      })
+      .catch((xhr) => {
+        const response = JSON.parse(xhr.response);
+        this.setState({
+          errors: [response.reason]
+        });
+        App.error(xhr);
+      });
+  }
 });

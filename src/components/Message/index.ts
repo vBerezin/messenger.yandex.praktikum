@@ -7,6 +7,6 @@ import { ComponentProps } from '~modules/Component/types';
 
 export class Message extends Component<MessageProps, MessageState> {
   constructor(props: MessageProps & ComponentProps) {
-    super({ template, props });
+    super({template, props});
   }
 }

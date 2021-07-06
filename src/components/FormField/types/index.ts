@@ -1,10 +1,10 @@
 import { ComponentProps } from '~modules/Component/types';
 
 export type FormFieldProps = ComponentProps & {
-  id: string
-  label: string,
-  name: string,
-  type: string | 'text' | 'email' | 'number' | 'password' | 'tel',
+  label?: string,
+  type?: string | 'text' | 'email' | 'number' | 'password' | 'tel',
+  id?: string
+  name?: string,
   value?: string | number,
   form?: HTMLFormElement,
   readonly?: Boolean,
@@ -13,10 +13,6 @@ export type FormFieldProps = ComponentProps & {
   validate?: (value: string | number) => string | string[] | null,
 };
 
-export type FormFieldState = {
-  value?: string | number,
-  readonly?: Boolean,
-  required?: Boolean,
-  disabled?: Boolean,
+export type FormFieldState = FormFieldProps & {
   errors?: string | string[] | null,
 }

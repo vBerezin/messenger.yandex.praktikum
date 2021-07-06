@@ -1,9 +1,10 @@
+import { FormUserProps } from '~components/FormUser/types';
+
 export type ProfileProps = {
-  user: {
-    id: number
-  },
+  back: string,
+  form: FormUserProps
 };
 
 export type ProfileState = {
-  back?: string,
+  form: FormUserProps
 };

@@ -12,7 +12,7 @@ export class PageAuth extends Component<FormAuthProps> {
   form: FormAuth;
 
   constructor(props: FormAuthProps) {
-    super({ template, props });
+    super({template, props});
     this.form = new FormAuth(props);
     this.on(EVENTS.component.update, () => this.mountForm());
     this.mountForm();

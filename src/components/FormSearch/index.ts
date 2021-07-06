@@ -9,7 +9,7 @@ import { ComponentProps } from '~modules/Component/types';
 
 export class FormSearch extends Component {
   constructor(props: ComponentProps) {
-    super({ template, props });
+    super({template, props});
   }
 
   render() {

@@ -11,7 +11,7 @@ import { App } from '~modules/App';
 
 export class ChatList extends Component<ChatListProps, ChatListState> {
   constructor(props?: ChatListProps & ComponentProps) {
-    super({ template, props });
+    super({template, props});
   }
 
   render() {
@@ -20,8 +20,8 @@ export class ChatList extends Component<ChatListProps, ChatListState> {
       if (target) {
         const id = target.dataset.chatId;
         if (id !== this.state.active) {
-          this.setState({ active: id });
-          App.emit(EVENTS.app.messenger.chat.selected, { id });
+          this.setState({active: id});
+          App.emit(EVENTS.app.messenger.chat.selected, {id});
         }
       }
     });

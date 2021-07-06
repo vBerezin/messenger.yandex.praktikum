@@ -14,7 +14,7 @@ export class Popup<TProps, TState = PopupState> extends Component<TProps, TState
         active: false,
       },
     });
-    this.el.addEventListener('click', ({ target }) => {
+    this.el.addEventListener('click', ({target}) => {
       if (!target.closest('.popup__body')) {
         this.hide();
       }

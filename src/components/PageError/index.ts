@@ -19,7 +19,7 @@ export class PageError extends Component<PageErrorProps> {
   private button: Button;
 
   constructor(props: PageErrorProps) {
-    super({ template, props });
+    super({template, props});
     if (this.props.button) {
       this.button = new Button(this.props.button);
       this.on(EVENTS.component.render, () => {

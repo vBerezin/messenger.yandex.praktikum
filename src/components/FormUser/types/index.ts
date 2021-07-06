@@ -1,23 +1,18 @@
-import { UsersUser } from '~entities/Users/types';
-
-import { FormField } from '~components/FormField';
-
-export type FormUserKey = {
-  readonly?: boolean;
-  label: string,
-  name: string,
-  id: string,
-  type: string,
-};
+import { FormFieldProps } from '~components/FormField/types';
 
 export type FormUserProps = {
-  data: UsersUser,
+  edit?: boolean,
+  submit?: Function,
+  image?: string | null,
+  title?: string,
+  fields: Array<{
+    label: string,
+    value: string
+  }> | FormFieldProps[],
 }
 
 export type FormUserState = {
   edit?: boolean,
-  password?: boolean,
-  action?: string,
-  image?: string,
-  fields?: FormField[]
+  image?: string | null,
+  title?: string,
 }

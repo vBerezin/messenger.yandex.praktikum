@@ -2,8 +2,8 @@ import { Request } from '~modules/Request';
 import { RequestMethods } from '~modules/Request/types';
 import { HTTPRequestProps } from './types';
 
-export const HTTPRequest = {
-  async get(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
+export const HTTP = {
+  get(url: string, options?: HTTPRequestProps) {
     let params = null;
     if (options?.data) {
       const { data } = options;
@@ -16,7 +16,7 @@ export const HTTPRequest = {
     });
     return request.send();
   },
-  put(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
+  put(url: string, options?: HTTPRequestProps) {
     const request = new Request({
       ...options,
       url,
@@ -24,7 +24,7 @@ export const HTTPRequest = {
     });
     return request.send();
   },
-  delete(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
+  delete(url: string, options?: HTTPRequestProps) {
     const request = new Request({
       ...options,
       url,
@@ -32,7 +32,7 @@ export const HTTPRequest = {
     });
     return request.send();
   },
-  post(url: string, options?: HTTPRequestProps): Promise<XMLHttpRequest> {
+  post(url: string, options?: HTTPRequestProps) {
     const request = new Request({
       ...options,
       url,

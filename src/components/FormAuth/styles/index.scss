@@ -34,4 +34,17 @@
   &__field {
     margin-bottom: 20px;
   }
+
+  &__errors,
+  &__error {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__error {
+    font-size: 0.7em;
+    color: #ff2f2f;
+    font-weight: $font-weight-medium;
+  }
 }

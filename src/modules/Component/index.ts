@@ -16,25 +16,25 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
   #el;
   #state;
 
-  protected constructor({ template, props = {}, state = {} }: {
+  protected constructor({template, props = {}, state = {}}: {
     template: Function,
     props?: TProps & ComponentProps,
-    state?: TState & ComponentState,
+    state?: TState & TProps & ComponentState,
   }) {
     this.emitter = new EventEmitter();
-    this.templator = new Templator({ compiler: template });
-    this.props = props;
     this.on = this.emitter.on;
     this.emit = this.emitter.emit;
     this.off = this.emitter.off;
-    this.#state = state;
+    this.templator = new Templator({compiler: template});
+    this.props = props;
+    this.#state = {...props, ...state};
     this.#el = this.#compile();
     this.on(EVENTS.component.update, () => this.#render());
     this.on(EVENTS.component.mount, () => this.#render());
   }
 
   #compile() {
-    this.templator.data = { ...this.props, ...this.state };
+    this.templator.data = {...this.props, ...this.state};
     return this.templator.compile();
   };
 
@@ -46,14 +46,10 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
   mount(container: Element) {
     container.append(this.#el);
     this.container = container;
-    this.emit(EVENTS.component.mount, { container });
+    this.emit(EVENTS.component.mount, container);
   }
 
   protected render() {}
-
-  protected proxyState(state: TState): TState {
-    return state;
-  }
 
   get state() {
     return this.getState();
@@ -64,18 +60,17 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
   }
 
   setState(state: TState) {
-    const newState = { ...this.state, ...state };
-    const equal = isEqual(this.state, newState);
-    if (equal) {
+    const newState = {...this.state, ...state};
+    if (isEqual(this.state, newState)) {
       return this;
     }
-    this.#state = this.proxyState(newState);
+    this.#state = newState;
     const newEl = this.#compile();
     const parent = this.el.parentNode || this.container;
     parent.replaceChild(newEl, this.#el);
     this.container = parent;
     this.#el = newEl;
-    this.emit(EVENTS.component.update, { state: newState });
+    this.emit(EVENTS.component.update, newState);
     return this;
   }
 
@@ -86,7 +81,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
   unmount() {
     this.container.removeChild(this.#el);
     this.#state = this.props;
-    this.emit(EVENTS.component.unmount, { container: this.container });
+    this.emit(EVENTS.component.unmount, this.container);
     this.emitter.removeAllListeners();
     return this;
   }

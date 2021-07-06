@@ -8,16 +8,11 @@ export const EVENTS = {
     mount: 'component:mount',
     unmount: 'component:unmount',
   },
+  store: {
+    update: 'store:update',
+  },
   app: {
-    messenger: {
-      chat: {
-        selected: 'messenger.chat:selected',
-        delete: 'messenger.chat:delete',
-      },
-      message: {
-        send: 'messenger.message:send',
-        delete: 'messenger.message:delete',
-      }
-    },
+    init: 'app:init',
+    error: 'app:error',
   }
 };

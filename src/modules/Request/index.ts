@@ -23,11 +23,11 @@ export class Request {
       xhr.open(method, url);
       if (headers) {
         for (const name in headers) {
-          xhr.setRequestHeader(name, headers[ name ]);
+          xhr.setRequestHeader(name, headers[name]);
         }
       }
       xhr.onload = () => {
-        const { status } = xhr;
+        const {status} = xhr;
         if (status >= 200 && status < 300) {
           resolve(xhr);
         }

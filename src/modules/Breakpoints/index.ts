@@ -1,4 +1,4 @@
-import { BreakpointsPoints, BreakpointsNames, BreakpointsQueries  } from './types';
+import { BreakpointsPoints, BreakpointsNames, BreakpointsQueries } from './types';
 
 class Instance {
   readonly points: BreakpointsPoints;
@@ -15,16 +15,16 @@ class Instance {
     Object.entries(points).forEach(([name, screen]) => {
       const media = window.matchMedia(`(min-width: ${screen}px)`);
       media.addEventListener('change', () => this.refresh());
-      this.queries.push({ name, screen, media });
+      this.queries.push({name, screen, media});
     });
     this.queries.sort((a, b) => a.screen - b.screen);
     this.refresh();
   }
 
   private refresh(): void {
-    const active = this.queries.filter(({ media }) => media.matches);
+    const active = this.queries.filter(({media}) => media.matches);
     if (active.length) {
-      const { name } = active[ active.length - 1 ];
+      const {name} = active[active.length - 1];
       this.current = name;
       this.callbacks.forEach(callback => callback());
     } else {

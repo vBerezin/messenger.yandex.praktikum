@@ -1,12 +1,12 @@
 type Value = string | number;
 
 const validateValue: {
-  [ key: string ]: (value: Value, options?) => boolean
+  [key: string]: (value: Value, options?) => boolean
 } = {
   isEmpty: (value) => {
     return String(value).trim().length === 0;
   },
-  lengthMinMax(value, { min = 0, max = Infinity }) {
+  lengthMinMax(value, {min = 0, max = Infinity}) {
     const length = String(value).trim().length;
     return length >= min && length <= max;
   },
@@ -28,13 +28,13 @@ const validateValue: {
     return regExp.test(val);
   },
   email: (value) => {
-    const regExp = new RegExp(/^\w+@\w+\.\w+/g);
+    const regExp = new RegExp(/^\w+\W*\w+@\w+\.\w+/g);
     return regExp.test(String(value));
   }
 };
 
 const validateField: {
-  [ key: string ]: (value: Value) => string | string[] | null
+  [key: string]: (value: Value) => string | string[] | null
 } = {
   required: (value) => {
     return validateValue.isEmpty(value) ? 'Обязательное поле' : null;
@@ -48,7 +48,7 @@ const validateField: {
     const upperCases = validateValue.hasUpperCase(value);
     const lowerCases = validateValue.hasLowerCase(value);
     const numbers = validateValue.hasNumbers(value);
-    const length = validateValue.lengthMinMax(value, { min: 5 });
+    const length = validateValue.lengthMinMax(value, {min: 5});
     if (empty) {
       errors.push('Введите пароль');
     }
@@ -77,4 +77,4 @@ const validateField: {
   }
 };
 
-export const Validate = { value: validateValue, field: validateField };
+export const Validate = {value: validateValue, field: validateField};

@@ -1,5 +1,5 @@
 export type BreakpointsPoints = {
-  [ key: string ]: number,
+  [key: string]: number,
 };
 
 export type BreakpointsNames = string | string[];
