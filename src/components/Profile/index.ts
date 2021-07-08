@@ -12,13 +12,7 @@ export class Profile extends Component<ProfileProps, ProfileState> {
   form: FormUser;
 
   constructor(props: ProfileProps & ComponentProps) {
-    super({
-      template,
-      props,
-      state: {
-        form: props.form
-      }
-    });
+    super({ template, props });
     this.form = new FormUser(props.form);
     this.on(EVENTS.component.update, (state) => {
       if (state.form) {

@@ -1,7 +1,7 @@
 import { HTTP } from '~modules/HTTP';
 
 import { UserResponse } from '~modules/Api/types';
-import { SignInRequest, SignUpRequest, SignUpResponse } from './types';
+import { SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from './types';
 
 const API_URL = 'https://ya-praktikum.tech/api/v2/auth';
 
@@ -16,7 +16,7 @@ export const AuthApi = {
     });
     return JSON.parse(request.response);
   },
-  async signIn(data: SignInRequest): Promise<void> {
+  async signIn(data: SignInRequest): Promise<SignInResponse> {
     const request = await HTTP.post(`${API_URL}/signin`, {
       data: JSON.stringify(data),
       withCredentials: true,

@@ -48,14 +48,14 @@ Router
         App.init(pageProfile, `Профиль пользователя ${userName}`);
       });
   })
- /* .use(ROUTES.user.edit, () => {
-    import('~pages/pageProfile')
-      .then(({pageProfile}) => App.init(pageProfile.edit()));
+ .use(ROUTES.user.edit, () => {
+   import('~pages/pageProfileEdit')
+      .then(({pageProfileEdit}) => App.init(pageProfileEdit, `Редактирование профиля`));
   })
   .use(ROUTES.user.password, () => {
-    import('~pages/pageProfile')
-      .then(({pageProfile}) => App.init(pageProfile.password()));
-  })*/
+    import('~pages/pageProfilePassword')
+      .then(({pageProfilePassword}) => App.init(pageProfilePassword, `Смена пароля`));
+  })
   .catch((error) => {
     App.error(error);
     Router.go(ROUTES.error['404']);

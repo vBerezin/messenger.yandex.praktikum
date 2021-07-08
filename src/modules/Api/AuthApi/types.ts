@@ -1,3 +1,5 @@
+export type SignInResponse = void;
+
 export type SignInRequest = {
   login: string,
   password: string

@@ -1,15 +1,21 @@
 import { FormFieldProps } from '~components/FormField/types';
 
-export type FormUserProps = {
-  edit?: boolean,
-  submit?: Function,
+type FormUserPropsBase = {
   image?: string | null,
   title?: string,
-  fields: Array<{
-    label: string,
-    value: string
-  }> | FormFieldProps[],
+  fields: FormFieldProps[],
 }
+type FormUserPropsEdit = {
+  image?: string | null,
+  title?: string,
+  edit: boolean,
+  submit: Function,
+  fields: FormFieldProps[],
+}
+
+export type FormUserProps =
+  | FormUserPropsBase
+  | FormUserPropsEdit
 
 export type FormUserState = {
   edit?: boolean,
