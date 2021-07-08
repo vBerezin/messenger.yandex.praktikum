@@ -23,3 +23,4 @@ https://www.figma.com/file/JriGNUlj1RpBjO0f9BnEvl/Yandex-Praktikum-Messenger
 ### PULL REQUESTS
 - `Sprint 1` - https://github.com/vBerezin/middle.messenger.praktikum.yandex/pull/1
 - `Sprint 2` - https://github.com/vBerezin/middle.messenger.praktikum.yandex/pull/3
+- `Sprint 3` - https://github.com/vBerezin/middle.messenger.praktikum.yandex/pull/7
