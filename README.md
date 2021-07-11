@@ -16,6 +16,7 @@
 
 ### Netlify Link
 https://gifted-hermann-3c3968.netlify.app
+[![Netlify Status](https://api.netlify.com/api/v1/badges/71563e62-97ea-465f-81cc-4bed3c54b4af/deploy-status)](https://app.netlify.com/sites/gifted-hermann-3c3968/deploys)
 
 ### UI
 https://www.figma.com/file/JriGNUlj1RpBjO0f9BnEvl/Yandex-Praktikum-Messenger
