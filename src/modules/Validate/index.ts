@@ -36,8 +36,8 @@ const validateValue: {
 const validateField: {
   [key: string]: (value: Value) => string | string[] | null
 } = {
-  required: (value) => {
-    return validateValue.isEmpty(value) ? 'Обязательное поле' : null;
+  required: (value, message: string = 'Обязательное поле') => {
+    return validateValue.isEmpty(value) ? message : null;
   },
   login: (value) => {
     return validateValue.isCyrilic(value) ? null : 'Логин должен содержать только латинские буквы';

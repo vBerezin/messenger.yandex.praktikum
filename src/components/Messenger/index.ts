@@ -6,8 +6,9 @@ import { Component } from '~modules/Component';
 import { ComponentProps } from '~modules/Component/types';
 
 import { ChatList } from '~components/ChatList';
-import { FormSearch } from '~components/FormSearch';
 import { Dialog } from '~components/Dialog';
+import { FormSearch } from '~components/FormSearch';
+import { FormSearchEvents } from '~components/FormSearch/events';
 
 export class Messenger extends Component<MessengerProps> {
   private search: FormSearch;
@@ -16,22 +17,23 @@ export class Messenger extends Component<MessengerProps> {
 
   constructor(props?: MessengerProps & ComponentProps) {
     super({template, props});
-    this.search = new FormSearch();
     this.dialog = new Dialog();
     this.chats = new ChatList();
+    this.search = new FormSearch();
+    this.search.on(FormSearchEvents.search, (data) => {
+      this.chats.setState({
+        chats: data.map((user) => {
+          return {
+            id: user.id,
+            title: user['login'],
+            image: user['avatar'],
+          }
+        })
+      });
+    });
   }
 
-  setChats(chats) {
-    this.chats.setState({chats});
-    return this;
-  }
-
-  openChat(chat) {
-    this.dialog.setState(chat);
-    return this;
-  }
-
-  render() {
+  mounted() {
     this.search.mount(this.el.querySelector('.messenger__search'));
     this.chats.mount(this.el.querySelector('.messenger__list'));
     this.dialog.mount(this.el.querySelector('main'));

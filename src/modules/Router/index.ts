@@ -1,6 +1,6 @@
 import { documentReady } from '~common/scripts/utils/documentReady';
 import { EventEmitter } from 'events';
-import { EVENTS } from '~common/scripts/events';
+import { RouterEvents } from './events';
 
 class AppRouter {
   on;
@@ -19,23 +19,26 @@ class AppRouter {
     this.on = this.emitter.on;
     this.off = this.emitter.off;
     this.emit = this.emitter.emit;
-    documentReady(() => this.start());
     // window.addEventListener('hashchange', () => this.start());
     window.onpopstate = () => this.start();
+    documentReady(() => this.start());
   }
 
-  private start(): this {
+  start(): this {
     const {pathname, hash, search} = window.location;
     const path = `${pathname}${hash}`;
-    const params = new URLSearchParams(search.slice(1));
-    const data = {};
-    params.forEach((key, value) => {
-      data[key] = value;
-    });
-    return this.go(path, data);
+    if (search) {
+      const params = new URLSearchParams(search.slice(1));
+      const data = {};
+      params.forEach((key, value) => {
+        data[key] = value;
+      });
+      return this.go(path, data);
+    }
+    return this.go(path);
   }
 
-  go(route: string, data = {}): this {
+  go(route: string, data?): this {
     if (this.currentRoute === route) {
       return this;
     }
@@ -43,13 +46,16 @@ class AppRouter {
     if (onRoute) {
       try {
         this.currentRoute = route;
-        this.history.pushState(data, '', route);
-        return onRoute();
+        const state = data ? JSON.stringify(data) : '';
+        this.history.pushState(state, '', route);
+        return onRoute(data);
       } catch (error) {
-        this.emit(EVENTS.router.error, {error});
+        this.emit(RouterEvents.error, {error});
+        return this;
       }
     }
-    this.emit(EVENTS.router.error, {
+    this.emit(RouterEvents.error, {
+      route,
       error: new Error(`Route "${route}" not found`),
     });
     return this;
@@ -70,16 +76,19 @@ class AppRouter {
     return this;
   }
 
-  back(): void {
+  back(): this {
     this.history.back();
+    return this;
   }
 
-  forward(): void {
+  forward(): this {
     this.history.forward();
+    return this;
   }
 
-  catch(callback): void {
-    this.on(EVENTS.router.error, callback);
+  catch(callback): this {
+    this.on(RouterEvents.error, callback);
+    return this;
   }
 }
 

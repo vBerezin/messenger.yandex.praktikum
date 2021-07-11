@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { EVENTS } from '~common/scripts/events';
+import { StoreEvents } from './events';
 import { isEqual } from '~common/scripts/utils/isEqual';
 
 enum StorageName {
@@ -7,10 +7,10 @@ enum StorageName {
 }
 
 class StateStorage {
-  on;
-  off;
-  emit;
-  private emitter: EventEmitter;
+  private readonly on;
+  private readonly off;
+  private readonly emit;
+  private readonly emitter: EventEmitter;
 
   constructor() {
     this.emitter = new EventEmitter();
@@ -22,11 +22,37 @@ class StateStorage {
     }
   }
 
+  private find(path: string, state: Object) {
+    if (!path) {
+      return state;
+    }
+    try {
+      return path
+        .split('.')
+        .reduce((current, item) => {
+          return current[item];
+        }, state);
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  subscribe(path: string = '', callback: Function) {
+    this.on(StoreEvents.update, (state) => {
+      if (!path) {
+        return callback(state);
+      }
+      const value = this.find(path, state);
+      return callback(state, value);
+    });
+  }
+
+
   setState(state) {
     const newState = {...this.state, ...state};
     if (!isEqual(this.state, newState)) {
       window.localStorage.setItem(StorageName.state, JSON.stringify(newState));
-      this.emit(EVENTS.store.update, newState);
+      this.emit(StoreEvents.update, newState);
     }
   }
 
@@ -48,3 +74,5 @@ class StateStorage {
 }
 
 export const Store = new StateStorage();
+
+window.Store = Store;

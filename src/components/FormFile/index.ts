@@ -9,6 +9,8 @@ import { Component } from '~modules/Component';
 import { Button } from '~components/Button';
 
 export class FormFile extends Component<FormFileProps, FormFileState> {
+  #footer;
+
   private button: Button;
 
   constructor(props: FormFileProps) {
@@ -32,12 +34,9 @@ export class FormFile extends Component<FormFileProps, FormFileState> {
     return this;
   }
 
-  render() {
+  created() {
+    this.#footer = this.el.querySelector('.form-file__footer');
     const input = this.el.querySelector('[type="file"]');
-    if (this.state.value) {
-      const footer = this.el.querySelector('.form-file__footer');
-      this.button.mount(footer);
-    }
     this.el.addEventListener('change', () => {
       const file = input.files[0];
       this.setState({
@@ -49,8 +48,13 @@ export class FormFile extends Component<FormFileProps, FormFileState> {
       this.emit('change', this.state);
     });
     this.el.addEventListener('submit', (event) => {
-      this.emit('submit', event);
-      return formSubmitHandler(event);
+      return this.props.submit.call(this, event, this.state);
     });
+  }
+
+  mounted() {
+    if (this.state.value) {
+      this.button.mount(this.#footer);
+    }
   }
 }

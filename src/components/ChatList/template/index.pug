@@ -8,7 +8,7 @@ if (data.chats)
 				.chat-list__item-inner
 					.chat-list__item-image
 						if (item.image)
-							img(src=item.image alt=item.title)
+							img(src=`https://ya-praktikum.tech/api/v2/resources${item.image}`)
 					.chat-list__item-body
 						.chat-list__item-title #{item.title}
 						.chat-list__item-message !{item.message}

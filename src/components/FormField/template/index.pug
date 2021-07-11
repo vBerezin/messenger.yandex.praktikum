@@ -3,6 +3,7 @@ include ../../../common/templates/functions/mods
 -
 	state = []
 	if (data.value) state.push('is-active')
+	if (data.errors) state.push('is-error')
 	if (!data.readonly && data.required) state.push('is-required')
 .form-field(
 	class=state

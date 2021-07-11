@@ -2,12 +2,10 @@ import './styles';
 import template from './template';
 import { DialogProps, DialogState } from './types';
 
-import { EVENTS } from '~common/scripts/events';
 import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
 
 import { Component } from '~modules/Component';
 import { ComponentProps } from '~modules/Component/types';
-import { App } from '~modules/App';
 import { Validate } from '~modules/Validate';
 
 import { Message } from '~components/Message';
@@ -15,7 +13,6 @@ import { Message } from '~components/Message';
 export class Dialog extends Component<DialogProps, DialogState> {
   constructor(props?: DialogProps & ComponentProps) {
     super({template, props});
-    this.on(EVENTS.component.update, () => this.mountMessages());
     this.mountMessages();
   }
 
@@ -57,7 +54,6 @@ export class Dialog extends Component<DialogProps, DialogState> {
           }
         ]
       });
-      App.emit(EVENTS.app.messenger.message.send, event);
       return formSubmitHandler(event);
     });
   }

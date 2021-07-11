@@ -1,7 +1,6 @@
 import { EventEmitter } from 'events';
 import { ComponentInterface } from '~modules/Component/types';
-import { EVENTS } from '~common/scripts/events';
-import { Store } from '~modules/Store';
+import { AppEvents } from './events';
 
 const el = document.querySelector('#app');
 const emitter = new EventEmitter();
@@ -11,8 +10,8 @@ const App = {
   on: emitter.on,
   off: emitter.off,
   emit: emitter.emit,
-  error(message) {
-    App.emit(EVENTS.app.error, message);
+  error(error, data?) {
+    App.emit(AppEvents.error, {error, ...data});
   },
   init(component: ComponentInterface, title: string = ''): void {
     if (current) {
@@ -24,7 +23,7 @@ const App = {
       current = component;
     }
     document.title = title;
-    App.emit(EVENTS.app.init, component);
+    App.emit(AppEvents.init, component);
   }
 };
 

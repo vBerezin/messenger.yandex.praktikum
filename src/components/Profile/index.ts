@@ -4,25 +4,32 @@ import { ProfileProps, ProfileState } from './types';
 
 import { Component } from '~modules/Component';
 import { ComponentProps } from '~modules/Component/types';
-
-import { FormUser } from '~components/FormUser';
-import { EVENTS } from '~common/scripts/events';
+import { FormAvatar } from '~components/FormAvatar';
 
 export class Profile extends Component<ProfileProps, ProfileState> {
-  form: FormUser;
+  #head;
+  #body;
+
+  private formAvatar: FormAvatar;
 
   constructor(props: ProfileProps & ComponentProps) {
-    super({ template, props });
-    this.form = new FormUser(props.form);
-    this.on(EVENTS.component.update, (state) => {
-      if (state.form) {
-        this.form.setState(state.form);
+    super({
+      template,
+      props,
+      state: {
+        form: props.form,
       }
     });
+    this.formAvatar = new FormAvatar();
   }
 
-  render() {
-    const formContainer = this.el.querySelector('.profile__form');
-    this.form.mount(formContainer);
+  created() {
+    this.#head = this.el.querySelector('.profile__head');
+    this.#body = this.el.querySelector('.profile__body');
+  }
+
+  mounted() {
+    this.formAvatar.mount(this.#head);
+    this.state.form.mount(this.#body);
   }
 }

@@ -1,10 +1,8 @@
-import { FormUserProps } from '~components/FormUser/types';
+import { ComponentInterface } from '~modules/Component/types';
 
 export type ProfileProps = {
   back: string,
-  form: FormUserProps
+  form: ComponentInterface
 };
 
-export type ProfileState = {
-  form: FormUserProps
-};
+export type ProfileState = Partial<ProfileProps>;

@@ -15,13 +15,15 @@ export interface ComponentInterface {
   readonly emit: Function;
   readonly props: ComponentProps;
   readonly emitter: EventEmitter;
-  templator: Templator;
-  el: Element;
-  container: Element;
-  state: ComponentState;
-  setState: Function;
-  getState: Function;
-  render: Function;
-  mount: Function;
-  unmount: Function;
+  readonly templator: Templator;
+  readonly el: Element;
+  readonly container: Element;
+  readonly state: ComponentState;
+  readonly setState: Function;
+  readonly getState: Function;
+  readonly mount: Function;
+  readonly unmount: Function;
+  created: Function;
+  mounted: Function;
+  unmounted: Function;
 }

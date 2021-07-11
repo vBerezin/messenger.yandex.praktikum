@@ -1,11 +1,11 @@
 import { App } from '~modules/App';
 
 type Fields = {
-  [ key: string ]: FormDataEntryValue,
+  [key: string]: FormDataEntryValue,
 }
 
 export function formSubmitHandler(event: Event) {
-  const { target } = event;
+  const {target} = event;
   const form = target instanceof HTMLFormElement ? target : undefined;
   const data = new FormData(form);
   const fields: Fields = Object.fromEntries(data);

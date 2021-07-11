@@ -11,12 +11,10 @@
     width: 64px;
     position: relative;
   }
-
   &__main {
     flex: 1 1 auto;
     padding: 60px;
   }
-
   &__back {
     display: flex;
     align-items: center;
@@ -30,7 +28,6 @@
     border-right: 1px solid #eaeaea;
     background: #fbfbfb;
   }
-
   &__back-icon {
     display: flex;
     align-items: center;
@@ -44,8 +41,10 @@
       max-height: 10px;
     }
   }
-
-  &__form {
+  &__head {
+    margin-bottom: 40px;
+  }
+  &__body {
     margin: 0 auto;
     max-width: 510px;
   }

@@ -1,19 +1,36 @@
 import './styles';
 import template from './template';
-
-import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
+import { FormSearchEvents } from './events';
 
 import { Component } from '~modules/Component';
 import { Validate } from '~modules/Validate';
-import { ComponentProps } from '~modules/Component/types';
+import { Users } from '~entities/Users';
+import { App } from '~modules/App';
 
 export class FormSearch extends Component {
-  constructor(props: ComponentProps) {
-    super({template, props});
+  #timer;
+
+  constructor() {
+    super({template});
+    this.#timer = null;
   }
 
-  render() {
-    this.el.addEventListener('submit', formSubmitHandler);
+  search(login) {
+    clearTimeout(this.#timer);
+    if (!login) {
+      return this.emit(FormSearchEvents.search, []);
+    }
+    this.#timer = setTimeout(() => {
+      Users
+        .search(login)
+        .then((data) => {
+          this.emit(FormSearchEvents.search, data);
+        })
+        .catch(App.error);
+    }, 200);
+  }
+
+  created() {
     const input = this.el.querySelector('input');
     input.addEventListener('focus', () => {
       this.el.classList.add('is-focus');
@@ -23,6 +40,9 @@ export class FormSearch extends Component {
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
     });
     input.addEventListener('input', () => {
+      const { value } = input;
+      input.value = value.replace(/\s/g,'');
+      this.search(input.value);
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
     });
   }
