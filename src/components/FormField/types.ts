@@ -12,6 +12,6 @@ export type FormFieldProps = ComponentProps & {
   validate?: (value: string | number) => string | string[] | null,
 };
 
-export type FormFieldState = Omit<FormFieldProps, 'name'> & {
+export type FormFieldState = Omit<FormFieldProps, 'name' | 'validate'> & {
   errors?: string | string[] | null,
 }

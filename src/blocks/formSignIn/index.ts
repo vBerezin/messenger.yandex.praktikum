@@ -2,8 +2,7 @@ import { FormAuth } from '~components/FormAuth';
 import { Validate } from '~modules/Validate';
 import { ROUTES } from '~common/scripts/routes';
 import { Router } from '~modules/Router';
-import { App } from '~modules/App';
-import { Users } from '~entities/Users';
+import { UserProfile } from '~entities/UserProfile';
 
 export const formSignIn = new FormAuth({
   title: 'Вход',
@@ -50,7 +49,7 @@ export const formSignIn = new FormAuth({
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    Users
+    UserProfile
       .signIn(data)
       .then(() => {
         Router.go(ROUTES.messenger);
@@ -60,7 +59,6 @@ export const formSignIn = new FormAuth({
         this.setState({
           errors: [response.reason]
         });
-        App.error(xhr);
       });
   },
 });

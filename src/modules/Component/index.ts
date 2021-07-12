@@ -1,22 +1,23 @@
-import {EventEmitter} from 'events';
-import {Templator} from '~modules/Templator';
-import {ComponentEvents } from './events';
-import {isEqual} from '~common/scripts/utils/isEqual';
+import {ComponentEvents} from './events';
 import {ComponentProps, ComponentState, ComponentInterface} from './types';
+import {isEqual} from '~common/scripts/utils/isEqual';
+import {Events} from "~modules/Events";
+import {Templator} from '~modules/Templator';
 
-export abstract class Component<TProps = ComponentProps, TState = ComponentState> implements ComponentInterface {
-    readonly on;
-    readonly off;
-    readonly emit;
-    readonly props;
-    private emitter;
+
+export abstract class Component<TProps = ComponentProps, TState = ComponentState, TEvents = ComponentEvents>
+    extends Events<TEvents & ComponentEvents>
+    implements ComponentInterface {
+
     private templator;
     private container;
+
+    readonly props: TProps & ComponentProps;
 
     #el;
     #state;
 
-    #render() {
+    #compile() {
         this.templator.data = {...this.props, ...this.state};
         return this.templator.compile();
     };
@@ -26,28 +27,24 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
         props?: TProps & ComponentProps,
         state?: TState & ComponentState,
     }) {
-        this.emitter = new EventEmitter();
-        this.on = this.emitter.on;
-        this.emit = this.emitter.emit;
-        this.off = this.emitter.off;
+        super();
         this.templator = new Templator({compiler: template});
         this.props = props;
         this.#state = {...props, ...state};
-        this.on(ComponentEvents.created, this.created);
-        this.on(ComponentEvents.mounted, this.mounted);
-        this.on(ComponentEvents.unmounted, this.unmounted);
+        this.#el = this.#compile();
+        this.on(ComponentEvents.created, this.created.bind(this));
+        this.on(ComponentEvents.updated, this.updated.bind(this));
+        this.on(ComponentEvents.mounted, this.mounted.bind(this));
+        this.on(ComponentEvents.unmounted, this.unmounted.bind(this));
+        this.emit(ComponentEvents.created);
     }
 
-    created() {
-    }
+    created() {}
+    updated() {}
+    mounted() {}
+    unmounted() {}
 
-    mounted() {
-    }
-
-    unmounted() {
-    }
-
-    get state() {
+    get state(): TState & ComponentState {
         return this.getState();
     }
 
@@ -59,28 +56,25 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
         return this.#state;
     }
 
-    setState(state: TState): ThisType<this> {
+    setState(state: TState & ComponentState): ThisType<this> {
         const newState = {...this.state, ...state};
         if (isEqual(this.state, newState)) {
             return this;
         }
         this.#state = newState;
         const oldEl = this.el;
-        const newEl = this.#render();
-        this.#el = newEl;
+        this.#el = this.#compile();
         this.emit(ComponentEvents.created);
-        if (oldEl && this.container === oldEl.parentNode) {
-            this.container.replaceChild(newEl, oldEl);
-            this.emit(ComponentEvents.mounted);
+        if (oldEl) {
+            if (this.container) {
+                this.container.replaceChild(this.#el, oldEl);
+            }
         }
+        this.emit(ComponentEvents.updated);
         return this;
     }
 
     mount(container: Element): ThisType<this> {
-        if (!this.el) {
-            this.#el = this.#render();
-            this.emit(ComponentEvents.created);
-        }
         container.appendChild(this.el);
         this.container = container;
         this.emit(ComponentEvents.mounted);
@@ -90,6 +84,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
     unmount(): ThisType<this> {
         if (this.el.parentNode) {
             this.el.parentNode.removeChild(this.el);
+            this.container = null;
             this.emit(ComponentEvents.unmounted);
         }
         return this;

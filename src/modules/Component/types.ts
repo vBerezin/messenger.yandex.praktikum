@@ -23,7 +23,8 @@ export interface ComponentInterface {
   readonly getState: Function;
   readonly mount: Function;
   readonly unmount: Function;
-  created: Function;
+  updated: Function;
   mounted: Function;
   unmounted: Function;
+  created: Function;
 }

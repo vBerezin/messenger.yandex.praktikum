@@ -15,10 +15,6 @@ export class FormAvatar extends Component<null, FormAvatarState> {
     super({
       template,
       props,
-      state: {
-        title: Store.state.user.display_name,
-        image: Store.state.user.avatar,
-      }
     });
     this.popup = new PopupFile({
       form: {
@@ -35,10 +31,10 @@ export class FormAvatar extends Component<null, FormAvatarState> {
         },
       }
     });
-    Store.subscribe('user', (state, value) => {
+    Store.on(Store.events.profileUpdate, (data) => {
       this.setState({
-        image: value.avatar,
-        title: value['display_name']
+        image: data.avatar,
+        title: data['display_name'],
       });
     });
   }

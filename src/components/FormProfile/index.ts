@@ -7,12 +7,12 @@ import { Component } from '~modules/Component';
 import { FormField } from '~components/FormField';
 import { Button } from '~components/Button';
 import { App } from '~modules/App';
-import { AuthController } from '~controllers/AuthController';
 import { Validate } from '~modules/Validate';
 import { Users } from '~entities/Users';
 import { FormFieldProps } from '~components/FormField/types';
 import { Router } from '~modules/Router';
 import { ROUTES } from '~common/scripts/routes';
+import { UserProfile } from '~entities/UserProfile';
 
 const KEYS = [
   {
@@ -35,14 +35,12 @@ const KEYS = [
     name: 'first_name',
     id: 'formProfile[first_name]',
     type: 'text',
-    validate: Validate.field.required,
   },
   {
     label: 'Фамилия',
     name: 'second_name',
     id: 'formProfile[second_name]',
     type: 'text',
-    validate: Validate.field.required,
   },
   {
     label: 'Имя в чате',
@@ -61,8 +59,6 @@ const KEYS = [
 ];
 
 export class FormProfile extends Component<null, FormProfileState> {
-  #fieldSet;
-  #footer;
   private readonly button: Button;
   private fields: FormField[];
   private keys: FormFieldProps[];
@@ -81,7 +77,7 @@ export class FormProfile extends Component<null, FormProfileState> {
   }
 
   async getFields() {
-    const data = await AuthController.identify();
+    const data = await UserProfile.identify();
     if (!this.fields) {
       this.fields = this.keys.map((key) => {
         return new FormField({
@@ -115,8 +111,8 @@ export class FormProfile extends Component<null, FormProfileState> {
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    Users
-      .profileUpdate(JSON.stringify(data))
+    UserProfile
+      .update(JSON.stringify(data))
       .then(() => {
         Router.go(ROUTES.user.profile);
       })
@@ -124,8 +120,6 @@ export class FormProfile extends Component<null, FormProfileState> {
   }
 
   created() {
-    this.#fieldSet = this.el.querySelector('fieldset');
-    this.#footer = this.el.querySelector('.form-profile__footer');
     this.el.addEventListener('submit', this.onSubmit.bind(this));
     this.el.addEventListener('change', () => {
       this.fields.forEach(field => field.validate());
@@ -136,8 +130,10 @@ export class FormProfile extends Component<null, FormProfileState> {
     this
       .getFields()
       .then((fields) => {
-        fields.forEach(field => field.mount(this.#fieldSet));
-        this.button.mount(this.#footer);
+        const fieldSet = this.el.querySelector('fieldset');
+        const footer = this.el.querySelector('.form-profile__footer');
+        fields.forEach(field => field.mount(fieldSet));
+        this.button.mount(footer);
       })
       .catch(App.error);
   }

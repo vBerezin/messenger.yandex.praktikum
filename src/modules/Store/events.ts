@@ -1,3 +1,3 @@
 export enum StoreEvents {
-  update = 'store:update',
+  userProfileUpdate = 'store.user.profile:update',
 }

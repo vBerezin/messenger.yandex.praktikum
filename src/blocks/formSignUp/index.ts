@@ -2,8 +2,7 @@ import { FormAuth } from '~components/FormAuth';
 import { Validate } from '~modules/Validate';
 import { ROUTES } from '~common/scripts/routes';
 import { Router } from '~modules/Router';
-import { App } from '~modules/App';
-import { Users } from '~entities/Users';
+import { UserProfile } from '~entities/UserProfile';
 
 export const formSignUp = new FormAuth({
   title: 'Регистрация',
@@ -13,7 +12,6 @@ export const formSignUp = new FormAuth({
       id: 'form.signup[email]',
       name: 'email',
       type: 'email',
-      required: true,
       validate: Validate.field.email,
     },
     {
@@ -29,16 +27,12 @@ export const formSignUp = new FormAuth({
       id: 'form.signup[first_name]',
       name: 'first_name',
       type: 'text',
-      required: true,
-      validate: Validate.field.required,
     },
     {
       label: 'Фамилия',
       id: 'form.signup[second_name]',
       name: 'second_name',
       type: 'text',
-      required: true,
-      validate: Validate.field.required,
     },
     {
       label: 'Телефон',
@@ -63,7 +57,7 @@ export const formSignUp = new FormAuth({
       type: 'password',
       required: true,
       validate: function (value) {
-        const form = this.input.form;
+        const form = this.el.closest('form');
         const password = form.password.value;
         return value === password ? null : 'Пароли не совпадают';
       }
@@ -90,7 +84,7 @@ export const formSignUp = new FormAuth({
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    Users
+    UserProfile
       .signUp(data)
       .then(() => {
         Router.go(ROUTES.messenger);
@@ -100,7 +94,6 @@ export const formSignUp = new FormAuth({
         this.setState({
           errors: [response.reason]
         });
-        App.error(xhr);
       });
   }
 });

@@ -2,9 +2,8 @@ import './styles';
 import template from './template';
 
 import { Component } from '~modules/Component';
-import { AuthController } from '~controllers/AuthController';
-import { App } from '~modules/App';
 import { Store } from '~modules/Store';
+import { UserProfile } from '~entities/UserProfile';
 
 const KEYS = [
   {
@@ -41,15 +40,14 @@ export class ProfileInfo extends Component {
         fields: KEYS
       }
     });
-    AuthController
+    UserProfile
       .identify()
       .then((data) => {
         this.data = data;
-      })
-      .catch(App.error);
+      });
     Store
-      .subscribe('user', (state, value) => {
-        this.data = value;
+      .on(Store.events.userProfileUpdate, (data) => {
+        this.data = data;
       });
   }
 

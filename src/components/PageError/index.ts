@@ -7,8 +7,6 @@ import { Button } from '~components/Button';
 import { PageErrorProps, PageErrorState } from '~components/PageError/types';
 
 export class PageError extends Component<PageErrorProps, PageErrorState> {
-  #footer;
-
   private readonly button: Button;
 
   constructor(props: PageErrorProps) {
@@ -18,13 +16,10 @@ export class PageError extends Component<PageErrorProps, PageErrorState> {
     }
   }
 
-  created(): void {
-    this.#footer = this.el.querySelector('.page-error__footer');
-  }
-
   mounted(): void {
     if (this.button) {
-      this.button.mount(this.#footer);
+      const footer = this.el.querySelector('.page-error__footer');
+      this.button.mount(footer);
     }
   }
 }

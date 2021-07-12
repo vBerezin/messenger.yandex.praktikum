@@ -1,15 +1,14 @@
 import './styles';
 import template from './template';
 import { FormFileState, FormFileProps } from './types';
-
-import { formSubmitHandler } from '~common/scripts/utils/formSubmitHandler';
+import { FormFileEvents } from './events';
 
 import { Component } from '~modules/Component';
 
 import { Button } from '~components/Button';
 
-export class FormFile extends Component<FormFileProps, FormFileState> {
-  #footer;
+export class FormFile extends Component<FormFileProps, FormFileState, FormFileEvents> {
+  static events = FormFileEvents;
 
   private button: Button;
 
@@ -35,7 +34,6 @@ export class FormFile extends Component<FormFileProps, FormFileState> {
   }
 
   created() {
-    this.#footer = this.el.querySelector('.form-file__footer');
     const input = this.el.querySelector('[type="file"]');
     this.el.addEventListener('change', () => {
       const file = input.files[0];
@@ -45,16 +43,17 @@ export class FormFile extends Component<FormFileProps, FormFileState> {
           name: file.name
         },
       });
-      this.emit('change', this.state);
+      this.emit(FormFile.events.change, this.state);
     });
     this.el.addEventListener('submit', (event) => {
       return this.props.submit.call(this, event, this.state);
     });
   }
 
-  mounted() {
+  updated() {
     if (this.state.value) {
-      this.button.mount(this.#footer);
+      const footer = this.el.querySelector('.form-file__footer');
+      this.button.mount(footer);
     }
   }
 }

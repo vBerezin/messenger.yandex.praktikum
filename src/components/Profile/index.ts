@@ -7,9 +7,6 @@ import { ComponentProps } from '~modules/Component/types';
 import { FormAvatar } from '~components/FormAvatar';
 
 export class Profile extends Component<ProfileProps, ProfileState> {
-  #head;
-  #body;
-
   private formAvatar: FormAvatar;
 
   constructor(props: ProfileProps & ComponentProps) {
@@ -23,13 +20,10 @@ export class Profile extends Component<ProfileProps, ProfileState> {
     this.formAvatar = new FormAvatar();
   }
 
-  created() {
-    this.#head = this.el.querySelector('.profile__head');
-    this.#body = this.el.querySelector('.profile__body');
-  }
-
   mounted() {
-    this.formAvatar.mount(this.#head);
-    this.state.form.mount(this.#body);
+    const head = this.el.querySelector('.profile__head');
+    const body = this.el.querySelector('.profile__body');
+    this.formAvatar.mount(head);
+    this.state.form.mount(body);
   }
 }

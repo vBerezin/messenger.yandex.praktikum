@@ -7,14 +7,12 @@ import { Component } from '~modules/Component';
 import { FormField } from '~components/FormField';
 import { Button } from '~components/Button';
 import { Validate } from '~modules/Validate';
-import { Users } from '~entities/Users';
 import { FormFieldProps } from '~components/FormField/types';
 import { Router } from '~modules/Router';
 import { ROUTES } from '~common/scripts/routes';
+import { UserProfile } from '~entities/UserProfile';
 
 export class FormPassword extends Component<null, FormPasswordState> {
-  #fieldSet;
-  #footer;
   private readonly button: Button;
   private fields: FormField[];
   private keys: FormFieldProps[];
@@ -82,7 +80,7 @@ export class FormPassword extends Component<null, FormPasswordState> {
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    Users
+    UserProfile
       .passwordChange(JSON.stringify(data))
       .then(() => {
         Router.go(ROUTES.user.profile);
@@ -97,8 +95,6 @@ export class FormPassword extends Component<null, FormPasswordState> {
   }
 
   created() {
-    this.#fieldSet = this.el.querySelector('fieldset');
-    this.#footer = this.el.querySelector('.form-password__footer');
     this.el.addEventListener('submit', this.onSubmit.bind(this));
     this.el.addEventListener('change', () => {
       this.fields.forEach(field => field.validate());
@@ -106,7 +102,9 @@ export class FormPassword extends Component<null, FormPasswordState> {
   }
 
   mounted() {
-    this.fields.forEach(field => field.mount(this.#fieldSet));
-    this.button.mount(this.#footer);
+    const fieldSet = this.el.querySelector('fieldset');
+    const footer = this.el.querySelector('.form-password__footer');
+    this.fields.forEach(field => field.mount(fieldSet));
+    this.button.mount(footer);
   }
 }

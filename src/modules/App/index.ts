@@ -1,30 +1,29 @@
-import { EventEmitter } from 'events';
 import { ComponentInterface } from '~modules/Component/types';
 import { AppEvents } from './events';
+import { Events } from '~modules/Events';
 
-const el = document.querySelector('#app');
-const emitter = new EventEmitter();
-let current = null;
+class Application extends Events<AppEvents> {
 
-const App = {
-  on: emitter.on,
-  off: emitter.off,
-  emit: emitter.emit,
-  error(error, data?) {
-    App.emit(AppEvents.error, {error, ...data});
-  },
+  private current: ComponentInterface | null = null;
+  private readonly el = document.querySelector('#app');
+
+  constructor() {
+    super();
+  }
+
   init(component: ComponentInterface, title: string = ''): void {
-    if (current) {
-      current.unmount();
+    if (this.current) {
+      this.current.unmount();
     }
-    if (el) {
-      el.textContent = '';
-      component.mount(el);
-      current = component;
-    }
+    this.el.textContent = '';
+    component.mount(this.el);
+    this.current = component;
     document.title = title;
     App.emit(AppEvents.init, component);
   }
-};
+  error(error, data?) {
+    App.emit(AppEvents.error, {error, ...data});
+  }
+}
 
-export { App };
+export const App = new Application();

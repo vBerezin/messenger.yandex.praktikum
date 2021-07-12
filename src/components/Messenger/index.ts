@@ -8,7 +8,6 @@ import { ComponentProps } from '~modules/Component/types';
 import { ChatList } from '~components/ChatList';
 import { Dialog } from '~components/Dialog';
 import { FormSearch } from '~components/FormSearch';
-import { FormSearchEvents } from '~components/FormSearch/events';
 
 export class Messenger extends Component<MessengerProps> {
   private search: FormSearch;
@@ -20,7 +19,7 @@ export class Messenger extends Component<MessengerProps> {
     this.dialog = new Dialog();
     this.chats = new ChatList();
     this.search = new FormSearch();
-    this.search.on(FormSearchEvents.search, (data) => {
+    this.search.on(FormSearch.events.search, (data) => {
       this.chats.setState({
         chats: data.map((user) => {
           return {

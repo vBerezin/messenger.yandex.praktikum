@@ -7,11 +7,13 @@ import { Validate } from '~modules/Validate';
 import { Users } from '~entities/Users';
 import { App } from '~modules/App';
 
-export class FormSearch extends Component {
+export class FormSearch extends Component<null, null, FormSearchEvents> {
   #timer;
 
+  static events = FormSearchEvents;
+
   constructor() {
-    super({template});
+    super({ template });
     this.#timer = null;
   }
 
@@ -30,7 +32,7 @@ export class FormSearch extends Component {
     }, 200);
   }
 
-  created() {
+  bindEvents() {
     const input = this.el.querySelector('input');
     input.addEventListener('focus', () => {
       this.el.classList.add('is-focus');
@@ -45,5 +47,12 @@ export class FormSearch extends Component {
       this.search(input.value);
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
     });
+  }
+
+  created() {
+    this.bindEvents();
+  }
+  updated() {
+    this.bindEvents();
   }
 }

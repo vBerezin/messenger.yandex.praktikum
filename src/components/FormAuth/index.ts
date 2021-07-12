@@ -9,9 +9,6 @@ import { Button } from '~components/Button';
 import { FormField } from '~components/FormField';
 
 export class FormAuth extends Component<FormAuthProps, FormAuthState> {
-  #fieldSet;
-  #footer;
-
   private readonly fields: FormField[];
   private readonly buttons: Button[];
 
@@ -28,7 +25,6 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
 
   onSubmit(event) {
     const fields = this.fields.filter((field) => {
-      field.validate();
       return !field.valid && field.props.required;
     });
     if (fields.length) {
@@ -39,8 +35,6 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
   }
 
   created() {
-    this.#fieldSet = this.el.querySelector('fieldset');
-    this.#footer = this.el.querySelector('.form-auth__footer');
     this.el.addEventListener('submit', this.onSubmit.bind(this));
     this.el.addEventListener('change', () => {
       this.fields.forEach(field => field.validate());
@@ -48,7 +42,9 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
   }
 
   mounted() {
-    this.fields.forEach(field => field.mount(this.#fieldSet));
-    this.buttons.forEach(button => button.mount(this.#footer));
+    const fieldSet = this.el.querySelector('fieldset');
+    const footer = this.el.querySelector('.form-auth__footer');
+    this.fields.forEach(field => field.mount(fieldSet));
+    this.buttons.forEach(button => button.mount(footer));
   }
 }

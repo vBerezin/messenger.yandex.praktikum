@@ -20,22 +20,17 @@ class AppRouter {
     this.off = this.emitter.off;
     this.emit = this.emitter.emit;
     // window.addEventListener('hashchange', () => this.start());
+    //documentReady(() => this.start());
     window.onpopstate = () => this.start();
-    documentReady(() => this.start());
+  }
+
+  get url(): string {
+    const {pathname, hash} = window.location;
+    return `${pathname}${hash}`;
   }
 
   start(): this {
-    const {pathname, hash, search} = window.location;
-    const path = `${pathname}${hash}`;
-    if (search) {
-      const params = new URLSearchParams(search.slice(1));
-      const data = {};
-      params.forEach((key, value) => {
-        data[key] = value;
-      });
-      return this.go(path, data);
-    }
-    return this.go(path);
+    return this.go(this.url);
   }
 
   go(route: string, data?): this {
@@ -46,11 +41,14 @@ class AppRouter {
     if (onRoute) {
       try {
         this.currentRoute = route;
-        const state = data ? JSON.stringify(data) : '';
+        const state = {
+          prev: this.url,
+          data: data ? JSON.stringify(data) : ''
+        };
         this.history.pushState(state, '', route);
         return onRoute(data);
       } catch (error) {
-        this.emit(RouterEvents.error, {error});
+        this.emit(RouterEvents.error, {error, route});
         return this;
       }
     }
