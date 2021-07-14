@@ -1,14 +1,13 @@
 import { ButtonProps } from '~components/Button/types';
 import { FormFieldProps } from '~components/FormField/types';
-import { ComponentProps, ComponentState } from '~modules/Component/types';
 
-export type FormAuthProps = ComponentProps & {
+export type FormAuthProps = {
   title: string,
   fields: FormFieldProps[],
   buttons: ButtonProps[],
   submit: Function
 };
 
-export type FormAuthState = ComponentState & {
+export type FormAuthState = {
   errors?: string[],
 };

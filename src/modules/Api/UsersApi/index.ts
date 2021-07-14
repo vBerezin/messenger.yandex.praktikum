@@ -20,7 +20,7 @@ export const UsersApi = {
   },
   async profile(data: UserUpdateRequest): Promise<UserResponse> {
     const request = await HTTP.put(`${API_URL}/profile`, {
-      data,
+      data: JSON.stringify(data),
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json'
@@ -45,9 +45,9 @@ export const UsersApi = {
     });
     return JSON.parse(request.response);
   },
-  async search(login: findUserRequest): Promise<UserResponse> {
+  async search(data: findUserRequest): Promise<UserResponse[]> {
     const request = await HTTP.post(`${API_URL}/search`, {
-      data: JSON.stringify({ login }),
+      data: JSON.stringify(data),
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json'

@@ -19,16 +19,11 @@ export class Messenger extends Component<MessengerProps> {
     this.dialog = new Dialog();
     this.chats = new ChatList();
     this.search = new FormSearch();
-    this.search.on(FormSearch.events.search, (data) => {
-      this.chats.setState({
-        chats: data.map((user) => {
-          return {
-            id: user.id,
-            title: user['login'],
-            image: user['avatar'],
-          }
-        })
-      });
+    this.search.on(this.search.events.search, (value) => {
+      this.chats.search(value);
+    });
+    this.chats.on(this.chats.events.chatSelected, (chatData) => {
+      this.dialog.openChat(chatData);
     });
   }
 

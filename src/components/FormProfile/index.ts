@@ -112,7 +112,7 @@ export class FormProfile extends Component<null, FormProfileState> {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     UserProfile
-      .update(JSON.stringify(data))
+      .update(data)
       .then(() => {
         Router.go(ROUTES.user.profile);
       })

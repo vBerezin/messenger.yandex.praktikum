@@ -46,7 +46,7 @@ export class ProfileInfo extends Component {
         this.data = data;
       });
     Store
-      .on(Store.events.userProfileUpdate, (data) => {
+      .on(Store.events.profileUpdate, (data) => {
         this.data = data;
       });
   }

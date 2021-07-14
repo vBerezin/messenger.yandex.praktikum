@@ -25,6 +25,7 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
 
   onSubmit(event) {
     const fields = this.fields.filter((field) => {
+      field.validate();
       return !field.valid && field.props.required;
     });
     if (fields.length) {

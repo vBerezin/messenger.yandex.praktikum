@@ -1,9 +1,9 @@
 import { Request } from '~modules/Request';
 import { RequestMethods } from '~modules/Request/types';
-import { HTTPRequestProps } from './types';
+import { HTTPGetRequestProps, HTTPRequestProps } from './types';
 
 export const HTTP = {
-  get(url: string, options?: HTTPRequestProps) {
+  get(url: string, options?: HTTPGetRequestProps) {
     let params = null;
     if (options?.data) {
       const {data} = options;

@@ -1,20 +1,23 @@
 import { EventEmitter } from 'events';
+import { EventsCallback, EventsValues } from './types';
 
+// TODO: типизация агрументов в коллбеках и emit
 export abstract class Events<TEvents> {
   private readonly emitter = new EventEmitter();
+  public readonly events: TEvents;
 
-  on(event: keyof Record<TEvents, string>, callback: Function): this {
-    this.emitter.on(event, callback);
+  on(event: EventsValues<TEvents>, callback: EventsCallback): this {
+    this.emitter.on(event, (...args) => callback(...args));
     return this;
   }
 
-  off(event: keyof Record<TEvents, string>, callback: Function): this {
+  off(event: EventsValues<TEvents>, callback: EventsCallback): this {
     this.emitter.off(event, callback);
     return this;
   }
 
-  emit(event: keyof Record<TEvents, string>, data?): this {
-    this.emitter.emit(event, data);
+  emit(event: EventsValues<TEvents>, ...args): this {
+    this.emitter.emit(event, ...args);
     return this;
   }
 }

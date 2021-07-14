@@ -1,10 +1,11 @@
 import { UsersApi } from '~modules/Api/UsersApi';
+import { findUserRequest } from '~modules/Api/UsersApi/types';
 
 export const Users = {
   async getUser(id: number) {
     return await UsersApi.getUser(id);
   },
-  async search(login) {
-    return UsersApi.search(login);
+  async search(data: findUserRequest) {
+    return UsersApi.search(data);
   }
 };

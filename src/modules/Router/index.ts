@@ -1,27 +1,18 @@
-import { documentReady } from '~common/scripts/utils/documentReady';
-import { EventEmitter } from 'events';
-import { RouterEvents } from './events';
+import { RouterEvents } from './types';
+import {Events} from "~modules/Events";
+import {documentReady} from "~common/scripts/utils/documentReady";
 
-class AppRouter {
-  on;
-  off;
-  emit;
-  private emitter: EventEmitter;
+class AppRouter extends Events<RouterEvents>{
   private history: History;
   private currentRoute: string;
   private routes: Map<string, Function>;
+  events = RouterEvents;
 
   constructor() {
-    this.emitter = new EventEmitter();
+    super();
     this.history = window.history;
     this.routes = new Map();
     this.currentRoute = '';
-    this.on = this.emitter.on;
-    this.off = this.emitter.off;
-    this.emit = this.emitter.emit;
-    // window.addEventListener('hashchange', () => this.start());
-    //documentReady(() => this.start());
-    window.onpopstate = () => this.start();
   }
 
   get url(): string {
@@ -29,11 +20,7 @@ class AppRouter {
     return `${pathname}${hash}`;
   }
 
-  start(): this {
-    return this.go(this.url);
-  }
-
-  go(route: string, data?): this {
+  private init(route: string = this.url, data?, state?) {
     if (this.currentRoute === route) {
       return this;
     }
@@ -41,11 +28,9 @@ class AppRouter {
     if (onRoute) {
       try {
         this.currentRoute = route;
-        const state = {
-          prev: this.url,
-          data: data ? JSON.stringify(data) : ''
-        };
-        this.history.pushState(state, '', route);
+        if (state) {
+          this.history.pushState(state, '', route);
+        }
         return onRoute(data);
       } catch (error) {
         this.emit(RouterEvents.error, {error, route});
@@ -57,6 +42,19 @@ class AppRouter {
       error: new Error(`Route "${route}" not found`),
     });
     return this;
+  }
+
+  start() {
+    window.onpopstate = (event) => this.init();
+    documentReady(() => this.init());
+  }
+
+  go(route: string, data?): this {
+    const state = {
+      prev: this.url,
+      data: data ? JSON.stringify(data) : ''
+    };
+    return this.init(route, data, state);
   }
 
   use(routes: string | string[], onRoute: Function): this {

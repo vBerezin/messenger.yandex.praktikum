@@ -8,7 +8,7 @@ export enum RequestMethods {
 export type RequestOptions = {
   url: string,
   method: RequestMethods,
-  data?: any,
+  data?: Object | string | FormData,
   timeout?: number,
   withCredentials?: boolean,
   headers?: {

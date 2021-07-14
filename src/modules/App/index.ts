@@ -1,9 +1,9 @@
 import { ComponentInterface } from '~modules/Component/types';
-import { AppEvents } from './events';
+import { AppEvents } from './types';
 import { Events } from '~modules/Events';
 
 class Application extends Events<AppEvents> {
-
+  events = AppEvents;
   private current: ComponentInterface | null = null;
   private readonly el = document.querySelector('#app');
 

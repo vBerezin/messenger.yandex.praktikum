@@ -1,25 +1,29 @@
-import {ComponentEvents} from './events';
-import {ComponentProps, ComponentState, ComponentInterface} from './types';
+import {ComponentProps, ComponentState, ComponentInterface, ComponentEvents} from './types';
 import {isEqual} from '~common/scripts/utils/isEqual';
 import {Events} from "~modules/Events";
 import {Templator} from '~modules/Templator';
-
+import {App} from "~modules/App";
 
 export abstract class Component<TProps = ComponentProps, TState = ComponentState, TEvents = ComponentEvents>
-    extends Events<TEvents & ComponentEvents>
+    extends Events<TEvents | ComponentEvents>
     implements ComponentInterface {
 
     private templator;
     private container;
 
-    readonly props: TProps & ComponentProps;
+    events: TEvents | ComponentEvents = ComponentEvents;
+    public readonly props: TProps & ComponentProps;
 
     #el;
     #state;
 
     #compile() {
-        this.templator.data = {...this.props, ...this.state};
-        return this.templator.compile();
+        try {
+            this.templator.data = {...this.props, ...this.state};
+            return this.templator.compile();
+        } catch (error) {
+            return App.error(error);
+        }
     };
 
     protected constructor({template, props = {}, state = {}}: {
@@ -32,7 +36,10 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
         this.props = props;
         this.#state = {...props, ...state};
         this.#el = this.#compile();
-        this.on(ComponentEvents.created, this.created.bind(this));
+        this.on(ComponentEvents.created, () => {
+            this.bindEvents();
+            this.created();
+        });
         this.on(ComponentEvents.updated, this.updated.bind(this));
         this.on(ComponentEvents.mounted, this.mounted.bind(this));
         this.on(ComponentEvents.unmounted, this.unmounted.bind(this));
@@ -52,11 +59,24 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
         return this.#el;
     }
 
+    private bindEvents() {
+        // TODO: Component addEventListener`ы
+        this.el.addEventListener('click', (event) => {
+            const target = event.target?.closest('[data-click]');
+            if (target) {
+                const action = target.dataset.click;
+                if (this[action]) {
+                    return this[action](event, target);
+                }
+            }
+        });
+    }
+
     getState() {
         return this.#state;
     }
 
-    setState(state: TState & ComponentState): ThisType<this> {
+    setState(state: Partial<TState & ComponentState>): ThisType<this> {
         const newState = {...this.state, ...state};
         if (isEqual(this.state, newState)) {
             return this;
@@ -68,6 +88,7 @@ export abstract class Component<TProps = ComponentProps, TState = ComponentState
         if (oldEl) {
             if (this.container) {
                 this.container.replaceChild(this.#el, oldEl);
+                this.emit(ComponentEvents.mounted);
             }
         }
         this.emit(ComponentEvents.updated);

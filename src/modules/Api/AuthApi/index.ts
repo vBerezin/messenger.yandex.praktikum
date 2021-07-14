@@ -11,7 +11,7 @@ export const AuthApi = {
             data: JSON.stringify(data),
             withCredentials: true,
             headers: {
-                'content-type': 'application/json',
+                'Content-Type': 'application/json',
             },
         });
         return JSON.parse(request.response);
@@ -21,7 +21,7 @@ export const AuthApi = {
             data: JSON.stringify(data),
             withCredentials: true,
             headers: {
-                'content-type': 'application/json',
+                'Content-Type': 'application/json',
             },
         });
     },

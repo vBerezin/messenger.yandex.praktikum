@@ -7,22 +7,23 @@ import { ComponentProps } from '~modules/Component/types';
 
 export class FormField extends Component<FormFieldProps, FormFieldState> {
   input: HTMLInputElement;
-  private value: string;
+  value: string;
 
   constructor(props: FormFieldProps & ComponentProps) {
-    super({template, props});
+    super({
+      template,
+      props,
+    });
   }
 
   get valid() {
-    return this.state.errors;
+    return !this.state.errors;
   }
 
   validate() {
-    const errors = this.props.validate ? this.props.validate.call(this, this.value) : null;
-    this.setState({
-      errors,
-      value: this.value,
-    });
+    const input = this.el.querySelector('input');
+    const errors = this.props.validate ? this.props.validate.call(this, input.value) : null;
+    this.setState({ errors, value: input?.value });
   }
 
   created() {
@@ -37,9 +38,7 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
       this.el.classList.remove('is-focus');
     });
     input.addEventListener('change', () => {
-      this.value = input.value;
       return this.validate();
     });
-    this.input = input;
   }
 }

@@ -1,22 +1,21 @@
 .dialog
-	if (data.chat && data.messages)
-		if (data.chat)
-			.dialog__head
-				.dialog__user
-					.dialog__user-image
-						img(src=data.chat.image alt=data.chat.title)
-					.dialog__user-title #{data.chat.title}
-				button.dialog__user-actions
-					img(src="/images/icons/actions.svg")
-		if (data.messages)
-			.dialog__body
-				.dialog__messages
-			.dialog__footer
-				button.dialog__attach
-					img(src="/images/icons/attach.svg")
-				form(method="POST" action="?send" autocomplete="off").dialog__form
-					input(type="text" name="message" placeholder="Сообщение").dialog__form-input
-					button(type="submit" title="Отправить").dialog__form-submit
-						img(src="/images/icons/message-send.svg")
+	if (data.chat)
+		.dialog__head
+			.dialog__user
+				.dialog__user-image
+					if (data.chat.image)
+						img(src=`https://ya-praktikum.tech/api/v2/resources${data.chat.image}`)
+				.dialog__user-title #{data.chat.title}
+			button.dialog__user-actions
+				img(src="/images/icons/actions.svg")
+		.dialog__body
+			.dialog__messages
+		.dialog__footer
+			button.dialog__attach
+				img(src="/images/icons/attach.svg")
+			form(method="POST" action="?send" autocomplete="off").dialog__form
+				input(type="text" name="message" placeholder="Сообщение").dialog__form-input
+				button(type="submit" title="Отправить").dialog__form-submit
+					img(src="/images/icons/message-send.svg")
 	else
 		h3.dialog__title-empty Выберите чат чтобы отправить сообщение

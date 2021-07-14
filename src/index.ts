@@ -11,16 +11,15 @@ import { page500 } from '~blocks/page500';
 import { page404 } from '~blocks/page404';
 import { pageProfile } from '~blocks/pageProfile';
 import { pageMessenger } from '~blocks/pageMessenger';
-import { AppEvents } from '~modules/App/events';
 import { UserProfile } from '~entities/UserProfile';
 
 Breakpoints.onchange((point) => console.info(`breakpoint: ${point}`));
-App.on(AppEvents.error, ({ error }) => {
+App.on(App.events.error, ({ error }) => {
   page500.setState({
     text: error,
   });
   console.error(error);
-  //App.init(page500, 'Внутренняя ошибка');
+  App.init(page500, 'Внутренняя ошибка');
 });
 
 (async () => {
@@ -42,8 +41,7 @@ App.on(AppEvents.error, ({ error }) => {
       App.init(pageMessenger, 'Мессенджер');
     })
     .use(ROUTES.user.profile, () => {
-      const state = Store.getState();
-      const userName = state.user ? state.user.profile.login : '';
+      const userName = Store.state.profile?.login;
       App.init(pageProfile.info(), `Профиль пользователя ${userName}`);
     })
     .use(ROUTES.user.edit, () => {
@@ -57,7 +55,10 @@ App.on(AppEvents.error, ({ error }) => {
         text: error,
       });
       console.error(error);
-      //return App.init(page404, 'Ошибка 404');
+      return App.init(page404, 'Ошибка 404');
     })
     .start();
+   Router.start();
+   Router.start();
+   Router.start();
 })();

@@ -1,6 +1,4 @@
-import { ComponentProps } from '~modules/Component/types';
-
-export type FormFieldProps = ComponentProps & {
+export type FormFieldProps = {
   name: string,
   label?: string,
   type?: string | 'text' | 'email' | 'number' | 'password' | 'tel',

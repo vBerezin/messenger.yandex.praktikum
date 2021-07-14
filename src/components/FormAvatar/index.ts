@@ -5,8 +5,8 @@ import { FormAvatarState } from './types';
 import { Component } from '~modules/Component';
 import { Store } from '~modules/Store';
 import { PopupFile } from '~components/PopupFile';
-import { Users } from '~entities/Users';
 import { App } from '~modules/App';
+import { UserProfile } from '~entities/UserProfile';
 
 export class FormAvatar extends Component<null, FormAvatarState> {
   private popup: PopupFile;
@@ -15,6 +15,10 @@ export class FormAvatar extends Component<null, FormAvatarState> {
     super({
       template,
       props,
+      state: {
+        image: Store.state.profile?.avatar || undefined,
+        title: Store.state.profile?.display_name || undefined,
+      }
     });
     this.popup = new PopupFile({
       form: {
@@ -40,7 +44,7 @@ export class FormAvatar extends Component<null, FormAvatarState> {
   }
 
   onSubmit(file) {
-    Users
+    UserProfile
       .avatarChange(file)
       .then((response) => {
         if (response.avatar) {
@@ -53,14 +57,8 @@ export class FormAvatar extends Component<null, FormAvatarState> {
       .catch(App.error);
   }
 
-  created() {
-    this.el.addEventListener('click', (event) => {
-      const { target } = event;
-      if (target.dataset.click === 'avatar') {
-        event.preventDefault();
-        this.popup.reset().show();
-      }
-    });
+  openPopup() {
+    this.popup.reset().show();
   }
 
   mounted() {

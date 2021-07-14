@@ -1,6 +1,13 @@
 import { EventEmitter } from 'events';
 import { Templator } from '~modules/Templator';
 
+export enum ComponentEvents {
+  created = 'component:created',
+  updated = 'component:updated',
+  mounted = 'component:mounted',
+  unmounted = 'component:unmounted',
+}
+
 export type ComponentProps = {
   class?: string,
   mods?: string | string[],

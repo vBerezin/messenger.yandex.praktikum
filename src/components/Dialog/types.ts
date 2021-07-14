@@ -1,11 +1,9 @@
-import { MessageProps } from '~components/Message/types';
+import { ChatsResponse } from '~modules/Api/ChatsApi/types';
 
 export type DialogProps = {} | {
-  messages: MessageProps[],
-  chat: {
-    title: string,
-    image: string,
-  },
+  chat: Pick<ChatsResponse, 'id'>,
 };
 
-export type DialogState = DialogProps;
+export type DialogState = {
+  chat?: ChatsResponse
+};

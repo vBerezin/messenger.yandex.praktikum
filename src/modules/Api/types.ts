@@ -12,3 +12,8 @@ export type UserResponse = {
 export type BadRequestError = {
   reason: string,
 }
+
+export type UsersRequest = {
+  users: number[],
+  chatId: number,
+}

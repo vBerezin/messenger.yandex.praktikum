@@ -1,11 +1,25 @@
-import { StoreEvents } from './events';
-import { StoreState } from './types';
+import { StoreActions, StoreEvents, StorePaths, StoreState } from './types';
 import { Events } from '~modules/Events';
 
 class StateStorage extends Events<StoreEvents> {
-  public readonly events = StoreEvents;
-  private readonly state: StoreState = {};
+  events = StoreEvents;
+  public readonly state: StoreState = {
+    users: [],
+    chats: [],
+    profile: undefined,
+  };
   private readonly storage = window.sessionStorage;
+  private readonly actions: StoreActions = {
+    [StoreEvents.profileUpdate]: (data) =>{
+      this.setState(StorePaths.profile, data);
+    },
+    [StoreEvents.profileDelete]: () => {
+      this.setState(StorePaths.profile, undefined);
+    },
+    [StoreEvents.chatsUpdate]: (data) => {
+      this.setState(StorePaths.chats, data);
+    },
+  };
 
   constructor() {
     super();
@@ -13,20 +27,22 @@ class StateStorage extends Events<StoreEvents> {
     if (state) {
       this.state = JSON.parse(state);
     }
-    this.on(StoreEvents.userProfileUpdate, (data) => {
-      this.setState('user.profile', data);
-    });
   }
 
-  private setState(path: string, data) {
+  private emit(event, data) {
+    this.actions[event](data);
+    return super.emit(event, data);
+  }
+
+  private setState(path: keyof Record<StorePaths, string>, data) {
     path
       .split('.')
       .reduce((state, current, index, arr ) => {
-        if (!state[current]) {
-          state[current] = {};
-        }
-        if (index === arr.length - 1) {
-          state[current] = {...state[current],...data};
+        const last = index === arr.length - 1;
+        if (last) {
+          state[current] = data;
+        } else {
+          state[current] = state[current] || {};
         }
         return state[current];
       }, this.state);
@@ -39,3 +55,5 @@ class StateStorage extends Events<StoreEvents> {
 }
 
 export const Store = new StateStorage();
+
+window.Store = Store;

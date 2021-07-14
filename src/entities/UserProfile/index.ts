@@ -1,42 +1,45 @@
 import { UsersApi } from '~modules/Api/UsersApi';
 import { Store } from '~modules/Store';
 import { AuthApi } from '~modules/Api';
+import { changePasswordRequest, UserUpdateRequest } from '~modules/Api/UsersApi/types';
+import { SignInRequest, SignUpRequest } from '~modules/Api/AuthApi/types';
 
 export const UserProfile = {
-  async signUp(data) {
+  async signUp(data: SignUpRequest) {
     await AuthApi.signUp(data);
-    const userResponse = await AuthApi.identify();
-    Store.emit(Store.events.userProfileUpdate, userResponse);
+    return await AuthApi.identify();
   },
-  async signIn(data) {
+  async signIn(data: SignInRequest) {
     await AuthApi.signIn(data);
-    const userResponse = await AuthApi.identify();
-    Store.emit(Store.events.userProfileUpdate, userResponse);
+    return await AuthApi.identify();
   },
   async signOut() {
     await AuthApi.signOut();
-    Store.emit(Store.events.userProfileUpdate, null);
+    Store.emit(Store.events.profileDelete);
   },
   async identify() {
     try {
-      return await AuthApi.identify();
+      const userResponse = await AuthApi.identify();
+      Store.emit(Store.events.profileUpdate, userResponse);
+      return userResponse;
     } catch (e) {
+      Store.emit(Store.events.profileDelete);
       return null;
     }
   },
-  async update(data) {
+  async update(data: UserUpdateRequest) {
     const response = await UsersApi.profile(data);
-    Store.emit(Store.events.userProfileUpdate, response);
+    Store.emit(Store.events.profileUpdate, response);
     return response;
   },
-  async passwordChange(data) {
+  async passwordChange(data: changePasswordRequest) {
     return UsersApi.password(data);
   },
   async avatarChange(avatar: File) {
     const data = new FormData();
     data.append('avatar', avatar);
     const response = await UsersApi.profileAvatar(data);
-    Store.emit(Store.events.userProfileUpdate, response);
+    Store.emit(Store.events.profileUpdate, response);
     return response;
   },
 };

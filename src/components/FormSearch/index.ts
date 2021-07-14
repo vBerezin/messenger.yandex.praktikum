@@ -1,35 +1,24 @@
 import './styles';
 import template from './template';
-import { FormSearchEvents } from './events';
+import { FormSearchEvents } from './types';
 
 import { Component } from '~modules/Component';
 import { Validate } from '~modules/Validate';
-import { Users } from '~entities/Users';
-import { App } from '~modules/App';
 
 export class FormSearch extends Component<null, null, FormSearchEvents> {
-  #timer;
-
-  static events = FormSearchEvents;
+  events = FormSearchEvents;
+  private delay = 200;
+  private timer;
 
   constructor() {
     super({ template });
-    this.#timer = null;
   }
 
-  search(login) {
-    clearTimeout(this.#timer);
-    if (!login) {
-      return this.emit(FormSearchEvents.search, []);
-    }
-    this.#timer = setTimeout(() => {
-      Users
-        .search(login)
-        .then((data) => {
-          this.emit(FormSearchEvents.search, data);
-        })
-        .catch(App.error);
-    }, 200);
+  search(value) {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.emit(FormSearchEvents.search, value);
+    }, this.delay);
   }
 
   bindEvents() {
@@ -44,15 +33,12 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
     input.addEventListener('input', () => {
       const { value } = input;
       input.value = value.replace(/\s/g,'');
-      this.search(input.value);
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
+      return this.search(input.value);
     });
   }
 
   created() {
-    this.bindEvents();
-  }
-  updated() {
     this.bindEvents();
   }
 }
