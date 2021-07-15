@@ -26,3 +26,15 @@ export type CreateChatsRequest = {
 export type CreateChatsResponse = {
   id: number,
 }
+
+export type ChatsTokenResponse = {
+  token: string,
+}
+export type ChatSocketRequest = {
+  user: {
+    id: number
+  },
+  chat: {
+    id: number
+  }
+}

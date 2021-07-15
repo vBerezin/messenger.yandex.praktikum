@@ -13,6 +13,7 @@ include ../../../common/templates/functions/mods
 		if (data.label)
 			label.form-field__label(for=data.id) #{data.label}
 		input.form-field__input(
+			data-ref='input'
 			id=data.id
 			name=data.name
 			value=data.value

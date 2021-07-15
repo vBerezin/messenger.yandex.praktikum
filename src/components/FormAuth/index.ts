@@ -43,9 +43,7 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
   }
 
   mounted() {
-    const fieldSet = this.el.querySelector('fieldset');
-    const footer = this.el.querySelector('.form-auth__footer');
-    this.fields.forEach(field => field.mount(fieldSet));
-    this.buttons.forEach(button => button.mount(footer));
+    this.fields.forEach(field => field.mount(this.refs.fieldset));
+    this.buttons.forEach(button => button.mount(this.refs.footer));
   }
 }

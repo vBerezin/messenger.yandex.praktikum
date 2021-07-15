@@ -1,6 +1,14 @@
 import { HTTP } from '~modules/HTTP';
-import { ChatsRequest, ChatsResponse, CreateChatsRequest, CreateChatsResponse } from './types';
+import {
+  ChatsTokenResponse,
+  ChatSocketRequest,
+  ChatsRequest,
+  ChatsResponse,
+  CreateChatsRequest,
+  CreateChatsResponse
+} from './types';
 import { UsersRequest } from '~modules/Api/types';
+import { Socket } from '~modules/Socket';
 
 const API_URL = 'https://ya-praktikum.tech/api/v2/chats';
 
@@ -31,4 +39,18 @@ export const ChatsApi = {
       },
     });
   },
+  async getToken(chatId: number): Promise<ChatsTokenResponse> {
+    const request = await HTTP.post(`${API_URL}/token/${chatId}`, {
+      withCredentials: true,
+      headers: {
+        'accept': 'application/json',
+      },
+    });
+    return JSON.parse(request.response);
+  },
+  async connectChat(data: ChatSocketRequest): Socket {
+    const { token } = await this.getToken(data.chat.id);
+    const url = `wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chat.id}/${token}`;
+    return new Socket(url);
+  }
 };

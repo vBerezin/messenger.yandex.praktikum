@@ -1,15 +1,22 @@
 import { ChatsApi } from '~modules/Api';
-import { ChatsRequest, CreateChatsRequest } from '~modules/Api/ChatsApi/types';
+import {
+  ChatSocketRequest,
+  ChatsRequest,
+  CreateChatsRequest
+} from '~modules/Api/ChatsApi/types';
 import { UsersRequest } from '~modules/Api/types';
 
 export const Chats = {
   async getChats(data?: ChatsRequest) {
-    return await ChatsApi.getChats(data);
+    return ChatsApi.getChats(data);
   },
   async createChat(data: CreateChatsRequest) {
-    return await ChatsApi.createChat(data);
+    return ChatsApi.createChat(data);
   },
   async addUsers(data: UsersRequest) {
-    return await ChatsApi.addUsers(data);
+    return ChatsApi.addUsers(data);
+  },
+  connectChat(data: ChatSocketRequest) {
+    return ChatsApi.connectChat(data);
   }
 };

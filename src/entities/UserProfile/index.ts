@@ -17,6 +17,13 @@ export const UserProfile = {
     await AuthApi.signOut();
     Store.emit(Store.events.profileDelete);
   },
+  async getUser() {
+    const storedUser = Store.state.profile;
+    if (storedUser) {
+      return storedUser;
+    }
+    return this.identify();
+  },
   async identify() {
     try {
       const userResponse = await AuthApi.identify();

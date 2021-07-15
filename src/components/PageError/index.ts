@@ -18,8 +18,7 @@ export class PageError extends Component<PageErrorProps, PageErrorState> {
 
   mounted(): void {
     if (this.button) {
-      const footer = this.el.querySelector('.page-error__footer');
-      this.button.mount(footer);
+      this.button.mount(this.refs.footer);
     }
   }
 }

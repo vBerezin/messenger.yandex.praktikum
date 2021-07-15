@@ -26,7 +26,7 @@ export class Popup<TProps, TState = PopupState> extends Component<TProps, TState
 
   private close(event) {
     const { target } = event;
-    if (!target.closest('.popup__body')) {
+    if (!this.refs.body.contains(target)) {
       return this.hide();
     }
   }

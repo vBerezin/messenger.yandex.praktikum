@@ -34,7 +34,7 @@ export class FormFile extends Component<FormFileProps, FormFileState, FormFileEv
   }
 
   created() {
-    const input = this.el.querySelector('[type="file"]');
+    const { input } = this.refs;
     this.el.addEventListener('change', () => {
       const file = input.files[0];
       this.setState({
@@ -52,8 +52,7 @@ export class FormFile extends Component<FormFileProps, FormFileState, FormFileEv
 
   updated() {
     if (this.state.value) {
-      const footer = this.el.querySelector('.form-file__footer');
-      this.button.mount(footer);
+      this.button.mount(this.refs.footer);
     }
   }
 }

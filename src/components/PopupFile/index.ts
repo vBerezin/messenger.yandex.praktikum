@@ -18,7 +18,6 @@ export class PopupFile extends Popup<PopupFileProps> {
   }
 
   mounted() {
-    const formContainer = this.el.querySelector('.popup__body');
-    this.form.mount(formContainer);
+    this.form.mount(this.refs.body);
   }
 }

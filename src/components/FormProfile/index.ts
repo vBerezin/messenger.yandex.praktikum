@@ -130,10 +130,8 @@ export class FormProfile extends Component<null, FormProfileState> {
     this
       .getFields()
       .then((fields) => {
-        const fieldSet = this.el.querySelector('fieldset');
-        const footer = this.el.querySelector('.form-profile__footer');
-        fields.forEach(field => field.mount(fieldSet));
-        this.button.mount(footer);
+        fields.forEach(field => field.mount(this.refs.fieldSet));
+        this.button.mount(this.refs.footer);
       })
       .catch(App.error);
   }

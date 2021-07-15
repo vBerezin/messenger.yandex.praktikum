@@ -1,5 +1,5 @@
-import { ChatListProps } from '~components/ChatList/types';
+import { ChatsResponse } from '~modules/Api/ChatsApi/types';
 
-export type MessengerProps = {
-  chats?: ChatListProps,
-};
+export type MessengerState = {
+  active: Pick<ChatsResponse, 'id'>
+}

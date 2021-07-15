@@ -23,7 +23,7 @@ App.on(App.events.error, ({ error }) => {
 });
 
 (async () => {
-  const user = await UserProfile.identify();
+  const user = await UserProfile.getUser();
   Router
     .use(ROUTES.root, () => {
       if (user) {

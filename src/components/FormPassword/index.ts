@@ -81,7 +81,7 @@ export class FormPassword extends Component<null, FormPasswordState> {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     UserProfile
-      .passwordChange(JSON.stringify(data))
+      .passwordChange(data)
       .then(() => {
         Router.go(ROUTES.user.profile);
       })
@@ -102,9 +102,7 @@ export class FormPassword extends Component<null, FormPasswordState> {
   }
 
   mounted() {
-    const fieldSet = this.el.querySelector('fieldset');
-    const footer = this.el.querySelector('.form-password__footer');
-    this.fields.forEach(field => field.mount(fieldSet));
-    this.button.mount(footer);
+    this.fields.forEach(field => field.mount(this.refs.fieldset));
+    this.button.mount(this.refs.footer);
   }
 }

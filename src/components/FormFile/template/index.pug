@@ -8,9 +8,10 @@ form.form-file(action=data.action method="POST")
 			else
 				.form-file__placeholder Выбрать файл</br>на компьютере
 			input.form-file__input(
+				data-ref="input"
 				type='file'
 				name=data.input.name
 				accept=(data.input.accept ? data.input.accept.join(',') : undefined)
 			)
 	if (data.value)
-		.form-file__footer
+		.form-file__footer(data-ref="footer")

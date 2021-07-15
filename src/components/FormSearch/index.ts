@@ -21,8 +21,8 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
     }, this.delay);
   }
 
-  bindEvents() {
-    const input = this.el.querySelector('input');
+  created() {
+    const { input } = this.refs;
     input.addEventListener('focus', () => {
       this.el.classList.add('is-focus');
     });
@@ -36,9 +36,5 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
       return this.search(input.value);
     });
-  }
-
-  created() {
-    this.bindEvents();
   }
 }

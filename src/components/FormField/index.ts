@@ -21,13 +21,13 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
   }
 
   validate() {
-    const input = this.el.querySelector('input');
+    const { input } = this.refs;
     const errors = this.props.validate ? this.props.validate.call(this, input.value) : null;
-    this.setState({ errors, value: input?.value });
+    this.setState({ errors, value: input.value });
   }
 
   created() {
-    const input = this.el.querySelector('input');
+    const { input } = this.refs;
     if (this.state.readonly || this.state.disabled) {
       return false;
     }

@@ -41,7 +41,7 @@ export class ProfileInfo extends Component {
       }
     });
     UserProfile
-      .identify()
+      .getUser()
       .then((data) => {
         this.data = data;
       });

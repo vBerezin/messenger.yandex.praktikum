@@ -10,7 +10,6 @@ export class PageAuth extends Component<PageAuthProps> {
   }
 
   mounted() {
-    const formContainer = this.el.querySelector('.page-auth__form');
-    this.props.form.mount(formContainer);
+    this.props.form.mount(this.refs.form);
   }
 }

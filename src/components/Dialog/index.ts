@@ -1,17 +1,44 @@
 import './styles';
 import template from './template';
-import { DialogProps, DialogState } from './types';
+import { DialogProps } from './types';
 
 import { Component } from '~modules/Component';
-import { ComponentProps } from '~modules/Component/types';
-import { ChatsResponse } from '~modules/Api/ChatsApi/types';
+import { ChatsApi } from '~modules/Api';
+import { Socket } from '~modules/Socket';
+import { UserProfile } from '~entities/UserProfile';
+import { Messages } from '~components/Messages';
 
-export class Dialog extends Component<DialogProps, DialogState> {
-  constructor(props?: DialogProps & ComponentProps) {
+export class Dialog extends Component<DialogProps> {
+  private socket: Socket;
+  private messages = new Messages();
+
+  constructor(props: DialogProps) {
     super({template, props});
+    this.init()
+      .then(() => {
+        console.log(this.socket)
+      });
   }
 
-  openChat(chat: ChatsResponse) {
-    this.setState({ chat });
+  async init() {
+    const user = await UserProfile.getUser();
+    this.socket = await ChatsApi.connectChat({
+      user: {
+        id: user.id,
+      },
+      chat: {
+        id: this.props.chat.id
+      }
+    });
+  }
+
+  created() {
+    this.el.addEventListener('submit', (event) => {
+      console.log(event);
+    });
+  }
+
+  mounted() {
+    this.refs.input.focus();
   }
 }

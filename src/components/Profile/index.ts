@@ -26,9 +26,7 @@ export class Profile extends Component<ProfileProps, ProfileState> {
   }
 
   mounted() {
-    const head = this.el.querySelector('.profile__head');
-    const body = this.el.querySelector('.profile__body');
-    this.formAvatar.mount(head);
-    this.state.form.mount(body);
+    this.formAvatar.mount(this.refs.head);
+    this.state.form.mount(this.refs.body);
   }
 }

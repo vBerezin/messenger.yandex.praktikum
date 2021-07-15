@@ -1,35 +1,40 @@
 import './styles';
 import template from './template';
-import { MessengerProps } from './types';
+import { MessengerState } from './types';
 
 import { Component } from '~modules/Component';
-import { ComponentProps } from '~modules/Component/types';
 
 import { ChatList } from '~components/ChatList';
 import { Dialog } from '~components/Dialog';
 import { FormSearch } from '~components/FormSearch';
 
-export class Messenger extends Component<MessengerProps> {
+export class Messenger extends Component<null, MessengerState> {
   private search: FormSearch;
-  private dialog: Dialog;
+  private dialogs: Record<number, Dialog> = {};
   private chats: ChatList;
 
-  constructor(props?: MessengerProps & ComponentProps) {
-    super({template, props});
-    this.dialog = new Dialog();
+  constructor() {
+    super({ template });
     this.chats = new ChatList();
     this.search = new FormSearch();
     this.search.on(this.search.events.search, (value) => {
       this.chats.search(value);
     });
     this.chats.on(this.chats.events.chatSelected, (chatData) => {
-      this.dialog.openChat(chatData);
+      const { id } = chatData;
+      if (!this.dialogs[id]) {
+        this.dialogs[id] = new Dialog({ chat: chatData });
+      }
+      const dialog = this.dialogs[id];
+      this.setState({
+        active: id,
+      });
+      dialog.mount(this.refs.main)
     });
   }
 
   mounted() {
-    this.search.mount(this.el.querySelector('.messenger__search'));
-    this.chats.mount(this.el.querySelector('.messenger__list'));
-    this.dialog.mount(this.el.querySelector('main'));
+    this.search.mount(this.refs.search);
+    this.chats.mount(this.refs.list);
   }
 }

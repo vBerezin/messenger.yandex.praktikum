@@ -30,7 +30,7 @@ export const UsersApi = {
   },
   async password(data: changePasswordRequest): Promise<UserResponse> {
     const request = await HTTP.put(`${API_URL}/password`, {
-      data,
+      data: JSON.stringify(data),
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json'
