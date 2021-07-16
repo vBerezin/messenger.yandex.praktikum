@@ -13,6 +13,8 @@ class AppRouter extends Events<RouterEvents>{
     this.history = window.history;
     this.routes = new Map();
     this.currentRoute = '';
+    window.onpopstate = (event) => this.init();
+    documentReady(() => this.init());
   }
 
   get url(): string {
@@ -39,14 +41,9 @@ class AppRouter extends Events<RouterEvents>{
     }
     this.emit(RouterEvents.error, {
       route,
-      error: new Error(`Route "${route}" not found`),
+      error: new Error(`Not found`),
     });
     return this;
-  }
-
-  start() {
-    window.onpopstate = (event) => this.init();
-    documentReady(() => this.init());
   }
 
   go(route: string, data?): this {

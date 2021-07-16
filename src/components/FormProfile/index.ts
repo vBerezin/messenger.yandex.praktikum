@@ -78,6 +78,7 @@ export class FormProfile extends Component<null, FormProfileState> {
 
   async getFields() {
     const data = await UserProfile.identify();
+    console.log(data);
     if (!this.fields) {
       this.fields = this.keys.map((key) => {
         return new FormField({
@@ -130,7 +131,7 @@ export class FormProfile extends Component<null, FormProfileState> {
     this
       .getFields()
       .then((fields) => {
-        fields.forEach(field => field.mount(this.refs.fieldSet));
+        fields.forEach(field => field.mount(this.refs.fieldset));
         this.button.mount(this.refs.footer);
       })
       .catch(App.error);

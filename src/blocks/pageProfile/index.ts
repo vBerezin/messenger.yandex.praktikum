@@ -1,5 +1,4 @@
 import { Profile } from '~components/Profile';
-import { ROUTES } from '~common/scripts/routes';
 import { ProfileInfo } from '~components/ProfileInfo';
 import { FormProfile } from '~components/FormProfile';
 import { FormPassword } from '~components/FormPassword';

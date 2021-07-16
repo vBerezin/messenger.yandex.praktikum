@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { EventsCallback, EventsValues } from './types';
 
-// TODO: типизация агрументов в коллбеках и emit
+// TODO: типизация ...args?
 export abstract class Events<TEvents> {
   private readonly emitter = new EventEmitter();
   public readonly events: TEvents;
