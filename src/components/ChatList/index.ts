@@ -21,8 +21,16 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
       }
     });
     Store.on(Store.events.chatsUpdate, chats => this.setState({ chats }));
-    this.on(ChatListEvents.chatSelected, ({ id }) => {
-      this.setState({ active: id });
+    this.on(this.events.chatSelected, ({ id }) => {
+      this.setState({
+        active: id,
+        chats: Store.state.chats,
+        users: []
+      });
+    });
+    this.on(this.events.chatDeleted, ({ id }) => {
+      const chats = this.state.chats.filter(chat => chat.id !== id);
+      this.setState({ chats, active: null });
     });
     Chats
       .getChats()
@@ -40,18 +48,18 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
       });
     }
     try {
-      const chats = await Chats.getChats({ title: value });
+      const chats = await Chats.search({ title: value });
       const users = await Users.search({ login: value });
-      return this.setState({ chats, users });
+      this.setState({ chats, users });
     } catch (error) {
-      return App.error(error);
+      App.error(error);
     }
   }
 
   'click:chat'(event, target) {
     const chatId = Number(target.dataset.id);
     const chatData = this.state.chats.find(chat => chat.id === chatId);
-    this.emit(ChatListEvents.chatSelected, chatData);
+    this.emit(this.events.chatSelected, chatData);
   }
 
   async 'click:user'(event, target) {
@@ -71,10 +79,9 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
           const chatData = chats.find(chat => chat.id === chatId);
           this.setState({
             chats,
-            active: chat.id,
+            active: chatData,
           });
-          Store.emit(Store.events.chatsUpdate, chats);
-          this.emit(ChatListEvents.chatSelected, chatData);
+          this.emit(this.events.chatSelected, chatData);
         })
         .catch(App.error);
     } catch (error) {

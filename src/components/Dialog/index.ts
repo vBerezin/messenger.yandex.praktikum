@@ -65,11 +65,11 @@ export class Dialog extends Component<DialogProps, DialogState, DialogEvents> {
     }
     Chats
       .deleteChat({ chatId })
-      .then(() => {
+      .then((data) => {
         this.setState({
           chat: null,
         });
-        this.emit(DialogEvents.chatDelete);
+        this.emit(DialogEvents.chatDelete, { id: chatId });
       })
       .catch(App.error);
   }

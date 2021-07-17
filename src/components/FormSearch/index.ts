@@ -17,8 +17,13 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
   search(value) {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      this.emit(FormSearchEvents.search, value);
+      this.emit(this.events.search, value);
     }, this.delay);
+  }
+
+  reset() {
+    this.el.reset();
+    this.el.classList.remove('is-focus', 'is-active');
   }
 
   created() {

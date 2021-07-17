@@ -18,21 +18,12 @@ App.on(App.events.error, ({ error }) => {
   App.init(page500, 'Внутренняя ошибка');
 });
 
-async function checkUser() {
-  const user = await UserProfile.getUser();
-  if (user) {
-    return user;
-  }
-  throw new Error(user);
-}
-
-
 Router
   .use(ROUTES.root, async () => {
-    try {
-      await checkUser();
-      Router.go(ROUTES.messenger)
-    } catch (error) {
+    const user = await UserProfile.getUser();
+    if (user) {
+      Router.go(ROUTES.messenger);
+    } else {
       Router.go(ROUTES.auth.signin);
     }
   })
@@ -49,40 +40,40 @@ Router
     return Router.go(ROUTES.root);
   })
   .use(ROUTES.messenger, async () => {
-    try {
-      await checkUser();
+    const user = await UserProfile.getUser();
+    if (user) {
       const { pageMessenger } = await import('~blocks/pageMessenger');
       return App.init(pageMessenger, 'Мессенджер');
-    } catch (error) {
+    } else {
       Router.go(ROUTES.auth.signin);
     }
   })
   .use(ROUTES.user.profile, async () => {
-    try {
-      await checkUser();
+    const user = await UserProfile.getUser();
+    if (user) {
       const { pageProfile } = await import('~blocks/pageProfile');
       const userName = Store.state.profile?.login;
       const title = `Профиль пользователя ${userName}`;
-      return App.init(pageProfile.info(), title)
-    } catch (error) {
+      return App.init(pageProfile.info(), title);
+    } else {
       Router.go(ROUTES.auth.signin);
     }
   })
   .use(ROUTES.user.edit, async () => {
-    try {
-      await checkUser();
+    const user = await UserProfile.getUser();
+    if (user) {
       const { pageProfile } = await import('~blocks/pageProfile');
       return App.init(pageProfile.edit(), 'Редактирование профиля')
-    } catch (error) {
+    } else {
       Router.go(ROUTES.auth.signin);
     }
   })
   .use(ROUTES.user.password, async () => {
-    try {
-      await checkUser();
+    const user = await UserProfile.getUser();
+    if (user) {
       const { pageProfile } = await import('~blocks/pageProfile');
       return App.init(pageProfile.password(), 'Смена пароля')
-    } catch (error) {
+    } else {
       Router.go(ROUTES.auth.signin);
     }
   })
