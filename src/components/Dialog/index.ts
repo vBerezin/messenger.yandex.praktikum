@@ -1,19 +1,26 @@
 import './styles';
 import template from './template';
-import { DialogProps } from './types';
+import { DialogEvents, DialogProps, DialogState } from './types';
 
 import { Component } from '~modules/Component';
 import { ChatsApi } from '~modules/Api';
 import { Socket } from '~modules/Socket';
 import { UserProfile } from '~entities/UserProfile';
 import { Messages } from '~components/Messages';
+import { Chats } from '~entities/Chats';
+import { App } from '~modules/App';
 
-export class Dialog extends Component<DialogProps> {
+export class Dialog extends Component<DialogProps, DialogState, DialogEvents> {
   private socket: Socket;
   private messages = new Messages();
+  events = DialogEvents;
 
   constructor(props: DialogProps) {
-    super({template, props});
+    super({
+      template,
+      props,
+      state: props,
+    });
     this.init()
       .then(() => {
         console.log(this.socket)
@@ -32,13 +39,38 @@ export class Dialog extends Component<DialogProps> {
     });
   }
 
+  mounted() {
+    if (this.refs.input) {
+      this.refs.input.focus();
+    }
+    this.el.classList.remove('--actions-active');
+  }
+
   created() {
-    this.el.addEventListener('submit', (event) => {
-      console.log(event);
+    this.el.addEventListener('click', () => {
+      this.el.classList.remove('--actions-active');
     });
   }
 
-  mounted() {
-    this.refs.input.focus();
+  'click:actions'(event) {
+    event.stopPropagation();
+    this.el.classList.toggle('--actions-active');
+  }
+
+  'click:delete'(event) {
+    event.stopPropagation();
+    const chatId = this.state.chat?.id;
+    if (!chatId) {
+      return false;
+    }
+    Chats
+      .deleteChat({ chatId })
+      .then(() => {
+        this.setState({
+          chat: null,
+        });
+        this.emit(DialogEvents.chatDelete);
+      })
+      .catch(App.error);
   }
 }

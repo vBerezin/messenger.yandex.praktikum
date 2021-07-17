@@ -4,11 +4,11 @@
 	if (data.chats.length)
 		ul.chat-list__list
 			each chat, index in data.chats
+				- active = chat.id === data.active;
 				li.chat-list__item(
 					data-id=chat.id
-					data-click="clickChat"
-					class=(chat.id === data.active ? 'is-active' : '')
-				)
+					data-click=(active ? undefined : 'click:chat')
+					class=(active ? 'is-active' : ''))
 					.chat-list__item-inner
 						.chat-list__item-image
 							if (chat.avatar)
@@ -26,7 +26,7 @@
 			each user in data.users
 				li.chat-list__item(
 					data-id=user.id
-					data-click="clickUser")
+					data-click="click:user")
 					.chat-list__item-inner
 						.chat-list__item-image
 							if (user.avatar)

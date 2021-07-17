@@ -5,7 +5,7 @@ import {
   ChatsRequest,
   ChatsResponse,
   CreateChatsRequest,
-  CreateChatsResponse
+  CreateChatsResponse, ChatAvatarRequest, ChatDeleteResponse, ChatDeleteRequest
 } from './types';
 import { UsersRequest } from '~modules/Api/types';
 import { Socket } from '~modules/Socket';
@@ -52,5 +52,15 @@ export const ChatsApi = {
     const { token } = await this.getToken(data.chat.id);
     const url = `wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chat.id}/${token}`;
     return new Socket(url);
+  },
+  async deleteChat(data: ChatDeleteRequest): Promise<ChatDeleteResponse> {
+    const request = await HTTP.delete(API_URL, {
+      data: JSON.stringify(data),
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return JSON.parse(request.response);
   }
 };

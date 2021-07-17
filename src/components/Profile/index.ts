@@ -21,7 +21,7 @@ export class Profile extends Component<ProfileProps, ProfileState> {
     this.formAvatar = new FormAvatar();
   }
 
-  private back() {
+  'click:back'() {
     Router.back();
   }
 

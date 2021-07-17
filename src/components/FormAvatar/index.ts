@@ -57,7 +57,7 @@ export class FormAvatar extends Component<null, FormAvatarState> {
       .catch(App.error);
   }
 
-  openPopup() {
+  'click:popup'() {
     this.popup.reset().show();
   }
 

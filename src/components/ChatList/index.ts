@@ -20,17 +20,16 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
         chats: Store.state.chats || [],
       }
     });
-    Chats
-      .getChats()
-      .then((chats) => {
-        this.setState({ chats });
-        Store.emit(Store.events.chatsUpdate, chats);
-      })
-      .catch(App.error);
     Store.on(Store.events.chatsUpdate, chats => this.setState({ chats }));
     this.on(ChatListEvents.chatSelected, ({ id }) => {
       this.setState({ active: id });
     });
+    Chats
+      .getChats()
+      .then((chats) => {
+        this.setState({ chats });
+      })
+      .catch(App.error);
   }
 
   async search(value: string) {
@@ -49,13 +48,13 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
     }
   }
 
-  private clickChat(event, target) {
+  'click:chat'(event, target) {
     const chatId = Number(target.dataset.id);
     const chatData = this.state.chats.find(chat => chat.id === chatId);
     this.emit(ChatListEvents.chatSelected, chatData);
   }
 
-  private async clickUser(event, target) {
+  async 'click:user'(event, target) {
     const userId  = Number(target.dataset.id);
     const userData = this.state.users.find(user => user.id === userId);
     const title = `Чат с пользователем ${userData?.display_name || userData.login}`;
@@ -65,6 +64,19 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
         chatId: chat.id,
         users: [ userId ],
       });
+      Chats
+        .getChats()
+        .then((chats) => {
+          const chatId = chat.id;
+          const chatData = chats.find(chat => chat.id === chatId);
+          this.setState({
+            chats,
+            active: chat.id,
+          });
+          Store.emit(Store.events.chatsUpdate, chats);
+          this.emit(ChatListEvents.chatSelected, chatData);
+        })
+        .catch(App.error);
     } catch (error) {
       App.error(error);
     }
