@@ -1,14 +1,14 @@
 import { HTTP } from '~modules/HTTP';
 import {
   ChatsTokenResponse,
-  ChatSocketRequest,
   ChatsRequest,
   ChatsResponse,
-  CreateChatsRequest,
-  CreateChatsResponse, ChatAvatarRequest, ChatDeleteResponse, ChatDeleteRequest
+  ChatsDeleteResponse,
+  ChatsDeleteRequest,
+  ChatsCreateRequest,
+  ChatsCreateResponse
 } from './types';
 import { UsersRequest } from '~modules/Api/types';
-import { Socket } from '~modules/Socket';
 
 const API_URL = 'https://ya-praktikum.tech/api/v2/chats';
 
@@ -20,7 +20,7 @@ export const ChatsApi = {
     });
     return JSON.parse(request.response);
   },
-  async createChat(data: CreateChatsRequest): Promise<CreateChatsResponse> {
+  async createChat(data: ChatsCreateRequest): Promise<ChatsCreateResponse> {
     const request = await HTTP.post(API_URL, {
       data: JSON.stringify(data),
       withCredentials: true,
@@ -48,12 +48,7 @@ export const ChatsApi = {
     });
     return JSON.parse(request.response);
   },
-  async connectChat(data: ChatSocketRequest): Socket {
-    const { token } = await this.getToken(data.chat.id);
-    const url = `wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chat.id}/${token}`;
-    return new Socket(url);
-  },
-  async deleteChat(data: ChatDeleteRequest): Promise<ChatDeleteResponse> {
+  async deleteChat(data: ChatsDeleteRequest): Promise<ChatsDeleteResponse> {
     const request = await HTTP.delete(API_URL, {
       data: JSON.stringify(data),
       withCredentials: true,

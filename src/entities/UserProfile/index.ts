@@ -3,50 +3,71 @@ import { Store } from '~modules/Store';
 import { AuthApi } from '~modules/Api';
 import { changePasswordRequest, UserUpdateRequest } from '~modules/Api/UsersApi/types';
 import { SignInRequest, SignUpRequest } from '~modules/Api/AuthApi/types';
+import { StorePaths } from '~modules/Store/types';
+import { Events } from '~modules/Events';
+import { UserProfileEvents } from '~entities/UserProfile/types';
 
-export const UserProfile = {
+export class UserProfile extends Events<UserProfileEvents> {
+  events = UserProfileEvents;
+  data = Store.getState<StorePaths.profile>(Store.paths.profile);
+
+  constructor() {
+    super();
+    Store.on(Store.events.update, (state) => {
+      if (state[Store.paths.profile]) {
+        this.data = Store.getState<StorePaths.profile>(Store.paths.profile);
+        this.emit(this.events.update, this.data);
+      }
+    });
+  }
+
+  async getData() {
+    if (this.data) {
+      return this.data;
+    }
+    return this.identify();
+  }
+
   async signUp(data: SignUpRequest) {
     await AuthApi.signUp(data);
-    return await AuthApi.identify();
-  },
+    this.data = await AuthApi.identify();
+    this.emit(this.events.create, this.data);
+    return this.data;
+  }
+
   async signIn(data: SignInRequest) {
     await AuthApi.signIn(data);
     return await AuthApi.identify();
-  },
+  }
+
   async signOut() {
     await AuthApi.signOut();
-    Store.emit(Store.events.profileDelete);
-  },
-  async getUser() {
-    const storedUser = Store.state.profile;
-    if (storedUser) {
-      return storedUser;
-    }
-    return this.identify();
-  },
+    Store.setState<StorePaths.profile>(Store.paths.profile, undefined);
+    this.data = undefined;
+    this.emit(this.events.delete, this.data);
+  }
+
   async identify() {
-    try {
-      const userResponse = await AuthApi.identify();
-      Store.emit(Store.events.profileUpdate, userResponse);
-      return userResponse;
-    } catch (e) {
-      Store.emit(Store.events.profileDelete);
-      return null;
-    }
-  },
+    const userResponse = await AuthApi.identify();
+    Store.setState<StorePaths.profile>(Store.paths.profile, userResponse);
+    return userResponse;
+  }
+
   async update(data: UserUpdateRequest) {
-    const response = await UsersApi.profile(data);
-    Store.emit(Store.events.profileUpdate, response);
-    return response;
-  },
+    const userResponse = await UsersApi.profile(data);
+    Store.setState<StorePaths.profile>(Store.paths.profile, userResponse);
+    return userResponse;
+  }
+
   async passwordChange(data: changePasswordRequest) {
     return UsersApi.password(data);
-  },
+  }
+
   async avatarChange(avatar: File) {
     const data = new FormData();
     data.append('avatar', avatar);
-    const response = await UsersApi.profileAvatar(data);
-    Store.emit(Store.events.profileUpdate, response);
-    return response;
-  },
-};
+    const userResponse = await UsersApi.profileAvatar(data);
+    Store.setState<StorePaths.profile>(Store.paths.profile, userResponse);
+    return userResponse;
+  }
+}

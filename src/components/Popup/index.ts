@@ -24,10 +24,11 @@ export class Popup<TProps, TState = PopupState> extends Component<TProps, TState
     this.el.classList.remove('is-active');
   }
 
-  'click:close'(event) {
-    const { target } = event;
-    if (!this.refs.body.contains(target)) {
-      return this.hide();
-    }
+  created() {
+    this.el.addEventListener('click', ({target}) => {
+      if (!this.refs.body.contains(target)) {
+        return this.hide();
+      }
+    });
   }
 }

@@ -1,6 +1,7 @@
-import { SocketEvents } from './types';
+import { SocketEvents, SocketSendArgs } from './types';
 
 export class Socket {
+  events = SocketEvents;
   private socket: WebSocket;
 
   constructor(url: string) {
@@ -8,12 +9,17 @@ export class Socket {
   }
 
   public on(event: keyof typeof SocketEvents, callback: Function) {
-    this.socket.addEventListener(event, callback);
+    this.socket.addEventListener(event, (event) => {
+      if ('data' in event) {
+        return callback(JSON.parse(event.data));
+      }
+      return callback(event);
+    });
     return this;
   }
 
-  public send(data) {
-    this.socket.send(data);
+  public send(args: SocketSendArgs) {
+    this.socket.send(JSON.stringify(args));
     return this;
   }
 

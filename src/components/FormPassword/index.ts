@@ -13,6 +13,7 @@ import { ROUTES } from '~common/scripts/routes';
 import { UserProfile } from '~entities/UserProfile';
 
 export class FormPassword extends Component<null, FormPasswordState> {
+  private readonly profile = new UserProfile();
   private readonly button: Button;
   private fields: FormField[];
   private keys: FormFieldProps[];
@@ -80,7 +81,7 @@ export class FormPassword extends Component<null, FormPasswordState> {
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    UserProfile
+    this.profile
       .passwordChange(data)
       .then(() => {
         Router.go(ROUTES.user.profile);

@@ -3,53 +3,44 @@ import template from './template';
 import { ChatListEvents, ChatListState } from './types';
 
 import { Component } from '~modules/Component';
-import { Store } from '~modules/Store';
 import { Chats } from '~entities/Chats';
 import { App } from '~modules/App';
 import { Users } from '~entities/Users';
+import { UserProfile } from '~entities/UserProfile';
 
 export class ChatList extends Component<null, ChatListState, ChatListEvents> {
   events = ChatListEvents;
+  private readonly chats = new Chats();
+  private readonly users = new Users();
+  private readonly profile = new UserProfile();
 
   constructor() {
     super({
       template,
       state: {
-        active: null,
+        chats: [],
         users: [],
-        chats: Store.state.chats || [],
       }
     });
-    Store.on(Store.events.chatsUpdate, chats => this.setState({ chats }));
-    this.on(this.events.chatSelected, ({ id }) => {
-      this.setState({
-        active: id,
-        chats: Store.state.chats,
-        users: []
-      });
-    });
-    this.on(this.events.chatDeleted, ({ id }) => {
-      const chats = this.state.chats.filter(chat => chat.id !== id);
-      this.setState({ chats, active: null });
-    });
-    Chats
+    this.chats
       .getChats()
       .then((chats) => {
         this.setState({ chats });
       })
       .catch(App.error);
+    this.chats.on(this.chats.events.update, chats => this.setState({ chats }));
   }
 
   async search(value: string) {
     if (!value) {
       return this.setState({
-        chats: Store.state.chats,
+        chats: this.chats.chats,
         users: [],
       });
     }
     try {
-      const chats = await Chats.search({ title: value });
-      const users = await Users.search({ login: value });
+      const chats = await this.chats.search({ title: value });
+      const users = await this.users.search({ login: value });
       this.setState({ chats, users });
     } catch (error) {
       App.error(error);
@@ -58,32 +49,35 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
 
   'click:chat'(event, target) {
     const chatId = Number(target.dataset.id);
-    const chatData = this.state.chats.find(chat => chat.id === chatId);
+    this.setState({
+      active: chatId,
+    });
+    const chatData = this.state.chats.find((chat) => chat.id === chatId);
     this.emit(this.events.chatSelected, chatData);
   }
 
   async 'click:user'(event, target) {
     const userId  = Number(target.dataset.id);
+    const profileData = await this.profile.getData();
     const userData = this.state.users.find(user => user.id === userId);
-    const title = `Чат с пользователем ${userData?.display_name || userData.login}`;
+    const userName = userData ? userData.display_name || userData.login : '';
+    const profileName = profileData.display_name || profileData.login;
+    const title = `Чат ${profileName} и ${userName}`;
     try {
-      const chat = await Chats.createChat({ title });
-      await Chats.addUsers({
-        chatId: chat.id,
+      const newChat = await this.chats.createChat({ title });
+      await this.chats.addUsers({
+        chatId: newChat.id,
         users: [ userId ],
       });
-      Chats
-        .getChats()
-        .then((chats) => {
-          const chatId = chat.id;
-          const chatData = chats.find(chat => chat.id === chatId);
-          this.setState({
-            chats,
-            active: chatData,
-          });
-          this.emit(this.events.chatSelected, chatData);
-        })
-        .catch(App.error);
+      if (this.chats.chats) {
+        const chatData = this.chats.chats.find((chat) => chat.id === newChat.id);
+        this.setState({
+          chats: this.chats.chats,
+          users: [],
+          active: newChat.id,
+        });
+        this.emit(this.events.chatSelected, chatData);
+      }
     } catch (error) {
       App.error(error);
     }

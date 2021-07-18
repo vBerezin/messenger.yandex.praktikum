@@ -13,10 +13,11 @@
 				include ../../../../static/images/icons/actions.svg
 			.dialog__actions-menu
 				button.dialog__action(data-click="click:users") Пользователи
-				button.dialog__action(data-click="click:avatar") Изменить аватар
-				button.dialog__action(data-click="click:delete") Удалить чат
+				if (data.user.id === data.chat.created_by)
+					button.dialog__action(data-click="click:avatar") Изменить аватар
+					button.dialog__action(data-click="click:delete") Удалить чат
 		.dialog__body
-			.dialog__messages
+			.dialog__messages(data-ref="messages")
 		.dialog__footer
 			button.dialog__attach
 				include ../../../../static/images/icons/attach.svg

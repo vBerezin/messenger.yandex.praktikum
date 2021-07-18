@@ -5,6 +5,9 @@ export enum DialogEvents {
 }
 
 export type DialogProps = {
+  user: {
+    id: number
+  },
   chat: ChatsResponse,
 };
 

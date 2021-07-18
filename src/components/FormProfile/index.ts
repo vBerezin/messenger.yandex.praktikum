@@ -8,7 +8,6 @@ import { FormField } from '~components/FormField';
 import { Button } from '~components/Button';
 import { App } from '~modules/App';
 import { Validate } from '~modules/Validate';
-import { Users } from '~entities/Users';
 import { FormFieldProps } from '~components/FormField/types';
 import { Router } from '~modules/Router';
 import { ROUTES } from '~common/scripts/routes';
@@ -59,6 +58,7 @@ const KEYS = [
 ];
 
 export class FormProfile extends Component<null, FormProfileState> {
+  private readonly profile = new UserProfile();
   private readonly button: Button;
   private fields: FormField[];
   private keys: FormFieldProps[];
@@ -77,8 +77,7 @@ export class FormProfile extends Component<null, FormProfileState> {
   }
 
   async getFields() {
-    const data = await UserProfile.identify();
-    console.log(data);
+    const data = await this.profile.identify();
     if (!this.fields) {
       this.fields = this.keys.map((key) => {
         return new FormField({
@@ -112,7 +111,7 @@ export class FormProfile extends Component<null, FormProfileState> {
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    UserProfile
+    this.profile
       .update(data)
       .then(() => {
         Router.go(ROUTES.user.profile);

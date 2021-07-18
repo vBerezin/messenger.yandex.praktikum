@@ -19,24 +19,16 @@ export type ChatsResponse = {
     }
 }
 
-export type CreateChatsRequest = {
+export type ChatsCreateRequest = {
     title: string,
 }
 
-export type CreateChatsResponse = {
+export type ChatsCreateResponse = {
     id: number,
 }
 
 export type ChatsTokenResponse = {
     token: string,
-}
-export type ChatSocketRequest = {
-    user: {
-        id: number
-    },
-    chat: {
-        id: number
-    }
 }
 
 export type ChatAvatarRequest = {
@@ -44,11 +36,11 @@ export type ChatAvatarRequest = {
     avatar: File
 }
 
-export type ChatDeleteRequest = {
+export type ChatsDeleteRequest = {
     chatId: number
 }
 
-export type ChatDeleteResponse = {
+export type ChatsDeleteResponse = {
     userId: number
     result: ChatsResponse,
 }

@@ -1,6 +1,7 @@
-import { ComponentInterface } from '~modules/Component/types';
-
-export type ProfileProps = {
-  back: string,
-  form: ComponentInterface
+export type ProfileInfoKey = {
+  label: string,
+  name: string,
+}
+export type ProfileInfoState = {
+  fields: ProfileInfoKey[]
 };

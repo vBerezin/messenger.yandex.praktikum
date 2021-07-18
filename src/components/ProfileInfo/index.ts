@@ -1,8 +1,8 @@
 import './styles';
 import template from './template';
+import { ProfileInfoState } from './types';
 
 import { Component } from '~modules/Component';
-import { Store } from '~modules/Store';
 import { UserProfile } from '~entities/UserProfile';
 
 const KEYS = [
@@ -32,7 +32,9 @@ const KEYS = [
   },
 ];
 
-export class ProfileInfo extends Component {
+export class ProfileInfo extends Component<null, ProfileInfoState> {
+  private readonly profile = new UserProfile();
+
   constructor() {
     super({
       template,
@@ -40,15 +42,14 @@ export class ProfileInfo extends Component {
         fields: KEYS
       }
     });
-    UserProfile
-      .getUser()
+    this.profile
+      .getData()
       .then((data) => {
         this.data = data;
       });
-    Store
-      .on(Store.events.profileUpdate, (data) => {
-        this.data = data;
-      });
+    this.profile.on(this.profile.events.update, (data) => {
+      this.data = data;
+    });
   }
 
   makeFields(data) {

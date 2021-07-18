@@ -2,7 +2,7 @@ import { ChatsResponse } from '~modules/Api/ChatsApi/types';
 import { UserResponse } from '~modules/Api/types';
 
 export type ChatListState = {
-  active: ChatsResponse | null,
+  active?: number,
   chats: ChatsResponse[],
   users: UserResponse[],
 }

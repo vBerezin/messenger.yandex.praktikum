@@ -8,13 +8,13 @@ export enum ComponentEvents {
   unmounted = 'component:unmounted',
 }
 
-export type ComponentProps = {
-  class?: string,
-  mods?: string | string[],
-  attributes?: Object,
-};
+export type ComponentProps = Partial<{
+  class: string,
+  mods: string | string[],
+  attributes: Object,
+}>;
 
-export type ComponentState = {};
+export type ComponentState = ComponentProps;
 
 export interface ComponentInterface {
   readonly on: Function;

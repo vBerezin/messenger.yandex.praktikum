@@ -1,24 +1,14 @@
-import { StoreActions, StoreEvents, StorePaths, StoreState } from './types';
+import {StoreEvents, StorePaths, StoreState} from './types';
 import { Events } from '~modules/Events';
 
 class StateStorage extends Events<StoreEvents> {
-  events = StoreEvents;
-  public readonly state: StoreState = {
-    users: [],
-    chats: [],
-    profile: undefined,
-  };
+  readonly events = StoreEvents;
+  readonly paths = StorePaths;
   private readonly storage = window.sessionStorage;
-  private readonly actions: StoreActions = {
-    [StoreEvents.profileUpdate]: (data) =>{
-      this.setState(StorePaths.profile, data);
-    },
-    [StoreEvents.profileDelete]: () => {
-      this.setState(StorePaths.profile, undefined);
-    },
-    [StoreEvents.chatsUpdate]: (data) => {
-      this.setState(StorePaths.chats, data);
-    },
+  private readonly state: StoreState = {
+    profile: undefined,
+    chats: [],
+    users: [],
   };
 
   constructor() {
@@ -29,28 +19,32 @@ class StateStorage extends Events<StoreEvents> {
     }
   }
 
-  private emit(event, data) {
-    this.actions[event](data);
-    return super.emit(event, data);
+  getState<TPath>(path: TPath): StoreState[TPath] | undefined {
+    try {
+      return path
+          .split('.')
+          .reduce((current, item) => {
+            return current[item];
+          }, this.state);
+    } catch (e) {
+      return undefined;
+    }
   }
 
-  private setState(path: keyof Record<StorePaths, string>, data) {
+  setState<TPath>(path: TPath, data: StoreState[TPath]) {
     path
-      .split('.')
-      .reduce((state, current, index, arr ) => {
-        const last = index === arr.length - 1;
-        if (last) {
-          state[current] = data;
-        } else {
-          state[current] = state[current] || {};
-        }
-        return state[current];
-      }, this.state);
+        .split('.')
+        .reduce((state, current, index, arr ) => {
+          const last = index === arr.length - 1;
+          if (last) {
+            state[current] = data;
+          } else {
+            state[current] = state[current] || {};
+          }
+          return state[current];
+        }, this.state);
     this.storage.setItem('state-storage', JSON.stringify(this.state));
-  }
-
-  getState() {
-    return this.state;
+    this.emit(this.events.update, this.state);
   }
 }
 

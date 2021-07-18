@@ -4,7 +4,6 @@ import { App } from '~modules/App';
 import { Router } from '~modules/Router';
 import { ROUTES } from '~common/scripts/routes';
 import { Breakpoints } from '~modules/Breakpoints';
-import { Store } from '~modules/Store';
 import { page500 } from '~blocks/page500';
 import { page404 } from '~blocks/page404';
 import { UserProfile } from '~entities/UserProfile';
@@ -18,10 +17,12 @@ App.on(App.events.error, ({ error }) => {
   App.init(page500, 'Внутренняя ошибка');
 });
 
+const profile = new UserProfile();
+
 Router
   .use(ROUTES.root, async () => {
-    const user = await UserProfile.getUser();
-    if (user) {
+    const userData = await profile.getData();
+    if (userData) {
       Router.go(ROUTES.messenger);
     } else {
       Router.go(ROUTES.auth.signin);
@@ -36,12 +37,12 @@ Router
     App.init(pageSignUp, 'Регистрация');
   })
   .use(ROUTES.auth.signout, async () => {
-    await UserProfile.signOut();
+    await profile.getData();
     return Router.go(ROUTES.root);
   })
   .use(ROUTES.messenger, async () => {
-    const user = await UserProfile.getUser();
-    if (user) {
+    const userData = await profile.getData();
+    if (userData) {
       const { pageMessenger } = await import('~blocks/pageMessenger');
       return App.init(pageMessenger, 'Мессенджер');
     } else {
@@ -49,10 +50,10 @@ Router
     }
   })
   .use(ROUTES.user.profile, async () => {
-    const user = await UserProfile.getUser();
-    if (user) {
+    const userData = await profile.getData();
+    if (userData) {
       const { pageProfile } = await import('~blocks/pageProfile');
-      const userName = Store.state.profile?.login;
+      const userName = userData?.display_name;
       const title = `Профиль пользователя ${userName}`;
       return App.init(pageProfile.info(), title);
     } else {
@@ -60,8 +61,8 @@ Router
     }
   })
   .use(ROUTES.user.edit, async () => {
-    const user = await UserProfile.getUser();
-    if (user) {
+    const userData = await profile.getData();
+    if (userData) {
       const { pageProfile } = await import('~blocks/pageProfile');
       return App.init(pageProfile.edit(), 'Редактирование профиля')
     } else {
@@ -69,8 +70,8 @@ Router
     }
   })
   .use(ROUTES.user.password, async () => {
-    const user = await UserProfile.getUser();
-    if (user) {
+    const userData = await profile.getData();
+    if (userData) {
       const { pageProfile } = await import('~blocks/pageProfile');
       return App.init(pageProfile.password(), 'Смена пароля')
     } else {

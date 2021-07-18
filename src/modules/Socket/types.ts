@@ -1,6 +1,11 @@
 export enum SocketEvents {
-  open,
-  close,
-  message,
-  error,
+  open = 'open',
+  close = 'close',
+  message = 'message',
+  error = 'error',
+}
+
+export type SocketSendArgs = {
+  content?: string,
+  type: string
 }
