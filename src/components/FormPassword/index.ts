@@ -14,19 +14,22 @@ import { UserProfile } from '~entities/UserProfile';
 
 export class FormPassword extends Component<null, FormPasswordState> {
   private readonly profile = new UserProfile();
+
   private readonly button: Button;
+
   private fields: FormField[];
+
   private keys: FormFieldProps[];
 
   constructor() {
-    super({template});
+    super({ template });
     this.button = new Button({
       class: 'form-password__submit',
       mods: ['blue', 'block'],
       text: 'Изменить пароль',
       attributes: {
-        type: 'submit'
-      }
+        type: 'submit',
+      },
     });
     this.keys = [
       {
@@ -53,15 +56,13 @@ export class FormPassword extends Component<null, FormPasswordState> {
         validate: (value) => {
           const password = this.el.newPassword.value;
           return value === password ? null : 'Пароли не совпадают';
-        }
+        },
       },
     ];
-    this.fields = this.keys.map((key) => {
-      return new FormField({
-        ...key,
-        class: 'form-password__field',
-      });
-    })
+    this.fields = this.keys.map((key) => new FormField({
+      ...key,
+      class: 'form-password__field',
+    }));
   }
 
   validate() {
@@ -70,7 +71,6 @@ export class FormPassword extends Component<null, FormPasswordState> {
       return !field.valid && field.props.required;
     });
     return !fields.length;
-
   }
 
   onSubmit(event) {
@@ -88,22 +88,22 @@ export class FormPassword extends Component<null, FormPasswordState> {
       })
       .catch((xhr) => {
         const response = JSON.parse(xhr.response);
-        const oldPassword = this.fields.find(field => field.props.name === 'oldPassword');
+        const oldPassword = this.fields.find((field) => field.props.name === 'oldPassword');
         oldPassword.setState({
-          errors: response.reason
-        })
+          errors: response.reason,
+        });
       });
   }
 
   created() {
     this.el.addEventListener('submit', this.onSubmit.bind(this));
     this.el.addEventListener('change', () => {
-      this.fields.forEach(field => field.validate());
+      this.fields.forEach((field) => field.validate());
     });
   }
 
   mounted() {
-    this.fields.forEach(field => field.mount(this.refs.fieldset));
+    this.fields.forEach((field) => field.mount(this.refs.fieldset));
     this.button.mount(this.refs.footer);
   }
 }

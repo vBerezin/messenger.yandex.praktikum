@@ -7,7 +7,6 @@
     position: relative;
     padding-top: 10px;
   }
-
   &__label,
   &__input {
     font-size: 13px;
@@ -48,7 +47,6 @@
     font-size: 0.7em;
     font-weight: $font-weight-medium;
   }
-
   &.is-focus,
   &.is-active {
     .form-field__label {
@@ -62,13 +60,11 @@
       border-color: #3369f3;
     }
   }
-
   &.is-error {
     .form-field__input {
       border-color: #ff2f2f;
     }
   }
-
   &.is-required {
     .form-field__label {
       &::after {

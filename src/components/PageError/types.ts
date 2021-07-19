@@ -4,8 +4,8 @@ export type PageErrorProps = {
   title?: string,
   text?: string,
   button?: ButtonProps,
-}
+};
 
 export type PageErrorState = {
   text?: string
-}
+};

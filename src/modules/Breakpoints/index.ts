@@ -2,8 +2,11 @@ import { BreakpointsPoints, BreakpointsNames, BreakpointsQueries } from './types
 
 class Instance {
   readonly points: BreakpointsPoints;
+
   protected current: string | null;
+
   private readonly callbacks: Set<Function>;
+
   private readonly queries: BreakpointsQueries;
 
   constructor(points: BreakpointsPoints) {
@@ -15,25 +18,25 @@ class Instance {
     Object.entries(points).forEach(([name, screen]) => {
       const media = window.matchMedia(`(min-width: ${screen}px)`);
       media.addEventListener('change', () => this.refresh());
-      this.queries.push({name, screen, media});
+      this.queries.push({ name, screen, media });
     });
     this.queries.sort((a, b) => a.screen - b.screen);
     this.refresh();
   }
 
   private refresh(): void {
-    const active = this.queries.filter(({media}) => media.matches);
+    const active = this.queries.filter(({ media }) => media.matches);
     if (active.length) {
-      const {name} = active[active.length - 1];
+      const { name } = active[active.length - 1];
       this.current = name;
-      this.callbacks.forEach(callback => callback());
+      this.callbacks.forEach((callback) => callback());
     } else {
       this.current = null;
     }
   }
 
   private matches(names: BreakpointsNames) {
-    const matches = ([] as string[]).concat(names).filter(name => name === this.current);
+    const matches = ([] as string[]).concat(names).filter((name) => name === this.current);
     return matches.length ? matches : false;
   }
 
@@ -52,6 +55,7 @@ class Instance {
         allowFn = true;
         return cb(this.current);
       }
+      return false;
     };
     this.callbacks.add(handler);
     handler();
@@ -66,6 +70,7 @@ class Instance {
       } else if (cb) {
         return cb(this.current);
       }
+      return false;
     };
     this.callbacks.add(handler);
     handler();

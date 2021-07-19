@@ -1,11 +1,14 @@
 import { RouterEvents } from './types';
-import {Events} from "~modules/Events";
-import {documentReady} from "~common/scripts/utils/documentReady";
+import { Events } from '~modules/Events';
+import { documentReady } from '~common/scripts/utils/documentReady';
 
-class AppRouter extends Events<RouterEvents>{
+class AppRouter extends Events<RouterEvents> {
   private history: History;
+
   private currentRoute: string;
+
   private routes: Map<string, Function>;
+
   events = RouterEvents;
 
   constructor() {
@@ -18,7 +21,7 @@ class AppRouter extends Events<RouterEvents>{
   }
 
   get url(): string {
-    const {pathname, hash} = window.location;
+    const { pathname, hash } = window.location;
     return `${pathname}${hash}`;
   }
 
@@ -35,13 +38,13 @@ class AppRouter extends Events<RouterEvents>{
         }
         return onRoute(data);
       } catch (error) {
-        this.emit(RouterEvents.error, {error, route});
+        this.emit(RouterEvents.error, { error, route });
         return this;
       }
     }
     this.emit(RouterEvents.error, {
       route,
-      error: new Error(`Not found`),
+      error: new Error('Not found'),
     });
     return this;
   }
@@ -49,7 +52,7 @@ class AppRouter extends Events<RouterEvents>{
   go(route: string, data?): this {
     const state = {
       prev: this.url,
-      data: data ? JSON.stringify(data) : ''
+      data: data ? JSON.stringify(data) : '',
     };
     return this.init(route, data, state);
   }

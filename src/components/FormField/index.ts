@@ -7,6 +7,7 @@ import { ComponentProps } from '~modules/Component/types';
 
 export class FormField extends Component<FormFieldProps, FormFieldState> {
   input: HTMLInputElement;
+
   value: string;
 
   constructor(props: FormFieldProps & ComponentProps) {
@@ -37,8 +38,6 @@ export class FormField extends Component<FormFieldProps, FormFieldState> {
     input.addEventListener('blur', () => {
       this.el.classList.remove('is-focus');
     });
-    input.addEventListener('change', () => {
-      return this.validate();
-    });
+    input.addEventListener('change', () => this.validate());
   }
 }

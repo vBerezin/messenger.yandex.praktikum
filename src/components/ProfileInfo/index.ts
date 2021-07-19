@@ -39,8 +39,8 @@ export class ProfileInfo extends Component<null, ProfileInfoState> {
     super({
       template,
       state: {
-        fields: KEYS
-      }
+        fields: KEYS,
+      },
     });
     this.profile
       .getData()
@@ -53,16 +53,14 @@ export class ProfileInfo extends Component<null, ProfileInfoState> {
   }
 
   makeFields(data) {
-    return KEYS.map((key) => {
-      return {
-        ...key,
-        value: data[key.name],
-      };
-    });
+    return KEYS.map((key) => ({
+      ...key,
+      value: data[key.name],
+    }));
   }
 
   set data(data) {
     const fields = this.makeFields(data);
-    this.setState({fields});
+    this.setState({ fields });
   }
 }

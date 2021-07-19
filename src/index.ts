@@ -30,7 +30,7 @@ Router
   })
   .use(ROUTES.auth.signin, async () => {
     const { pageSignIn } = await import('~blocks/pageSignIn');
-    App.init(pageSignIn, 'Авторизация')
+    App.init(pageSignIn, 'Авторизация');
   })
   .use(ROUTES.auth.signup, async () => {
     const { pageSignUp } = await import('~blocks/pageSignUp');
@@ -45,9 +45,8 @@ Router
     if (userData) {
       const { pageMessenger } = await import('~blocks/pageMessenger');
       return App.init(pageMessenger, 'Мессенджер');
-    } else {
-      Router.go(ROUTES.auth.signin);
     }
+    return Router.go(ROUTES.auth.signin);
   })
   .use(ROUTES.user.profile, async () => {
     const userData = await profile.getData();
@@ -56,29 +55,26 @@ Router
       const userName = userData?.display_name;
       const title = `Профиль пользователя ${userName}`;
       return App.init(pageProfile.info(), title);
-    } else {
-      Router.go(ROUTES.auth.signin);
     }
+    return Router.go(ROUTES.auth.signin);
   })
   .use(ROUTES.user.edit, async () => {
     const userData = await profile.getData();
     if (userData) {
       const { pageProfile } = await import('~blocks/pageProfile');
-      return App.init(pageProfile.edit(), 'Редактирование профиля')
-    } else {
-      Router.go(ROUTES.auth.signin);
+      return App.init(pageProfile.edit(), 'Редактирование профиля');
     }
+    return Router.go(ROUTES.auth.signin);
   })
   .use(ROUTES.user.password, async () => {
     const userData = await profile.getData();
     if (userData) {
       const { pageProfile } = await import('~blocks/pageProfile');
-      return App.init(pageProfile.password(), 'Смена пароля')
-    } else {
-      Router.go(ROUTES.auth.signin);
+      return App.init(pageProfile.password(), 'Смена пароля');
     }
+    return Router.go(ROUTES.auth.signin);
   })
-  .catch(({error, route}) => {
+  .catch(({ error, route }) => {
     page404.setState({
       text: `${error} on ${route}`,
     });

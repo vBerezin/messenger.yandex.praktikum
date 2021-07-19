@@ -9,6 +9,7 @@ import { UserProfileEvents } from '~entities/UserProfile/types';
 
 export class UserProfile extends Events<UserProfileEvents> {
   events = UserProfileEvents;
+
   data = Store.getState<StorePaths.profile>(Store.paths.profile);
 
   constructor() {
@@ -37,7 +38,7 @@ export class UserProfile extends Events<UserProfileEvents> {
 
   async signIn(data: SignInRequest) {
     await AuthApi.signIn(data);
-    return await AuthApi.identify();
+    return AuthApi.identify();
   }
 
   async signOut() {

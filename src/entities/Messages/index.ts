@@ -5,21 +5,22 @@ import { Events } from '~modules/Events';
 
 export class Messages extends Events<MessagesEvents> {
   events = MessagesEvents;
+
   private ping;
+
   private socket: Socket;
+
   private readonly connect: Promise<Socket>;
 
   constructor(props: MessagesConnectProps) {
     super();
     this.connect = ChatsApi
       .getToken(props.chat.id)
-      .then(({token}) => {
-        return MessagesApi.connect({
-          token,
-          chat: props.chat,
-          user: props.user,
-        });
-      })
+      .then(({ token }) => MessagesApi.connect({
+        token,
+        chat: props.chat,
+        user: props.user,
+      }))
       .then((socket) => {
         socket.on(socket.events.message, (data) => {
           if (data.type === 'message' || Array.isArray(data)) {
@@ -36,13 +37,12 @@ export class Messages extends Events<MessagesEvents> {
       });
   }
 
-
-  getMessages(offset: number = 0) {
+  getMessages(offset = 0) {
     this.connect
       .then((socket) => {
         socket.send({
           type: 'get old',
-          content: `${offset}`
+          content: `${offset}`,
         });
       });
   }

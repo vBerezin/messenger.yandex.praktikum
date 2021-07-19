@@ -3,8 +3,9 @@ import { findUserRequest } from '~modules/Api/UsersApi/types';
 
 export class Users {
   async getUser(id: number) {
-    return await UsersApi.getUser(id);
+    return UsersApi.getUser(id);
   }
+
   async search(data: findUserRequest) {
     return UsersApi.search(data);
   }

@@ -10,8 +10,11 @@ import { UserProfile } from '~entities/UserProfile';
 
 export class ChatList extends Component<null, ChatListState, ChatListEvents> {
   events = ChatListEvents;
+
   private readonly chats = new Chats();
+
   private readonly users = new Users();
+
   private readonly profile = new UserProfile();
 
   constructor() {
@@ -20,7 +23,7 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
       state: {
         chats: [],
         users: [],
-      }
+      },
     });
     this.chats
       .getChats()
@@ -28,7 +31,7 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
         this.setState({ chats });
       })
       .catch(App.error);
-    this.chats.on(this.chats.events.update, chats => this.setState({ chats }));
+    this.chats.on(this.chats.events.update, (chats) => this.setState({ chats }));
   }
 
   async search(value: string) {
@@ -57,9 +60,9 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
   }
 
   async 'click:user'(event, target) {
-    const userId  = Number(target.dataset.id);
+    const userId = Number(target.dataset.id);
     const profileData = await this.profile.getData();
-    const userData = this.state.users.find(user => user.id === userId);
+    const userData = this.state.users.find((user) => user.id === userId);
     const userName = userData ? userData.display_name || userData.login : '';
     const profileName = profileData.display_name || profileData.login;
     const title = `Чат ${profileName} и ${userName}`;
@@ -67,7 +70,7 @@ export class ChatList extends Component<null, ChatListState, ChatListEvents> {
       const newChat = await this.chats.createChat({ title });
       await this.chats.addUsers({
         chatId: newChat.id,
-        users: [ userId ],
+        users: [userId],
       });
       if (this.chats.chats) {
         const chatData = this.chats.chats.find((chat) => chat.id === newChat.id);

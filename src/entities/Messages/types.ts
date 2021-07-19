@@ -7,4 +7,4 @@ export enum MessagesEvents {
   received = 'messages:received',
 }
 
-export type MessagesConnectProps = Pick<MessagesConnectRequest, 'user' | 'chat'>
+export type MessagesConnectProps = Pick<MessagesConnectRequest, 'user' | 'chat'>;

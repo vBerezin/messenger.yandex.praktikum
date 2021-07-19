@@ -16,7 +16,7 @@ export class Profile extends Component<ProfileProps, ProfileState> {
       props,
       state: {
         form: props.form,
-      }
+      },
     });
     this.formAvatar = new FormAvatar();
   }

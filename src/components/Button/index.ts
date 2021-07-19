@@ -7,6 +7,6 @@ import { ComponentProps } from '~modules/Component/types';
 
 export class Button extends Component<ButtonProps> {
   constructor(props: ButtonProps & ComponentProps) {
-    super({template, props});
+    super({ template, props });
   }
 }

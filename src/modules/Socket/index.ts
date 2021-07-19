@@ -2,14 +2,15 @@ import { SocketEvents, SocketSendArgs } from './types';
 
 export class Socket {
   events = SocketEvents;
+
   private socket: WebSocket;
 
   constructor(url: string) {
     this.socket = new WebSocket(url);
   }
 
-  public on(event: keyof typeof SocketEvents, callback: Function) {
-    this.socket.addEventListener(event, (event) => {
+  public on(eventName: keyof typeof SocketEvents, callback: Function) {
+    this.socket.addEventListener(eventName, (event) => {
       if ('data' in event) {
         return callback(JSON.parse(event.data));
       }

@@ -29,5 +29,5 @@ export const pageProfile = {
       form: formPassword,
     });
     return profile;
-  }
+  },
 };

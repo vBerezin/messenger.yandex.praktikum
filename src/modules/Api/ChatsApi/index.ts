@@ -6,7 +6,7 @@ import {
   ChatsDeleteResponse,
   ChatsDeleteRequest,
   ChatsCreateRequest,
-  ChatsCreateResponse
+  ChatsCreateResponse,
 } from './types';
 import { UsersRequest } from '~modules/Api/types';
 
@@ -43,7 +43,7 @@ export const ChatsApi = {
     const request = await HTTP.post(`${API_URL}/token/${chatId}`, {
       withCredentials: true,
       headers: {
-        'accept': 'application/json',
+        accept: 'application/json',
       },
     });
     return JSON.parse(request.response);
@@ -57,5 +57,5 @@ export const ChatsApi = {
       },
     });
     return JSON.parse(request.response);
-  }
+  },
 };

@@ -8,4 +8,4 @@ export enum SocketEvents {
 export type SocketSendArgs = {
   content?: string,
   type: string
-}
+};

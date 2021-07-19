@@ -4,12 +4,12 @@ export type FormFieldProps = {
   type?: string | 'text' | 'email' | 'number' | 'password' | 'tel',
   id?: string
   value?: string | number,
-  readonly?: Boolean,
-  required?: Boolean,
-  disabled?: Boolean,
+  readonly?: boolean,
+  required?: boolean,
+  disabled?: boolean,
   validate?: (value: string | number) => string | string[] | null,
 };
 
 export type FormFieldState = Omit<FormFieldProps, 'name' | 'validate'> & {
   errors?: string | string[] | null,
-}
+};

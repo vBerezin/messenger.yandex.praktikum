@@ -4,6 +4,7 @@ import { EventsCallback, EventsValues } from './types';
 // TODO: типизация ...args?
 export abstract class Events<TEvents> {
   private readonly emitter = new EventEmitter();
+
   public readonly events: TEvents;
 
   on(event: EventsValues<TEvents>, callback: EventsCallback): this {

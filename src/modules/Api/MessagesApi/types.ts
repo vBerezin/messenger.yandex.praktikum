@@ -6,4 +6,4 @@ export type MessagesConnectRequest = {
   chat: {
     id: number
   },
-}
+};

@@ -18,7 +18,7 @@ export class FormAvatar extends Component<null, FormAvatarState> {
       state: {
         image: Store.state.profile?.avatar || undefined,
         title: Store.state.profile?.display_name || undefined,
-      }
+      },
     });
     this.popup = new PopupFile({
       form: {
@@ -33,12 +33,12 @@ export class FormAvatar extends Component<null, FormAvatarState> {
           event.preventDefault();
           return this.onSubmit(state.value.file);
         },
-      }
+      },
     });
     Store.on(Store.events.profileUpdate, (data) => {
       this.setState({
         image: data.avatar,
-        title: data['display_name'],
+        title: data.display_name,
       });
     });
   }

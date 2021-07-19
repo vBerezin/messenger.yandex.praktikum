@@ -5,7 +5,7 @@ export type ChatListState = {
   active?: number,
   chats: ChatsResponse[],
   users: UserResponse[],
-}
+};
 
 export enum ChatListEvents {
   chatSelected = 'chat.list.chat:selected',

@@ -10,17 +10,16 @@ import { FormField } from '~components/FormField';
 
 export class FormAuth extends Component<FormAuthProps, FormAuthState> {
   private readonly fields: FormField[];
+
   private readonly buttons: Button[];
 
   constructor(props: FormAuthProps & ComponentProps) {
-    super({template, props});
-    this.buttons = props.buttons.map(button => new Button(button));
-    this.fields = props.fields.map((field) => {
-      return new FormField({
-        ...field,
-        class: 'form-auth__field',
-      });
-    });
+    super({ template, props });
+    this.buttons = props.buttons.map((button) => new Button(button));
+    this.fields = props.fields.map((field) => new FormField({
+      ...field,
+      class: 'form-auth__field',
+    }));
   }
 
   onSubmit(event) {
@@ -38,12 +37,12 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
   created() {
     this.el.addEventListener('submit', this.onSubmit.bind(this));
     this.el.addEventListener('change', () => {
-      this.fields.forEach(field => field.validate());
+      this.fields.forEach((field) => field.validate());
     });
   }
 
   mounted() {
-    this.fields.forEach(field => field.mount(this.refs.fieldset));
-    this.buttons.forEach(button => button.mount(this.refs.footer));
+    this.fields.forEach((field) => field.mount(this.refs.fieldset));
+    this.buttons.forEach((button) => button.mount(this.refs.footer));
   }
 }

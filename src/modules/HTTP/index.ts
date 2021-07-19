@@ -6,7 +6,7 @@ export const HTTP = {
   get(url: string, options?: HTTPGetRequestProps) {
     let params = null;
     if (options?.data) {
-      const {data} = options;
+      const { data } = options;
       params = Object.entries(data).map(([key, val]) => `${key}=${val}`).join('&');
     }
     const request = new Request({

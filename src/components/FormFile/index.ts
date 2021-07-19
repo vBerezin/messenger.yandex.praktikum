@@ -13,12 +13,12 @@ export class FormFile extends Component<FormFileProps, FormFileState, FormFileEv
   private button: Button;
 
   constructor(props: FormFileProps) {
-    super({template, props});
+    super({ template, props });
     this.button = new Button({
       mods: ['blue', 'block'],
       class: 'form-file__submit',
       attributes: {
-        type: 'submit'
+        type: 'submit',
       },
       text: 'Отправить',
       ...props.button,
@@ -29,7 +29,7 @@ export class FormFile extends Component<FormFileProps, FormFileState, FormFileEv
     if (this.el) {
       this.el.reset();
     }
-    this.setState({value: null});
+    this.setState({ value: null });
     return this;
   }
 
@@ -40,14 +40,12 @@ export class FormFile extends Component<FormFileProps, FormFileState, FormFileEv
       this.setState({
         value: {
           file,
-          name: file.name
+          name: file.name,
         },
       });
       this.emit(FormFile.events.change, this.state);
     });
-    this.el.addEventListener('submit', (event) => {
-      return this.props.submit.call(this, event, this.state);
-    });
+    this.el.addEventListener('submit', (event) => this.props.submit.call(this, event, this.state));
   }
 
   updated() {

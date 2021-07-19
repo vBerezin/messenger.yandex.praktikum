@@ -5,7 +5,7 @@ import {
   avatarChangeRequest,
   changePasswordRequest,
   findUserRequest,
-  UserUpdateRequest
+  UserUpdateRequest,
 } from './types';
 import { HTTP } from '~modules/HTTP';
 
@@ -23,8 +23,8 @@ export const UsersApi = {
       data: JSON.stringify(data),
       withCredentials: true,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
     return JSON.parse(request.response);
   },
@@ -33,8 +33,8 @@ export const UsersApi = {
       data: JSON.stringify(data),
       withCredentials: true,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
     return JSON.parse(request.response);
   },
@@ -50,9 +50,9 @@ export const UsersApi = {
       data: JSON.stringify(data),
       withCredentials: true,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
     return JSON.parse(request.response);
-  }
+  },
 };

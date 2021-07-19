@@ -1,3 +1,3 @@
 export enum FormSearchEvents {
-  search = 'form.search:search'
+  search = 'form.search:search',
 }

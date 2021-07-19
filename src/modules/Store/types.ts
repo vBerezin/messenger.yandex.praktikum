@@ -15,4 +15,4 @@ export type StoreState = {
   profile: UserResponse | undefined,
   users: UserResponse[] | [],
   chats: ChatsResponse[] | [],
-}
+};

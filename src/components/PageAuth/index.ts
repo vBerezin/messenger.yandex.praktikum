@@ -6,7 +6,7 @@ import { Component } from '~modules/Component';
 
 export class PageAuth extends Component<PageAuthProps> {
   constructor(props: PageAuthProps) {
-    super({template, props});
+    super({ template, props });
   }
 
   mounted() {

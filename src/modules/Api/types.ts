@@ -7,13 +7,13 @@ export type UserResponse = {
   phone: string,
   display_name: string | null,
   avatar: string | null,
-}
+};
 
 export type BadRequestError = {
   reason: string,
-}
+};
 
 export type UsersRequest = {
   users: number[],
   chatId: number,
-}
+};

@@ -27,7 +27,7 @@ export class Request {
         }
       }
       xhr.onload = () => {
-        const {status} = xhr;
+        const { status } = xhr;
         if (status >= 200 && status < 300) {
           resolve(xhr);
         }

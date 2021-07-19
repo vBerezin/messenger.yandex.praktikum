@@ -4,6 +4,8 @@ import { ROUTES } from '~common/scripts/routes';
 import { Router } from '~modules/Router';
 import { UserProfile } from '~entities/UserProfile';
 
+const profile = new UserProfile();
+
 export const formSignUp = new FormAuth({
   title: 'Регистрация',
   fields: [
@@ -56,11 +58,11 @@ export const formSignUp = new FormAuth({
       name: 'password_confirm',
       type: 'password',
       required: true,
-      validate: function (value) {
+      validate(value) {
         const form = this.el.closest('form');
         const password = form.password.value;
         return value === password ? null : 'Пароли не совпадают';
-      }
+      },
     },
   ],
   buttons: [
@@ -84,7 +86,7 @@ export const formSignUp = new FormAuth({
     const form = event.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    UserProfile
+    profile
       .signUp(data)
       .then(() => {
         Router.go(ROUTES.messenger);
@@ -92,8 +94,8 @@ export const formSignUp = new FormAuth({
       .catch((xhr) => {
         const response = JSON.parse(xhr.response);
         this.setState({
-          errors: [response.reason]
+          errors: [response.reason],
         });
       });
-  }
+  },
 });

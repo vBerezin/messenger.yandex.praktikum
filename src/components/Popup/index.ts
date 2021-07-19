@@ -25,7 +25,7 @@ export class Popup<TProps, TState = PopupState> extends Component<TProps, TState
   }
 
   created() {
-    this.el.addEventListener('click', ({target}) => {
+    this.el.addEventListener('click', ({ target }) => {
       if (!this.refs.body.contains(target)) {
         return this.hide();
       }

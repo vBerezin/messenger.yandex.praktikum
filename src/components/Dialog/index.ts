@@ -10,7 +10,9 @@ import { Message } from '~components/Message';
 
 export class Dialog extends Component<DialogProps, DialogState, DialogEvents> {
   events = DialogEvents;
+
   private readonly chats = new Chats();
+
   private readonly messages: Messages;
 
   constructor(props: DialogProps) {
@@ -23,8 +25,8 @@ export class Dialog extends Component<DialogProps, DialogState, DialogEvents> {
         id: props.user.id,
       },
       chat: {
-        id: this.props.chat.id
-      }
+        id: this.props.chat.id,
+      },
     });
     this.messages.on(this.messages.events.received, (data) => {
       [].concat(data).forEach(this.createMessage.bind(this));

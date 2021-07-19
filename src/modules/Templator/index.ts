@@ -8,9 +8,10 @@ import { ROUTES } from '~common/scripts/routes';
 
 export class Templator {
   data;
+
   compiler;
 
-  constructor({compiler, data = {}}: { compiler: Function, data?: {} }) {
+  constructor({ compiler, data = {} }: { compiler: Function, data?: {} }) {
     this.data = data;
     this.compiler = compiler;
   }
@@ -21,7 +22,7 @@ export class Templator {
       ROUTES,
       data: this.data,
     });
-    const {children} = template.content;
+    const { children } = template.content;
     if (children.length > 1) {
       throw new Error('Шаблон должен иметь 1 родительский элемент');
     }

@@ -4,14 +4,12 @@ import { Events } from '~modules/Events';
 
 class Application extends Events<AppEvents> {
   events = AppEvents;
+
   private current: ComponentInterface | null = null;
+
   private readonly el = document.querySelector('#app');
 
-  constructor() {
-    super();
-  }
-
-  init(component: ComponentInterface, title: string = ''): void {
+  init(component: ComponentInterface, title = ''): void {
     if (this.current) {
       this.current.unmount();
     }
@@ -19,10 +17,11 @@ class Application extends Events<AppEvents> {
     component.mount(this.el);
     this.current = component;
     document.title = title;
-    App.emit(AppEvents.init, component);
+    this.emit(AppEvents.init, component);
   }
+
   error(error, data?) {
-    App.emit(AppEvents.error, {error, ...data});
+    this.emit(AppEvents.error, { error, ...data });
   }
 }
 

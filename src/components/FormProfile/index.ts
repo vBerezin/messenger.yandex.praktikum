@@ -59,19 +59,22 @@ const KEYS = [
 
 export class FormProfile extends Component<null, FormProfileState> {
   private readonly profile = new UserProfile();
+
   private readonly button: Button;
+
   private fields: FormField[];
+
   private keys: FormFieldProps[];
 
   constructor() {
-    super({template});
+    super({ template });
     this.button = new Button({
       class: 'form-profile__submit',
       mods: ['blue', 'block'],
       text: 'Сохранить',
       attributes: {
-        type: 'submit'
-      }
+        type: 'submit',
+      },
     });
     this.keys = KEYS;
   }
@@ -79,13 +82,11 @@ export class FormProfile extends Component<null, FormProfileState> {
   async getFields() {
     const data = await this.profile.identify();
     if (!this.fields) {
-      this.fields = this.keys.map((key) => {
-        return new FormField({
-          ...key,
-          class: 'form-profile__field',
-          value: data[key.name],
-        });
-      });
+      this.fields = this.keys.map((key) => new FormField({
+        ...key,
+        class: 'form-profile__field',
+        value: data[key.name],
+      }));
       return this.fields;
     }
     this.fields.forEach((field) => {
@@ -100,7 +101,6 @@ export class FormProfile extends Component<null, FormProfileState> {
       return !field.valid && field.props.required;
     });
     return !fields.length;
-
   }
 
   onSubmit(event) {
@@ -122,7 +122,7 @@ export class FormProfile extends Component<null, FormProfileState> {
   created() {
     this.el.addEventListener('submit', this.onSubmit.bind(this));
     this.el.addEventListener('change', () => {
-      this.fields.forEach(field => field.validate());
+      this.fields.forEach((field) => field.validate());
     });
   }
 
@@ -130,7 +130,7 @@ export class FormProfile extends Component<null, FormProfileState> {
     this
       .getFields()
       .then((fields) => {
-        fields.forEach(field => field.mount(this.refs.fieldset));
+        fields.forEach((field) => field.mount(this.refs.fieldset));
         this.button.mount(this.refs.footer);
       })
       .catch(App.error);

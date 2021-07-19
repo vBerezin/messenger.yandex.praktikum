@@ -10,7 +10,7 @@ export class PageError extends Component<PageErrorProps, PageErrorState> {
   private readonly button: Button;
 
   constructor(props: PageErrorProps) {
-    super({template, props});
+    super({ template, props });
     if (this.props.button) {
       this.button = new Button(this.props.button);
     }

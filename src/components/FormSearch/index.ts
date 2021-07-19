@@ -7,7 +7,9 @@ import { Validate } from '~modules/Validate';
 
 export class FormSearch extends Component<null, null, FormSearchEvents> {
   events = FormSearchEvents;
+
   private delay = 200;
+
   private timer;
 
   constructor() {
@@ -28,6 +30,9 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
 
   created() {
     const { input } = this.refs;
+    this.el.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
     input.addEventListener('focus', () => {
       this.el.classList.add('is-focus');
     });
@@ -37,7 +42,7 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
     });
     input.addEventListener('input', () => {
       const { value } = input;
-      input.value = value.replace(/\s/g,'');
+      input.value = value.replace(/\s/g, '');
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
       return this.search(input.value);
     });

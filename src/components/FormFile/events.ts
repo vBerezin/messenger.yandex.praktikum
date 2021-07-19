@@ -1,3 +1,3 @@
 export enum FormFileEvents {
-  change = 'form-file:change'
+  change = 'form-file:change',
 }

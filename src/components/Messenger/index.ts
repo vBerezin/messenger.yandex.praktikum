@@ -11,8 +11,11 @@ import { UserProfile } from '~entities/UserProfile';
 
 export class Messenger extends Component<null, MessengerState> {
   private readonly search = new FormSearch();
+
   private readonly list = new ChatList();
+
   private readonly profile = new UserProfile();
+
   private dialogs: Record<number, Dialog> = {};
 
   constructor() {
@@ -30,7 +33,7 @@ export class Messenger extends Component<null, MessengerState> {
           chat: chatData,
           user: {
             id: userId,
-          }
+          },
         });
       }
       const dialog = this.dialogs[chatId];
@@ -39,7 +42,7 @@ export class Messenger extends Component<null, MessengerState> {
         delete this.dialogs[id];
       });
       this.setState({ active: chatId });
-      dialog.mount(this.refs.main)
+      dialog.mount(this.refs.main);
     });
   }
 

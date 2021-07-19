@@ -8,7 +8,7 @@ export type FormFileProps = {
   },
   button: ButtonProps,
   submit: Function,
-}
+};
 
 export type FormFileState = {
   value?: null | {
