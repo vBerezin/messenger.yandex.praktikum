@@ -14,19 +14,19 @@ export abstract class Component<TProps = ComponentProps,
 
   private container;
 
+  el: HTMLElement;
+
   protected refs: {
-    [key: string]: HTMLElement & HTMLInputElement
+    [key: string]: HTMLElement | HTMLInputElement
   };
 
   events: TEvents | ComponentEvents = ComponentEvents;
 
   public readonly props: TProps & ComponentProps;
 
-    #el;
-
     #state;
 
-    #compile() {
+    private compile() {
       try {
         this.templator.data = { ...this.props, ...this.state };
         return this.templator.compile();
@@ -44,7 +44,7 @@ export abstract class Component<TProps = ComponentProps,
       this.templator = new Templator({ compiler: template });
       this.props = props;
       this.#state = { ...props, ...state };
-      this.#el = this.#compile();
+      this.el = this.compile();
       this.on(ComponentEvents.created, () => {
         this.bindClicks();
         this.makeRefs();
@@ -56,28 +56,24 @@ export abstract class Component<TProps = ComponentProps,
       this.emit(ComponentEvents.created);
     }
 
-    created() {
+    protected created() {
       return this;
     }
 
-    updated() {
+    protected updated() {
       return this;
     }
 
-    mounted() {
+    protected mounted() {
       return this;
     }
 
-    unmounted() {
+    protected unmounted() {
       return this;
     }
 
     get state(): TState & ComponentState {
       return this.getState();
-    }
-
-    get el() {
-      return this.#el;
     }
 
     private makeRefs() {
@@ -96,9 +92,9 @@ export abstract class Component<TProps = ComponentProps,
       if (!elements) {
         return;
       }
-      elements.forEach((el) => {
-        const action = el.dataset.click;
-        el.addEventListener('click', (event) => this[action](event, el));
+      Array.from(elements).forEach((element) => {
+        const action = element.dataset.click;
+        element.addEventListener('click', (event) => this[action](event, el));
       });
     }
 
@@ -113,11 +109,11 @@ export abstract class Component<TProps = ComponentProps,
       }
       this.#state = newState;
       const oldEl = this.el;
-      this.#el = this.#compile();
+      this.el = this.compile();
       this.emit(ComponentEvents.created);
       if (oldEl) {
         if (this.container) {
-          this.container.replaceChild(this.#el, oldEl);
+          this.container.replaceChild(this.el, oldEl);
           this.emit(ComponentEvents.mounted);
         }
       }

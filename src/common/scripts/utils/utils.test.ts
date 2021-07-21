@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { isObject } from '../src/common/scripts/utils/isObject';
+import { isObject } from './isObject';
 
-describe('utils/isObject', () => {
+describe('utils', () => {
   it('isObject', () => {
     expect(isObject({}), '{}').to.be.true;
     expect(isObject(''), '""').to.be.false;

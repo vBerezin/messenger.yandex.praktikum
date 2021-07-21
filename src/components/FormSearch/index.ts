@@ -46,5 +46,6 @@ export class FormSearch extends Component<null, null, FormSearchEvents> {
       this.el.classList.toggle('is-active', !Validate.value.isEmpty(input.value));
       return this.search(input.value);
     });
+    return this;
   }
 }

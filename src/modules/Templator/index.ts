@@ -7,17 +7,17 @@ import { ROUTES } from '~common/scripts/routes';
  * */
 
 export class Templator {
-  data;
+  data: Record<string, any>;
 
-  compiler;
+  compiler: Function;
 
-  constructor({ compiler, data = {} }: { compiler: Function, data?: {} }) {
+  constructor({ compiler, data = {} }) {
     this.data = data;
     this.compiler = compiler;
   }
 
   compile() {
-    const template = document.createElement('template');
+    const template = window.document.createElement('template');
     template.innerHTML = this.compiler({
       ROUTES,
       data: this.data,

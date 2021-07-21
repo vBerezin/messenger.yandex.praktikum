@@ -2,6 +2,8 @@ import { ChatsApi, MessagesApi } from '~modules/Api';
 import { MessagesConnectProps, MessagesEvents } from '~entities/Messages/types';
 import { Socket } from '~modules/Socket';
 import { Events } from '~modules/Events';
+import { Component } from '~modules/Component';
+import { ComponentEvents } from '~modules/Component/types';
 
 export class Messages extends Events<MessagesEvents> {
   events = MessagesEvents;
@@ -30,7 +32,7 @@ export class Messages extends Events<MessagesEvents> {
             this.emit(this.events.userConnected, data);
           }
         });
-        this.ping = setInterval(() => MessagesApi.ping(socket), 2000);
+        this.ping = setInterval(() => MessagesApi.ping(socket), 1000);
         this.socket = socket;
         this.emit(this.events.connect);
         return socket;
