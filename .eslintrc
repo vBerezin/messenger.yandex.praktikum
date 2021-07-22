@@ -24,20 +24,18 @@
       "error",
       "all"
     ],
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
     "template-curly-spacing": "error",
     "import/prefer-default-export": "off",
     "no-param-reassign": "off",
+    "consistent-return": "off",
+    "class-methods-use-this": "off",
     "import/extensions": "off",
     "func-names": "off",
     "no-console": ["error", {
       "allow": ["info", "warn", "error"]
     }],
-    "consistent-return": [
-      "error",
-      {
-        "treatUndefinedAsUnspecified": false
-      }
-    ],
     "lines-between-class-members": [
       "error",
       "always",

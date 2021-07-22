@@ -11,6 +11,9 @@ const jsdom = new JSDOM(`
         <div id="app">Загрузка...</div>
       </body>
       </html>
-    `);
+    `, {
+  url: 'http://localhost',
+});
 
 global.window = jsdom.window;
+global.document = jsdom.window.document;

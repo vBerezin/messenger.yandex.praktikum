@@ -3,14 +3,13 @@ import template from './template';
 import { FormFieldProps, FormFieldState } from './types';
 
 import { Component } from '~modules/Component';
-import { ComponentProps } from '~modules/Component/types';
 
 export class FormField extends Component<FormFieldProps, FormFieldState> {
   input: HTMLInputElement;
 
   value: string;
 
-  constructor(props: FormFieldProps & ComponentProps) {
+  constructor(props: FormFieldProps) {
     super({
       template,
       props,

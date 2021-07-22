@@ -3,14 +3,13 @@ import template from './template';
 import { ProfileProps, ProfileState } from './types';
 
 import { Component } from '~modules/Component';
-import { ComponentProps } from '~modules/Component/types';
 import { FormAvatar } from '~components/FormAvatar';
 import { Router } from '~modules/Router';
 
 export class Profile extends Component<ProfileProps, ProfileState> {
   private formAvatar: FormAvatar;
 
-  constructor(props: ProfileProps & ComponentProps) {
+  constructor(props: ProfileProps) {
     super({
       template,
       props,

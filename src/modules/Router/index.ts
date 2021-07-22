@@ -3,25 +3,32 @@ import { Events } from '~modules/Events';
 import { documentReady } from '~common/scripts/utils/documentReady';
 
 class AppRouter extends Events<RouterEvents> {
-  private history: History;
-
-  private currentRoute: string;
-
-  private routes: Map<string, Function>;
-
   events = RouterEvents;
+
+  currentRoute: string;
+
+  readonly routes: Map<string, Function>;
+
+  private readonly history: History;
+
+  private readonly location: Location;
 
   constructor() {
     super();
+    this.location = window.location;
     this.history = window.history;
     this.routes = new Map();
     this.currentRoute = '';
-    window.onpopstate = (event) => this.init();
+  }
+
+  start() {
+    window.onpopstate = () => this.init();
     documentReady(() => this.init());
+    this.emit(this.events.start);
   }
 
   get url(): string {
-    const { pathname, hash } = window.location;
+    const { pathname, hash } = this.location;
     return `${pathname}${hash}`;
   }
 

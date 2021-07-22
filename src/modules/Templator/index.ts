@@ -1,4 +1,5 @@
 import { ROUTES } from '~common/scripts/routes';
+import { TemplatorCompiler, TemplatorProps } from '~modules/Templator/types';
 
 /**
  * @param { Function } compiler - parcel при импорте .pug файла возвращает функцию pug.compile
@@ -9,11 +10,11 @@ import { ROUTES } from '~common/scripts/routes';
 export class Templator {
   data: Record<string, any>;
 
-  compiler: Function;
+  compiler: TemplatorCompiler;
 
-  constructor({ compiler, data = {} }) {
-    this.data = data;
-    this.compiler = compiler;
+  constructor(props: TemplatorProps) {
+    this.data = props.data;
+    this.compiler = props.compiler;
   }
 
   compile() {

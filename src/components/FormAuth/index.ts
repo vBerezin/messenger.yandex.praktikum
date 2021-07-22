@@ -3,7 +3,6 @@ import template from './template';
 import { FormAuthProps, FormAuthState } from './types';
 
 import { Component } from '~modules/Component';
-import { ComponentProps } from '~modules/Component/types';
 
 import { Button } from '~components/Button';
 import { FormField } from '~components/FormField';
@@ -13,7 +12,7 @@ export class FormAuth extends Component<FormAuthProps, FormAuthState> {
 
   private readonly buttons: Button[];
 
-  constructor(props: FormAuthProps & ComponentProps) {
+  constructor(props: FormAuthProps) {
     super({ template, props });
     this.buttons = props.buttons.map((button) => new Button(button));
     this.fields = props.fields.map((field) => new FormField({

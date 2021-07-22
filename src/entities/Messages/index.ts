@@ -2,8 +2,6 @@ import { ChatsApi, MessagesApi } from '~modules/Api';
 import { MessagesConnectProps, MessagesEvents } from '~entities/Messages/types';
 import { Socket } from '~modules/Socket';
 import { Events } from '~modules/Events';
-import { Component } from '~modules/Component';
-import { ComponentEvents } from '~modules/Component/types';
 
 export class Messages extends Events<MessagesEvents> {
   events = MessagesEvents;

@@ -2,9 +2,9 @@ import {
   UserResponse,
 } from '~modules/Api/types';
 import {
-  avatarChangeRequest,
-  changePasswordRequest,
-  findUserRequest,
+  AvatarChangeRequest,
+  ChangePasswordRequest,
+  FindUserRequest,
   UserUpdateRequest,
 } from './types';
 import { HTTP } from '~modules/HTTP';
@@ -28,7 +28,7 @@ export const UsersApi = {
     });
     return JSON.parse(request.response);
   },
-  async password(data: changePasswordRequest): Promise<UserResponse> {
+  async password(data: ChangePasswordRequest): Promise<UserResponse> {
     const request = await HTTP.put(`${API_URL}/password`, {
       data: JSON.stringify(data),
       withCredentials: true,
@@ -38,14 +38,14 @@ export const UsersApi = {
     });
     return JSON.parse(request.response);
   },
-  async profileAvatar(data: avatarChangeRequest): Promise<UserResponse> {
+  async profileAvatar(data: AvatarChangeRequest): Promise<UserResponse> {
     const request = await HTTP.put(`${API_URL}/profile/avatar`, {
       data,
       withCredentials: true,
     });
     return JSON.parse(request.response);
   },
-  async search(data: findUserRequest): Promise<UserResponse[]> {
+  async search(data: FindUserRequest): Promise<UserResponse[]> {
     const request = await HTTP.post(`${API_URL}/search`, {
       data: JSON.stringify(data),
       withCredentials: true,

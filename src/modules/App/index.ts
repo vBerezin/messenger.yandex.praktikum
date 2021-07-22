@@ -7,7 +7,7 @@ class Application extends Events<AppEvents> {
 
   private current: ComponentInterface | null = null;
 
-  private readonly el = document.querySelector('#app');
+  private readonly el = window.document.querySelector('#app');
 
   init(component: ComponentInterface, title = ''): void {
     if (this.current) {

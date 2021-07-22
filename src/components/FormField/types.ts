@@ -8,6 +8,8 @@ export type FormFieldProps = {
   required?: boolean,
   disabled?: boolean,
   validate?: (value: string | number) => string | string[] | null,
+  class?: string,
+  mods: string | string[]
 };
 
 export type FormFieldState = Omit<FormFieldProps, 'name' | 'validate'> & {

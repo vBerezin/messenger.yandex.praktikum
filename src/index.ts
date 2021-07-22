@@ -21,10 +21,14 @@ const profile = new UserProfile();
 
 Router
   .use(ROUTES.root, async () => {
-    const userData = await profile.getData();
-    if (userData) {
-      Router.go(ROUTES.messenger);
-    } else {
+    try {
+      const userData = await profile.getData();
+      if (userData) {
+        Router.go(ROUTES.messenger);
+      } else {
+        Router.go(ROUTES.auth.signin);
+      }
+    } catch (e) {
       Router.go(ROUTES.auth.signin);
     }
   })
@@ -79,4 +83,5 @@ Router
       text: `${error} on ${route}`,
     });
     return App.init(page404, 'Ошибка 404');
-  });
+  })
+  .start();

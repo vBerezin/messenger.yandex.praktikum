@@ -5,7 +5,7 @@ export type FormAuthProps = {
   title: string,
   fields: FormFieldProps[],
   buttons: ButtonProps[],
-  submit: Function
+  submit: Function,
 };
 
 export type FormAuthState = {
