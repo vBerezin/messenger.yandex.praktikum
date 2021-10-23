@@ -1,10 +1,11 @@
 import './styles';
-import template from './template';
-import { MessageProps, MessageState } from './types';
 
 import { Component } from '~modules/Component';
 
-export class Message extends Component<MessageProps, MessageState> {
+import template from './template';
+import { MessageProps } from './types';
+
+export class Message extends Component<MessageProps> {
   constructor(props: MessageProps) {
     super({ template, props });
   }

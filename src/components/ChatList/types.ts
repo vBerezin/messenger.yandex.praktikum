@@ -1,13 +1,13 @@
-import { ChatsResponse } from '~modules/Api/ChatsApi/types';
-import { UserResponse } from '~modules/Api/types';
+import { ChatsApiResponse } from '~modules/Api/ChatsApi/types';
+import { UsersApiUser } from '~modules/Api/UsersApi/types';
 
 export type ChatListState = {
-  active?: number,
-  chats: ChatsResponse[],
-  users: UserResponse[],
+    active?: number;
+    chats: ChatsApiResponse[];
+    users: UsersApiUser[];
 };
 
 export enum ChatListEvents {
-  chatSelected = 'chat.list.chat:selected',
-  chatDeleted = 'chat.list.chat:deleted',
+    chatSelected = 'chat.list.chat:selected',
+    chatDeleted = 'chat.list.chat:deleted',
 }

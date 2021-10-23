@@ -1,16 +1,16 @@
-import { ChatsResponse } from '~modules/Api/ChatsApi/types';
+import { ChatsApiResponse } from '~modules/Api/ChatsApi/types';
 
 export enum DialogEvents {
-  chatDelete = 'dialog.chat:delete',
+    chatDelete = 'dialog.chat:delete',
 }
 
 export type DialogProps = {
-  user: {
-    id: number
-  },
-  chat: ChatsResponse,
+    user: {
+        id: number;
+    };
+    chat: ChatsApiResponse;
 };
 
 export type DialogState = {
-  chat: ChatsResponse | null,
+    chat: ChatsApiResponse | null;
 };

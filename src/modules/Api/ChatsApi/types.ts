@@ -1,46 +1,46 @@
-import { UserResponse } from '~modules/Api/types';
+import { UsersApiUser } from '~modules/Api/UsersApi/types';
 
-export type ChatsRequest = Partial<{
-  offset: number,
-  limit: number,
-  title: string,
+export type ChatsApiRequest = Partial<{
+    offset: number;
+    limit: number;
+    title: string;
 }>;
 
-export type ChatsResponse = {
-  id: number
-  created_by: number
-  title: string
-  avatar: string
-  unread_count: number
-  last_message: {
-    user: UserResponse
-    time: string
-    content: string
-  }
+export type ChatsApiResponse = {
+    id: number;
+    created_by: number;
+    title: string;
+    avatar: string;
+    unread_count: number;
+    last_message: {
+        user: UsersApiUser;
+        time: string;
+        content: string;
+    };
 };
 
-export type ChatsCreateRequest = {
-  title: string,
+export type ChatsApiCreateRequest = {
+    title: string;
 };
 
-export type ChatsCreateResponse = {
-  id: number,
+export type ChatsApiCreateResponse = {
+    id: number;
 };
 
-export type ChatsTokenResponse = {
-  token: string,
+export type ChatsApiTokenResponse = {
+    token: string;
 };
 
-export type ChatAvatarRequest = {
-  chatId: number,
-  avatar: File
+export type ChatsApiAvatarRequest = {
+    chatId: number;
+    avatar: File;
 };
 
-export type ChatsDeleteRequest = {
-  chatId: number
+export type ChatsApiDeleteRequest = {
+    chatId: number;
 };
 
-export type ChatsDeleteResponse = {
-  userId: number
-  result: ChatsResponse,
+export type ChatsApiDeleteResponse = {
+    userId: number;
+    result: ChatsApiResponse;
 };

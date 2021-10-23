@@ -1,13 +1,13 @@
 .chat-list
-	if (!data.chats.length && !data.users.length)
+	if (!props.chats.length && !props.users.length)
 		.chat-list__placeholder Список чатов пуст
-	if (data.chats.length)
+	if (props.chats.length)
 		ul.chat-list__list
-			each chat, index in data.chats
-				- active = chat.id === data.active;
+			each chat, index in props.chats
+				- active = chat.id === props.active;
 				li.chat-list__item(
 					data-id=chat.id
-					data-click=(active ? undefined : 'click:chat')
+					data-click=(active ? undefined : 'clickChat')
 					class=(active ? 'is-active' : ''))
 					.chat-list__item-inner
 						.chat-list__item-image
@@ -20,13 +20,13 @@
 							.chat-list__item-date #{chat.date}
 							if (chat.count)
 								.chat-list__item-count #{chat.count}
-	if (data.users.length)
+	if (props.users.length)
 		.chat-list__header Найденые пользователи
 		ul.chat-list__list
-			each user in data.users
+			each user in props.users
 				li.chat-list__item(
 					data-id=user.id
-					data-click="click:user")
+					data-click="clickUser")
 					.chat-list__item-inner
 						.chat-list__item-image
 							if (user.avatar)

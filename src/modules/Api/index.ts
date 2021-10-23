@@ -1,8 +1,6 @@
 import { AuthApi } from './AuthApi';
-import { UsersApi } from './UsersApi';
 import { ChatsApi } from './ChatsApi';
 import { MessagesApi } from './MessagesApi';
+import { UsersApi } from './UsersApi';
 
-export {
-  AuthApi, UsersApi, ChatsApi, MessagesApi,
-};
+export { AuthApi, UsersApi, ChatsApi, MessagesApi };

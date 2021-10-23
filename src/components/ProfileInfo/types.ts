@@ -1,7 +1,8 @@
 export type ProfileInfoKey = {
-  label: string,
-  name: string,
+    label: string;
+    name: string;
 };
+
 export type ProfileInfoState = {
-  fields: ProfileInfoKey[]
+    fields: ProfileInfoKey[];
 };

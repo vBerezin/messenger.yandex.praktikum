@@ -1,6 +1,4 @@
-include ../../../common/templates/functions/mods
-
 .message(
-	class=data.class
-	class=mods('message', data.mods)
-)&attributes(data.attributes) #{data.text}
+	class=props.class
+	class=mods('message', props.mods)
+)&attributes(props.attributes) #{props.text}

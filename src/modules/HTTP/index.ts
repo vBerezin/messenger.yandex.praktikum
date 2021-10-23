@@ -1,5 +1,6 @@
 import { Request } from '~modules/Request';
 import { RequestMethods } from '~modules/Request/types';
+
 import { HTTPGetRequestProps, HTTPRequestProps } from './types';
 
 export const HTTP = {
@@ -7,7 +8,9 @@ export const HTTP = {
     let params = null;
     if (options?.data) {
       const { data } = options;
-      params = Object.entries(data).map(([key, val]) => `${key}=${val}`).join('&');
+      params = Object.entries(data)
+        .map(([key, val]) => `${key}=${val}`)
+        .join('&');
     }
     const request = new Request({
       ...options,

@@ -1,11 +1,14 @@
 import './styles';
-import template from './template';
-
-import { Component } from '~modules/Component';
 
 import { PopupState } from '~components/Popup/types';
+import { Component } from '~modules/Component';
 
-export class Popup<TProps, TState = PopupState> extends Component<TProps, TState> {
+import template from './template';
+
+export class Popup<TProps, TState = PopupState> extends Component<
+    TProps,
+    TState
+> {
   constructor(props: TProps) {
     super({
       template,

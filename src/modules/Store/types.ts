@@ -1,18 +1,18 @@
-import { UserResponse } from '~modules/Api/types';
-import { ChatsResponse } from '~modules/Api/ChatsApi/types';
+import { ChatsApiResponse } from '~modules/Api/ChatsApi/types';
+import { UsersApiUser } from '~modules/Api/UsersApi/types';
 
 export enum StoreEvents {
-  update = 'store:update',
+    update = 'store:update',
 }
 
 export enum StorePaths {
-  profile = 'profile',
-  chats = 'chats',
-  users = 'users',
+    profile = 'profile',
+    chats = 'chats',
+    users = 'users',
 }
 
 export type StoreState = {
-  profile: UserResponse | undefined,
-  users: UserResponse[] | [],
-  chats: ChatsResponse[] | [],
+    profile: UsersApiUser | undefined;
+    users: UsersApiUser[] | [];
+    chats: ChatsApiResponse[] | [];
 };

@@ -1,5 +1,4 @@
 export type MessageProps = {
-  text: string,
-  date: Date
+    text: string;
+    date: Date;
 };
-export type MessageState = {};

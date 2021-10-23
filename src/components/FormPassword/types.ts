@@ -1,3 +1,3 @@
 export type FormPasswordState = {
-  errors?: string[],
+    errors?: string[];
 };

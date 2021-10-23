@@ -1,7 +1,7 @@
 type Value = string | number;
 
 const validateValue: {
-  [key: string]: (value: Value, options?) => boolean
+    [key: string]: (value: Value, options?) => boolean;
 } = {
   isEmpty: (value) => String(value).trim().length === 0,
   lengthMinMax(value, { min = 0, max = Infinity }) {
@@ -24,10 +24,14 @@ const validateValue: {
 };
 
 const validateField: {
-  [key: string]: (value: Value) => string | string[] | null
+    [key: string]: (value: Value) => string | string[] | null;
 } = {
-  required: (value, message = 'Обязательное поле') => (validateValue.isEmpty(value) ? message : null),
-  login: (value) => (validateValue.isCyrilic(value) ? null : 'Логин должен содержать только латинские буквы'),
+  required: (value, message = 'Обязательное поле') =>
+    validateValue.isEmpty(value) ? message : null,
+  login: (value) =>
+    validateValue.isCyrilic(value)
+      ? null
+      : 'Логин должен содержать только латинские буквы',
   password: (value) => {
     const errors = [];
     const empty = validateValue.isEmpty(value);

@@ -1,17 +1,17 @@
-form.form-file(action=data.action method="POST")
+form.form-file(action=props.action method="POST")
 	.form-file__head
-		.form-file__title #{data.value ? 'Файл загружен' : 'Загрузите файл'}
+		.form-file__title #{props.value ? 'Файл загружен' : 'Загрузите файл'}
 	.form-file__body
 		label.form-file__label
-			if (data.value)
-				.form-file__value #{data.value.name}
+			if (props.value)
+				.form-file__value #{props.value.name}
 			else
 				.form-file__placeholder Выбрать файл</br>на компьютере
 			input.form-file__input(
 				data-ref="input"
 				type='file'
-				name=data.input.name
-				accept=(data.input.accept ? data.input.accept.join(',') : undefined)
+				name=props.input.name
+				accept=(props.input.accept ? props.input.accept.join(',') : undefined)
 			)
-	if (data.value)
+	if (props.value)
 		.form-file__footer(data-ref="footer")

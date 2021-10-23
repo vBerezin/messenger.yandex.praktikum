@@ -1,9 +1,10 @@
 import './styles';
+
+import { ProfileController } from '~controllers/Profile';
+import { Component } from '~modules/Component';
+
 import template from './template';
 import { ProfileInfoState } from './types';
-
-import { Component } from '~modules/Component';
-import { UserProfile } from '~entities/UserProfile';
 
 const KEYS = [
   {
@@ -33,34 +34,32 @@ const KEYS = [
 ];
 
 export class ProfileInfo extends Component<null, ProfileInfoState> {
-  private readonly profile = new UserProfile();
+    private readonly profile = new ProfileController();
 
-  constructor() {
-    super({
-      template,
-      state: {
-        fields: KEYS,
-      },
-    });
-    this.profile
-      .getData()
-      .then((data) => {
+    constructor() {
+      super({
+        template,
+        state: {
+          fields: KEYS,
+        },
+      });
+      this.profile.getData().then((data) => {
         this.data = data;
       });
-    this.profile.on(this.profile.events.update, (data) => {
-      this.data = data;
-    });
-  }
+      this.profile.on(this.profile.events.update, (data) => {
+        this.data = data;
+      });
+    }
 
-  makeFields(data) {
-    return KEYS.map((key) => ({
-      ...key,
-      value: data[key.name],
-    }));
-  }
+    makeFields(data) {
+      return KEYS.map((key) => ({
+        ...key,
+        value: data[key.name],
+      }));
+    }
 
-  set data(data) {
-    const fields = this.makeFields(data);
-    this.setState({ fields });
-  }
+    set data(data) {
+      const fields = this.makeFields(data);
+      this.setState({ fields });
+    }
 }

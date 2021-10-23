@@ -1,12 +1,16 @@
+import { UsersApiUser } from '~modules/Api/UsersApi/types';
 import { HTTP } from '~modules/HTTP';
 
-import { UserResponse } from '~modules/Api/types';
-import { SignInRequest, SignUpRequest, SignUpResponse } from './types';
+import {
+  AuthApiSignInRequest,
+  AuthApiSignUpRequest,
+  AuthApiSignUpResponse,
+} from './types';
 
 const API_URL = 'https://ya-praktikum.tech/api/v2/auth';
 
 export const AuthApi = {
-  async signUp(data: SignUpRequest): Promise<SignUpResponse> {
+  async signUp(data: AuthApiSignUpRequest): Promise<AuthApiSignUpResponse> {
     const request = await HTTP.post(`${API_URL}/signup`, {
       data: JSON.stringify(data),
       withCredentials: true,
@@ -17,7 +21,7 @@ export const AuthApi = {
     return JSON.parse(request.response);
   },
 
-  async signIn(data: SignInRequest) {
+  async signIn(data: AuthApiSignInRequest) {
     return HTTP.post(`${API_URL}/signin`, {
       data: JSON.stringify(data),
       withCredentials: true,
@@ -33,7 +37,7 @@ export const AuthApi = {
     });
   },
 
-  async identify(): Promise<UserResponse> {
+  async identify(): Promise<UsersApiUser> {
     const request = await HTTP.get(`${API_URL}/user`, {
       withCredentials: true,
     });

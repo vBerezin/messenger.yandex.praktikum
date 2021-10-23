@@ -1,6 +1,6 @@
 import { isObject } from '~common/scripts/utils/isObject';
 
-export function isEqual(object1: Object, object2: Object) {
+export function isEqual(object1, object2) {
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
 

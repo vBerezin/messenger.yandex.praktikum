@@ -1,8 +1,9 @@
 import './styles';
-import template from './template';
-import { PageAuthProps } from './types';
 
 import { Component } from '~modules/Component';
+
+import template from './template';
+import { PageAuthProps } from './types';
 
 export class PageAuth extends Component<PageAuthProps> {
   constructor(props: PageAuthProps) {
