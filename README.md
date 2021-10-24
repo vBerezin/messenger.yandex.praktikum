@@ -2,11 +2,10 @@
 
 - `npm start` — запуск проекта на express
 - `npm run dev` — запуск версии для разработчика
-- `npm run build` — сборка
-- `npm run test` — запуск тестов Mocha + Chai
-- `npm run lint-js` — линтер typescript
-- `npm run lint-pug` — запуск Pug шаблонов
-- `npm run lint-styles` — запуск стилей scss
+- `npm run deploy` — сборка и деплой docker образа в Heroku
+- `npm run build` — сборка проекта
+- `npm run test` — запуск тестов
+- `npm run lint` — запуск линтеров
 
 ### Страницы
 - `/#signin` — форма авторизации
@@ -18,12 +17,11 @@
 - `/#user/profile/edit` — страница редактирования профиля
 - `/#user/profile/password` — страница смены пароля
 
-### Netlify Link
-https://gifted-hermann-3c3968.netlify.app
+### prod
+https://berezin-messenger.herokuapp.com
 
 ### UI
 https://www.figma.com/file/JriGNUlj1RpBjO0f9BnEvl/Yandex-Praktikum-Messenger
 
 ### PULL REQUESTS
-- `Sprint 1` - https://github.com/vBerezin/middle.messenger.praktikum.yandex/pull/1
-- `Sprint 2` - https://github.com/vBerezin/middle.messenger.praktikum.yandex/pull/3
+- `Sprint 4` - https://github.com/vBerezin/middle.messenger.praktikum.yandex/pull/9

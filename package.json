@@ -14,10 +14,10 @@
     "lint-templates": "pug-lint ./src --fix",
     "lint-styles": "stylelint ./src/**/*.scss --fix",
     "deploy": "npm-run-all docker-build heroku-login heroku-push heroku-release",
-    "docker-build": "docker build -t app .",
+    "docker-build": "docker build -t web .",
     "heroku-login": "heroku container:login",
-    "heroku-push": "heroku container:push app -a=berezin-messenger",
-    "heroku-release": "heroku container:release app -a=berezin-messenger",
+    "heroku-push": "heroku container:push web -a=berezin-messenger",
+    "heroku-release": "heroku container:release web -a=berezin-messenger",
     "prepare": "husky install"
   },
   "husky": {
