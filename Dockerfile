@@ -1,8 +1,10 @@
-FROM node:12
-RUN npm install express
-WORKDIR /var/www
-COPY ./build build/
-COPY ./server server/
-COPY ./config/paths.js config/paths.js
-EXPOSE 3000
-CMD node server/index.js
+FROM node:latest
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY . .
+
+RUN npm install
+RUN npm run build-prod
+
+CMD npm run server
