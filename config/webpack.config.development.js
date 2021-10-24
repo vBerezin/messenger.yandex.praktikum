@@ -8,9 +8,10 @@ module.exports = merge(
       minimize: false,
     },
     devServer: {
-      contentBase: $.paths.server.base,
-      liveReload: true,
       hot: true,
+      static: {
+        publicPath: $.paths.server.base
+      },
     },
   },
 );

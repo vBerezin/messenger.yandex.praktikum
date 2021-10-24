@@ -1,7 +1,6 @@
 .idea
 .DS_Store
 dist
-.github
 *.log
 *.sql.gz
 .cache
