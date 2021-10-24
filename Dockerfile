@@ -7,4 +7,4 @@ COPY . .
 RUN npm install
 RUN npm run build-prod
 
-CMD npm run server
+CMD npm run serverdovk

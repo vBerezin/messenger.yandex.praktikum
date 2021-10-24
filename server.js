@@ -8,8 +8,8 @@ const BUILD_PATH = path.resolve(paths.build);
 const server = express();
 
 server.use(express.static(BUILD_PATH));
-server.get('/', (req, res) => {
-  res.sendfile(path.join(__dirname, BUILD_PATH, '/index.html'));
+server.get('*', (req, res) => {
+  res.sendfile(path.join(__dirname, BUILD_PATH, 'index.html'));
 });
 server.listen(PORT, HOSTNAME, () => {
   console.info(`Server running on http://localhost:${PORT}`);
