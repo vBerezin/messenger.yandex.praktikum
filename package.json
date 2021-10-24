@@ -13,12 +13,16 @@
     "lint-scripts": "eslint ./src/**/*.ts --fix",
     "lint-templates": "pug-lint ./src --fix",
     "lint-styles": "stylelint ./src/**/*.scss --fix",
-    "precommit": "npm-run-all --parallel test lint",
     "deploy": "npm-run-all build-prod docker-build heroku-login heroku-push heroku-release",
     "docker-build": "docker build -t app .",
     "heroku-login": "heroku container:login",
     "heroku-push": "heroku container:push app -a=berezin-messenger",
     "heroku-release": "heroku container:release app -a=berezin-messenger"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all --parallel test lint"
+    }
   },
   "dependencies": {
     "events": "^3.3.0",
