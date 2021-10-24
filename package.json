@@ -9,7 +9,7 @@
     "build-prod": "webpack --mode=production",
     "server": "node ./server/index.js",
     "test": "mocha",
-    "lint": "npm run lint-scripts lint-templates lint-styles",
+    "lint": "npm-run-all lint-scripts lint-templates lint-styles",
     "lint-scripts": "eslint ./src/**/*.ts --fix",
     "lint-templates": "pug-lint ./src --fix",
     "lint-styles": "stylelint ./src/**/*.scss --fix",

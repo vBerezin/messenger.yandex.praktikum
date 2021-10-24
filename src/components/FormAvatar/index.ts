@@ -60,7 +60,7 @@ export class FormAvatar extends Component<null, FormAvatarState> {
         .catch(App.error);
     }
 
-  clickPopup() {
+    clickPopup() {
       this.popup.reset().show();
     }
 

@@ -15,7 +15,7 @@ export abstract class Component<
 {
     private _state: TState & TProps;
 
-    el: HTMLElement;
+    el: Element;
 
     events: TEvents | ComponentEvents = ComponentEvents;
 
@@ -30,12 +30,8 @@ export abstract class Component<
     public readonly props: typeof TProps;
 
     private compile() {
-      try {
-        this.templator.props = { ...this.props, ...this.state };
-        return this.templator.compile();
-      } catch (error) {
-        return App.error(error);
-      }
+      this.templator.props = { ...this.props, ...this.state };
+      return this.templator.compile();
     }
 
     protected constructor({

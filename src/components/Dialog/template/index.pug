@@ -21,7 +21,7 @@
 		.dialog__footer
 			button.dialog__attach
 				include ../../../images/icons/attach.svg
-			form(method="POST" action="?send" autocomplete="off").dialog__form
-				input(type="text" name="message" placeholder="Сообщение" data-ref="input").dialog__form-input
-				button(type="submit" title="Отправить").dialog__form-submit
+			form.dialog__form(method="POST" action="?send" autocomplete="off")
+				input.dialog__form-input(type="text" name="message" placeholder="Сообщение" data-ref="input")
+				button.dialog__form-submit(type="submit" title="Отправить")
 					img(src=require('~images/icons/message-send.svg'))
