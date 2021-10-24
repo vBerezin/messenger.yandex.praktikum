@@ -17,7 +17,8 @@
     "docker-build": "docker build -t app .",
     "heroku-login": "heroku container:login",
     "heroku-push": "heroku container:push app -a=berezin-messenger",
-    "heroku-release": "heroku container:release app -a=berezin-messenger"
+    "heroku-release": "heroku container:release app -a=berezin-messenger",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
