@@ -1,3 +1,4 @@
-include mixin
-
-+Message(data)
+.message(
+	class=props.class
+	class=mods('message', props.mods)
+)&attributes(props.attributes) #{props.text}

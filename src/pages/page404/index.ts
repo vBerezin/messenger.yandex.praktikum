@@ -1,5 +1,4 @@
 import { ROUTES } from '~common/scripts/routes';
-
 import { PageError } from '~components/PageError';
 
 export const page404 = new PageError({
@@ -7,9 +6,9 @@ export const page404 = new PageError({
   text: 'Не туда попали',
   button: {
     mods: 'white',
-    text: 'Назад к чатам',
+    text: 'Вернуться на главную',
     attributes: {
-      href: ROUTES.messenger,
+      href: ROUTES.root,
     },
   },
 });

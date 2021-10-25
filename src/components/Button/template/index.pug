@@ -1,3 +1,6 @@
-include mixin
+-
+  tagName = props.attributes && props.attributes.href ? 'a' : 'button'
 
-+Button(data)
+#{tagName}.button(
+  class=mods('button', props.mods)
+  )&attributes(props.attributes) #{props.text}

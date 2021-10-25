@@ -1,94 +1,139 @@
-import { EventEmitter } from 'events';
-import { Templator } from '~modules/Templator';
-import { EVENTS } from '~common/scripts/events';
 import { isEqual } from '~common/scripts/utils/isEqual';
-import { ComponentProps, ComponentState, ComponentInterface } from './types';
+import { App } from '~modules/App';
+import { Events } from '~modules/Events';
+import { Templator } from '~modules/Templator';
 
-export abstract class Component<TProps = ComponentProps, TState = ComponentState> implements ComponentInterface {
-  readonly on;
-  readonly off;
-  readonly emit;
-  readonly props;
-  private emitter;
-  private templator;
-  private container;
+import { ComponentEvents, ComponentInterface } from './types';
 
-  #el;
-  #state;
+export abstract class Component<
+        TProps,
+        TState = TProps,
+        TEvents = ComponentEvents,
+    >
+  extends Events<TEvents | ComponentEvents>
+  implements ComponentInterface
+{
+    private _state: TState & TProps;
 
-  protected constructor({ template, props = {}, state = {} }: {
-    template: Function,
-    props?: TProps & ComponentProps,
-    state?: TState & ComponentState,
-  }) {
-    this.emitter = new EventEmitter();
-    this.templator = new Templator({ compiler: template });
-    this.props = props;
-    this.on = this.emitter.on;
-    this.emit = this.emitter.emit;
-    this.off = this.emitter.off;
-    this.#state = state;
-    this.#el = this.#compile();
-    this.on(EVENTS.component.update, () => this.#render());
-    this.on(EVENTS.component.mount, () => this.#render());
-  }
+    el: Element;
 
-  #compile() {
-    this.templator.data = { ...this.props, ...this.state };
-    return this.templator.compile();
-  };
+    events: TEvents | ComponentEvents = ComponentEvents;
 
-  #render() {
-    this.render();
-    this.emit(EVENTS.component.render);
-  }
+    private templator: Templator;
 
-  mount(container: Element) {
-    container.append(this.#el);
-    this.container = container;
-    this.emit(EVENTS.component.mount, { container });
-  }
+    private container;
 
-  protected render() {
-  }
+    protected refs: {
+        [key: string]: any;
+    };
 
-  protected proxyState(state: TState): TState {
-    return state;
-  }
+    public readonly props: typeof TProps;
 
-  get state() {
-    return this.getState();
-  }
+    private compile() {
+      this.templator.props = { ...this.props, ...this.state };
+      return this.templator.compile();
+    }
 
-  get el() {
-    return this.#el;
-  }
+    protected constructor({
+      template,
+      props = {},
+      state = {},
+    }: {
+        template: (data: Record<string, any>) => string;
+        props?: TProps;
+        state?: TState;
+    }) {
+      super();
+      this._state = { ...props, ...state };
+      this.props = props;
+      this.templator = new Templator({
+        compiler: template,
+        props: this._state,
+      });
+      this.el = this.compile();
+      this.on(ComponentEvents.created, () => {
+        this.bindClicks();
+        this.makeRefs();
+        this.created();
+      });
+      this.on(ComponentEvents.updated, this.updated.bind(this));
+      this.on(ComponentEvents.mounted, this.mounted.bind(this));
+      this.on(ComponentEvents.unmounted, this.unmounted.bind(this));
+      this.emit(ComponentEvents.created);
+    }
 
-  setState(state: TState) {
-    const newState = { ...this.state, ...state };
-    const equal = isEqual(this.state, newState);
-    if (equal) {
+    protected created() {}
+
+    protected updated() {}
+
+    protected mounted() {}
+
+    protected unmounted() {}
+
+    get state(): TState {
+      return this.getState();
+    }
+
+    private makeRefs() {
+      const elements = this.el.querySelectorAll('[data-ref]');
+      const refs = Array.from(elements).map((el) => {
+        const name = el.getAttribute('data-ref');
+        return {
+          [name]: el,
+        };
+      });
+      this.refs = refs.reduce(
+        (total, current) => ({ ...total, ...current }),
+        {},
+      );
+    }
+
+    private bindClicks() {
+      const elements = this.el.querySelectorAll('[data-click]');
+      Array.from(elements).forEach((element) => {
+        const action = element.dataset.click;
+        element.addEventListener('click', (event) =>
+          this[action](event, element),
+        );
+      });
+    }
+
+    getState() {
+      return this._state;
+    }
+
+    setState(state: Partial<TState>) {
+      const newState = { ...this.state, ...state };
+      if (isEqual(this.state, newState)) {
+        return this;
+      }
+      this._state = newState;
+      const oldEl = this.el;
+      this.el = this.compile();
+      this.emit(ComponentEvents.created);
+      if (oldEl) {
+        if (this.container) {
+          this.container.replaceChild(this.el, oldEl);
+          this.emit(ComponentEvents.mounted);
+        }
+      }
+      this.emit(ComponentEvents.updated);
       return this;
     }
-    this.#state = this.proxyState(newState);
-    const newEl = this.#compile();
-    const parent = this.el.parentNode || this.container;
-    parent.replaceChild(newEl, this.#el);
-    this.container = parent;
-    this.#el = newEl;
-    this.emit(EVENTS.component.update, { state: newState });
-    return this;
-  }
 
-  getState() {
-    return this.#state;
-  }
+    mount(container: Element) {
+      container.appendChild(this.el);
+      this.container = container;
+      this.emit(ComponentEvents.mounted);
+      return this;
+    }
 
-  unmount() {
-    this.container.removeChild(this.#el);
-    this.#state = this.props;
-    this.emit(EVENTS.component.unmount, { container: this.container });
-    this.emitter.removeAllListeners();
-    return this;
-  }
+    unmount() {
+      if (this.el.parentNode) {
+        this.el.parentNode.removeChild(this.el);
+        this.container = null;
+        this.emit(ComponentEvents.unmounted);
+      }
+      return this;
+    }
 }

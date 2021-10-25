@@ -1,0 +1,7 @@
+.form-avatar&attributes(props.attributes)
+	.form-avatar__image
+		if (props.image)
+			img(src=`https://ya-praktikum.tech/api/v2/resources${props.image}`)
+		button.form-avatar__button(type="button" data-click="clickPopup") Поменять аватар
+	if (props.title)
+		.form-avatar__title #{props.title}

@@ -1,14 +1,14 @@
 import { ROUTES } from '~common/scripts/routes';
+import { FormAuth } from '~components/FormAuth';
+import { PageAuth } from '~components/PageAuth';
+import { ProfileController } from '~controllers/Profile';
+import { Router } from '~modules/Router';
 import { Validate } from '~modules/Validate';
 
-import { PageAuth } from '~components/PageAuth';
+const profile = new ProfileController();
 
-export const pageSignUp = new PageAuth({
+const formSignUp = new FormAuth({
   title: 'Регистрация',
-  attributes: {
-    method: 'POST',
-    action: '?signup',
-  },
   fields: [
     {
       label: 'Почта',
@@ -22,6 +22,7 @@ export const pageSignUp = new PageAuth({
       id: 'form.signup[login]',
       name: 'login',
       type: 'text',
+      required: true,
       validate: Validate.field.login,
     },
     {
@@ -58,11 +59,11 @@ export const pageSignUp = new PageAuth({
       name: 'password_confirm',
       type: 'password',
       required: true,
-      validate: function (value) {
-        const { form } = this;
+      validate(value) {
+        const form = this.el.closest('form');
         const password = form.password.value;
         return value === password ? null : 'Пароли не совпадают';
-      }
+      },
     },
   ],
   buttons: [
@@ -81,4 +82,25 @@ export const pageSignUp = new PageAuth({
       },
     },
   ],
+  onSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    profile
+      .signUp(data)
+      .then(() => {
+        Router.go(ROUTES.messenger);
+      })
+      .catch((xhr) => {
+        const response = JSON.parse(xhr.response);
+        this.setState({
+          errors: [response.reason],
+        });
+      });
+  },
+});
+
+export const pageSignUp = new PageAuth({
+  form: formSignUp,
 });

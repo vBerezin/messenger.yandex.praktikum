@@ -1,27 +1,16 @@
 import './styles';
-import template from './template';
-
-import { EVENTS } from '~common/scripts/events';
 
 import { Component } from '~modules/Component';
 
-import { FormAuthProps } from '~components/FormAuth/types';
-import { FormAuth } from '~components/FormAuth';
+import template from './template';
+import { PageAuthProps } from './types';
 
-export class PageAuth extends Component<FormAuthProps> {
-  form: FormAuth;
-
-  constructor(props: FormAuthProps) {
+export class PageAuth extends Component<PageAuthProps> {
+  constructor(props: PageAuthProps) {
     super({ template, props });
-    this.form = new FormAuth(props);
-    this.on(EVENTS.component.update, () => this.mountForm());
-    this.mountForm();
   }
 
-  mountForm() {
-    const formContainer = this.el.querySelector('.page-auth__form');
-    if (formContainer) {
-      this.form.mount(formContainer);
-    }
+  mounted() {
+    this.props.form.mount(this.refs.form);
   }
 }

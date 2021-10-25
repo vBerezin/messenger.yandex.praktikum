@@ -1,27 +1,30 @@
 import { EventEmitter } from 'events';
+
 import { Templator } from '~modules/Templator';
 
-export type ComponentProps = {
-  class?: string,
-  mods?: string | string[],
-  attributes?: Object,
-};
-
-export type ComponentState = {};
+export enum ComponentEvents {
+    created = 'component:created',
+    updated = 'component:updated',
+    mounted = 'component:mounted',
+    unmounted = 'component:unmounted',
+}
 
 export interface ComponentInterface {
-  readonly on: Function;
-  readonly off: Function;
-  readonly emit: Function;
-  readonly props: ComponentProps;
-  readonly emitter: EventEmitter;
-  templator: Templator;
-  el: Element;
-  container: Element;
-  state: ComponentState;
-  setState: Function;
-  getState: Function;
-  render: Function;
-  mount: Function;
-  unmount: Function;
+    readonly on: (event: string, callback: () => void) => void;
+    readonly off: (event: string, callback: () => void) => void;
+    readonly emit: (event: string) => void;
+    readonly props?: Record<string, any>;
+    readonly state: Record<string, any>;
+    readonly emitter: EventEmitter;
+    readonly templator: Templator;
+    readonly el: Element;
+    readonly container: Element;
+    readonly setState: (state) => void;
+    readonly getState: () => void;
+    readonly mount: (container: Element) => void;
+    readonly unmount: () => void;
+    updated: () => void;
+    mounted: () => void;
+    unmounted: () => void;
+    created: () => void;
 }

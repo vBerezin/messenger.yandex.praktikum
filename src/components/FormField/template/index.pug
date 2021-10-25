@@ -1,20 +1,24 @@
 -
-	className = [data.class]
-	if (data.value) className.push('is-active')
-	if (!data.readonly && data.required) className.push('is-required')
-.form-field(class=className)
-	.form-field__body
-		label.form-field__label(for=data.id) #{data.label}
-		input.form-field__input(
-			id=data.id
-			name=data.name
-			value=data.value
-			type=data.type || 'text'
-			required=data.required
-			disabled=data.disabled
-			readonly=data.readonly
-		)
-	if (data.errors)
-		ul.form-field__errors
-			each error in [].concat(data.errors)
-				li.form-field__error #{error}
+  state = []
+  if (props.value) state.push('is-active')
+  if (props.errors) state.push('is-error')
+  if (!props.readonly && props.required) state.push('is-required')
+
+.form-field(class=state class=props.class)
+  .form-field__body
+    if (props.label)
+      label.form-field__label(for=props.id) #{props.label}
+    input.form-field__input(
+      data-ref='input'
+      id=props.id
+      name=props.name
+      value=props.value
+      type=props.type || 'text'
+      required=props.required
+      disabled=props.disabled
+      readonly=props.readonly
+    )
+  if (props.errors)
+    ul.form-field__errors
+      each error in [].concat(props.errors)
+        li.form-field__error #{error}

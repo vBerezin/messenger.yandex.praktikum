@@ -3,24 +3,56 @@
   "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
   "scripts": {
-    "server": "node ./server/app.js",
-    "dev": "parcel serve ./src/index.html --open --no-cache --port 3000 --out-dir dist",
-    "watch": "parcel watch ./src/index.html --out-dir dist",
-    "build": "parcel build ./src/index.html --out-dir dist",
-    "start": "npm run build && npm run server"
+    "start": "npm run build-prod && npm run server",
+    "dev": "webpack serve --open",
+    "build": "webpack",
+    "build-prod": "webpack --mode=production",
+    "server": "node ./server.js",
+    "test": "mocha",
+    "lint": "npm-run-all lint-scripts lint-templates lint-styles",
+    "lint-scripts": "eslint ./src/**/*.ts --fix",
+    "lint-templates": "pug-lint ./src --fix",
+    "lint-styles": "stylelint ./src/**/*.scss --fix",
+    "deploy": "npm-run-all docker-build heroku-login heroku-push heroku-release",
+    "docker-build": "docker build -t web .",
+    "heroku-login": "heroku container:login",
+    "heroku-push": "heroku container:push web -a=berezin-messenger",
+    "heroku-release": "heroku container:release web -a=berezin-messenger",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all --parallel test lint"
+    }
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "common": "^0.2.5",
     "events": "^3.3.0",
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@babel/register": "latest",
+    "@types/chai": "^4.2.19",
     "@types/events": "^3.0.0",
+    "@types/jsdom": "^16.2.13",
+    "@types/mocha": "^8.2.2",
+    "@types/pug": "^2.0.5",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
+    "@webpack-cli/serve": "^1.6.0",
+    "autoprefixer": "latest",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "chai": "^4.3.4",
+    "css-loader": "^6.4.0",
     "eslint": "^7.24.0",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-webpack": "^0.12.1",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-babel": "^5.3.0",
@@ -28,21 +60,37 @@
     "eslint-plugin-no-use-extend-native": "^0.4.0",
     "eslint-plugin-optimize-regex": "^1.1.7",
     "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "express": "^4.17.1",
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-pug-client": "^1.0.1",
-    "parcel-plugin-static-files-copy": "^2.6.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.4.0",
+    "husky": "^7.0.4",
+    "jsdom": "16.6.0",
+    "jsdom-global": "3.0.2",
+    "mini-css-extract-plugin": "^2.4.3",
+    "mocha": "^9.0.1",
+    "npm-run-all": "^4.1.5",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "path": "^0.12.7",
+    "postcss": "^8.3.11",
+    "postcss-loader": "^6.2.0",
+    "pug-lint": "^2.6.0",
+    "pug-loader": "^2.4.0",
     "sass": "^1.32.8",
+    "sass-loader": "^12.2.0",
     "stylelint": "^13.13.1",
-    "typescript": "^4.3.3"
+    "typescript": "^4.3.3",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^4.3.1",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-merge": "^4.1.0",
+    "yargs": "^12.0.5"
   },
-  "alias": {
-    "~common": "./src/common",
-    "~entities": "./src/entities",
-    "~modules": "./src/modules",
-    "~components": "./src/components",
-    "~pages": "./src/pages",
-    "~static": "./static"
+  "release-it": {
+    "git": {
+      "requireCleanWorkingDir": false
+    }
   }
 }

@@ -1,14 +1,14 @@
 import { ROUTES } from '~common/scripts/routes';
+import { FormAuth } from '~components/FormAuth';
+import { PageAuth } from '~components/PageAuth';
+import { ProfileController } from '~controllers/Profile';
+import { Router } from '~modules/Router';
 import { Validate } from '~modules/Validate';
 
-import { PageAuth } from '~components/PageAuth';
+const profile = new ProfileController();
 
-export const pageSignIn = new PageAuth({
+export const formSignIn = new FormAuth({
   title: 'Вход',
-  attributes: {
-    method: 'POST',
-    action: '?signin',
-  },
   fields: [
     {
       label: 'Логин',
@@ -16,7 +16,8 @@ export const pageSignIn = new PageAuth({
       name: 'login',
       type: 'text',
       required: true,
-      validate: Validate.field.required,
+      validate: (value) =>
+        Validate.field.required(value, 'Введите логин'),
     },
     {
       label: 'Пароль',
@@ -24,7 +25,8 @@ export const pageSignIn = new PageAuth({
       name: 'password',
       type: 'password',
       required: true,
-      validate: Validate.field.required,
+      validate: (value) =>
+        Validate.field.required(value, 'Введите пароль'),
     },
   ],
   buttons: [
@@ -43,4 +45,25 @@ export const pageSignIn = new PageAuth({
       },
     },
   ],
+  onSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+    profile
+      .signIn(data)
+      .then(() => {
+        Router.go(ROUTES.messenger);
+      })
+      .catch((xhr) => {
+        const response = JSON.parse(xhr.response);
+        this.setState({
+          errors: [response.reason],
+        });
+      });
+  },
+});
+
+export const pageSignIn = new PageAuth({
+  form: formSignIn,
 });

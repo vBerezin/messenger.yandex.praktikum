@@ -1,4 +1,5 @@
 import { ROUTES } from '~common/scripts/routes';
+import { TemplatorCompiler, TemplatorProps } from '~modules/Templator/types';
 
 /**
  * @param { Function } compiler - parcel при импорте .pug файла возвращает функцию pug.compile
@@ -6,25 +7,32 @@ import { ROUTES } from '~common/scripts/routes';
  * @function Compile  - Компилирует pug шаблон с параметрами и возвращает Element
  * */
 
+function mods(base: string, mods: string[]) {
+  return [].concat(mods).map((mod) => {
+    return mod && `${base}--${mod}`;
+  });
+}
+
 export class Templator {
-  data;
-  compiler;
+    props: Record<string, any>;
+    compiler: TemplatorCompiler;
 
-  constructor({ compiler, data = {} }: { compiler: Function, data?: {} }) {
-    this.data = data;
-    this.compiler = compiler;
-  }
-
-  compile() {
-    const template = document.createElement('template');
-    template.innerHTML = this.compiler({
-      ROUTES,
-      data: this.data,
-    });
-    const { children } = template.content;
-    if (children.length > 1) {
-      throw new Error('Шаблон должен иметь 1 родительский элемент');
+    constructor({ compiler, props }: TemplatorProps) {
+      this.props = props;
+      this.compiler = compiler;
     }
-    return template.content.children[ 0 ];
-  }
+
+    compile() {
+      const template = window.document.createElement('template');
+      template.innerHTML = this.compiler({
+        mods,
+        ROUTES,
+        props: this.props,
+      });
+      const { children } = template.content;
+      if (children.length > 1) {
+        throw new Error('Шаблон должен иметь 1 родительский элемент');
+      }
+      return template.content.children[0];
+    }
 }
