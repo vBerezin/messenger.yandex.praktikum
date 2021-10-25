@@ -6,4 +6,4 @@ COPY . .
 RUN npm install
 RUN npm run build-prod
 
-CMD ["node", "server.js"]
+CMD npm run server
