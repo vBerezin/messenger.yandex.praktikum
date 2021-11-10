@@ -16,7 +16,7 @@
 - `/#user/profile/password` — страница смены пароля
 
 ### prod Link
-https://berezin-messenger.herokuapp.com
+https://messenger-vberezin.herokuapp.com
 
 ### UI
 https://www.figma.com/file/JriGNUlj1RpBjO0f9BnEvl/Yandex-Praktikum-Messenger
