@@ -1,3 +1,5 @@
+SPA приложение месенджер в рамках курса Яндекс.Практикум, без использования react vue etc.
+
 ### herokuapp Link
 https://messenger-vberezin.herokuapp.com
 
