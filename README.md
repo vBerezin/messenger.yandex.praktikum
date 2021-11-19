@@ -1,4 +1,5 @@
-## Учебный проект Яндекс.Практикум "Мессенджер"
+### herokuapp Link
+https://messenger-vberezin.herokuapp.com
 
 - `npm start` — запуск проекта на express
 - `npm run dev` — запуск версии для разработчика
@@ -14,9 +15,3 @@
 - `/#user/profile` — страница пользователя
 - `/#user/profile/edit` — страница редактирования профиля
 - `/#user/profile/password` — страница смены пароля
-
-### prod Link
-https://messenger-vberezin.herokuapp.com
-
-### UI
-https://www.figma.com/file/JriGNUlj1RpBjO0f9BnEvl/Yandex-Praktikum-Messenger
